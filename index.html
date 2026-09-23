@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人跑步看板</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1f2933; --muted:#6b7785;
+    --line:#e4e9f0; --accent:#2f6df0; --good:#1f9d55; --warn:#e0892b; --bad:#d64545;
+    --good-bg:#e7f6ee; --warn-bg:#fdf1e1; --bad-bg:#fbe9e9; --info-bg:#eef3fb;
+    --shadow:0 1px 3px rgba(20,30,50,.06),0 6px 18px rgba(20,30,50,.05);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--ink);line-height:1.55;}
+  header.top{background:linear-gradient(135deg,#2f6df0,#5b8def);color:#fff;padding:22px 28px;}
+  header.top h1{margin:0;font-size:22px;font-weight:700;letter-spacing:.5px}
+  header.top .sub{margin-top:6px;font-size:13px;opacity:.9}
+  .updated{font-size:12px;opacity:.85;margin-top:4px}
+  nav.tabs{display:flex;gap:6px;padding:14px 28px 0;flex-wrap:wrap;background:var(--bg)}
+  nav.tabs button{border:0;background:transparent;color:var(--muted);font-size:14px;font-weight:600;
+    padding:10px 16px;border-radius:10px 10px 0 0;cursor:pointer}
+  nav.tabs button.active{background:var(--card);color:var(--accent);box-shadow:var(--shadow)}
+  main{max-width:1080px;margin:0 auto;padding:20px 28px 60px}
+  section{display:none;animation:fade .25s ease}
+  section.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-bottom:18px}
+  .card h2{margin:0 0 14px;font-size:16px;font-weight:700}
+  .card h2 .hint{font-weight:400;color:var(--muted);font-size:12px;margin-left:8px}
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  @media(max-width:760px){.g2,.g3,.g4{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:480px){.g2,.g3,.g4{grid-template-columns:1fr}}
+  .stat{background:var(--info-bg);border-radius:12px;padding:14px}
+  .stat .k{font-size:12px;color:var(--muted)}
+  .stat .v{font-size:24px;font-weight:700;margin-top:4px}
+  .stat .u{font-size:12px;color:var(--muted);font-weight:400;margin-left:3px}
+  .stat .x{font-size:12px;color:var(--muted);margin-top:2px}
+  .badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:999px;vertical-align:middle}
+  .b-good{background:var(--good-bg);color:var(--good)}
+  .b-warn{background:var(--warn-bg);color:var(--warn)}
+  .b-bad{background:var(--bad-bg);color:var(--bad)}
+  .b-info{background:var(--info-bg);color:var(--accent)}
+  .signals li{list-style:none;margin:8px 0;padding-left:2px}
+  .signals{margin:0;padding:0}
+  .sig-row{display:flex;align-items:flex-start;gap:10px}
+  .sig-row .dot{width:8px;height:8px;border-radius:50%;margin-top:7px;flex:0 0 auto}
+  .dot.good{background:var(--good)} .dot.warn{background:var(--warn)} .dot.info{background:var(--accent)}
+  svg{display:block;width:100%;height:auto}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+  th{color:var(--muted);font-weight:600;font-size:12px}
+  td.num{font-variant-numeric:tabular-nums}
+  .plan-card{display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+  .plan-score{width:96px;height:96px;border-radius:50%;flex:0 0 auto;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;color:#fff;font-weight:700}
+  .plan-score .n{font-size:30px;line-height:1}
+  .plan-score .l{font-size:11px;opacity:.9;margin-top:2px}
+  .plan-main{flex:1;min-width:240px}
+  .plan-main .pt{font-size:18px;font-weight:700}
+  .plan-main .pd{color:var(--muted);margin-top:4px;font-size:14px}
+  .factors{margin-top:14px;display:grid;gap:8px}
+  .factor{display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-radius:10px;padding:8px 12px;font-size:13px}
+  .factor .fl{font-weight:600}
+  .avwrap{margin-top:14px;background:var(--bg);border-radius:12px;padding:10px 12px;font-size:12.5px}
+  .av-head{font-weight:700;margin-bottom:8px;color:var(--fg);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .av-flag{font-size:11px;padding:2px 8px;border-radius:999px;font-weight:600}
+  .av-flag.bad{background:rgba(239,68,68,.16);color:#ef4444}
+  .av-flag.warn{background:rgba(245,158,11,.16);color:#f59e0b}
+  .av-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:4px 0;border-top:1px solid rgba(128,128,128,.12)}
+  .av-row:first-of-type{border-top:none}
+  .av-d{color:var(--mut);min-width:84px}
+  .av-p{color:var(--accent);font-weight:600}
+  .av-a{color:var(--fg);flex:1}
+  .av-up{color:#ef4444;font-weight:700}
+  .av-down{color:#f59e0b;font-weight:700}
+  .av-eq{color:var(--mut)}
+  .pkgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:14px}
+  @media(max-width:560px){.pkgrid{grid-template-columns:1fr}}
+  .pk{background:var(--info-bg);border-radius:12px;padding:14px;text-align:center}
+  .pk .pk-k{font-size:12px;color:var(--muted)}
+  .pk .pk-v{font-size:20px;font-weight:700;margin-top:4px}
+  .pk .pk-x{font-size:11px;color:var(--muted);margin-top:2px}
+  .steps{margin-top:14px;display:grid;gap:10px}
+  .step{display:flex;gap:12px;align-items:flex-start;background:var(--bg);border-radius:12px;padding:12px 14px}
+  .step .idx{width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;font-weight:700;
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto;font-size:13px}
+  .step .st{font-weight:700;font-size:14px}
+  .step .sd{color:var(--muted);font-size:13px;margin-top:2px}
+  .note{font-size:12px;color:var(--muted);background:var(--bg);border-radius:10px;padding:12px 14px;margin-top:14px}
+  .note b{color:var(--ink)}
+  .legend{display:flex;gap:16px;font-size:12px;color:var(--muted);margin-top:6px;flex-wrap:wrap}
+  .legend i{width:10px;height:10px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:middle}
+  .empty{color:var(--muted);font-size:13px;padding:10px 0}
+  .hint2{font-size:11px;color:var(--muted);margin-top:2px}
+  .restsub{font-size:10px;opacity:.85;font-weight:400}
+  .stale{background:#ffe6e6;color:#a02020;border-top:1px solid #f2b8b8;padding:9px 28px;font-size:13px;font-weight:600}
+  .sparkwrap{margin-top:8px}
+
+  /* 能力画像 */
+  .grade-box{display:flex;gap:20px;align-items:center;flex-wrap:wrap}
+  .grade-circle{width:110px;height:110px;border-radius:50%;flex:0 0 auto;display:flex;flex-direction:column;
+    align-items:center;justify-content:center;color:#fff;font-weight:700}
+  .grade-circle .g{font-size:40px;line-height:1}
+  .grade-circle .s{font-size:13px;opacity:.9;margin-top:2px}
+  .dim{margin:10px 0}
+  .dim .dl{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px}
+  .dim .dl .dn{font-weight:600}
+  .dim .dl .dv{color:var(--muted)}
+  .bar{height:10px;border-radius:6px;background:var(--bg);overflow:hidden}
+  .bar > i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,#2f6df0,#5b8def)}
+  .ztable td .ztag{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:middle}
+  .sug{display:flex;gap:10px;align-items:flex-start;background:var(--bg);border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:13px}
+  .sug .ic{color:var(--accent);font-weight:700;flex:0 0 auto}
+  .hrz{margin:8px 0}
+  .hrz .hl{display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px}
+  .hrz .hl .hn{font-weight:600}
+  .hrz .hb{height:14px;border-radius:7px;background:var(--bg);overflow:hidden}
+  .hrz .hb > i{display:block;height:100%}
+  code{background:var(--bg);padding:2px 6px;border-radius:6px;font-size:12px}
+
+  /* 每周课表 */
+  .wkbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .wkbar .goal{font-size:15px;font-weight:700}
+  .wkbar .meta{font-size:13px;color:var(--muted)}
+  .weekgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px}
+  @media(max-width:900px){.weekgrid{grid-template-columns:repeat(4,1fr)}}
+  @media(max-width:520px){.weekgrid{grid-template-columns:repeat(2,1fr)}}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 10px;display:flex;flex-direction:column;gap:6px;min-height:176px}
+  .day.today{border-color:var(--accent);box-shadow:0 0 0 2px rgba(47,109,240,.18)}
+  .day.workday{background:repeating-linear-gradient(45deg,#f3f5f9,#f3f5f9 7px,#eef1f6 7px,#eef1f6 14px);opacity:.9}
+  .day .dh{display:flex;justify-content:space-between;align-items:center}
+  .day .dw{font-size:12px;color:var(--muted);font-weight:600}
+  .day .dd{font-size:11px;color:var(--muted)}
+  .day .tag{font-size:10px;font-weight:700;padding:1px 6px;border-radius:999px}
+  .tag.today{background:var(--accent);color:#fff}
+  .tag.work{background:#c9d2de;color:#3a4a5c}
+  .tag.standby{background:#cfe3f7;color:#1f5fa8}
+  .sess{display:flex;flex-direction:column;gap:5px;flex:1}
+  .sess .sid{font-size:13px;font-weight:700;line-height:1.25}
+  .sess .srow{font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:4px}
+  .sess .sr{font-size:11px;color:var(--muted);line-height:1.4}
+  .adj{font-size:11px;border-radius:8px;padding:5px 7px;background:var(--warn-bg);color:var(--warn);line-height:1.4}
+  .adj.up{background:var(--good-bg);color:var(--good)}
+  .rest{font-size:12px;color:var(--muted);text-align:center;margin:auto 0}
+  .rest.w{color:#8a96a3;font-weight:600}
+  .actual{margin-top:6px;font-size:11.5px;padding:3px 8px;border-radius:8px;background:rgba(31,157,85,.14);color:#1f9d55;font-weight:600;text-align:center}
+  .actual.past{background:rgba(128,128,128,.12);color:var(--muted)}
+  .nextlist{display:grid;gap:8px}
+  .nx{display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-radius:10px;padding:9px 12px;font-size:13px;gap:10px}
+  .nx .nxd{color:var(--muted);font-size:12px;text-align:right}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>个人跑步看板</h1>
+  <div class="sub">历史数据分析 · 跑步能力画像 · 当前状态 · 今日课表 · 每周课表 · 跑后分析</div>
+  <div class="updated" id="updated"></div>
+</header>
+
+<nav class="tabs">
+  <button data-tab="state" class="active">当前状态</button>
+  <button data-tab="history">历史分析</button>
+  <button data-tab="ability">能力画像</button>
+  <button data-tab="plan">今日课表</button>
+  <button data-tab="weekplan">每周课表</button>
+  <button data-tab="post">跑后分析</button>
+</nav>
+
+<main>
+  <!-- 当前状态 -->
+  <section id="state" class="active">
+    <div class="card">
+      <h2>状态总览 <span class="hint">来自今日综合数据 + 近 90 天趋势</span></h2>
+      <div class="grid g4" id="stateGrid"></div>
+    </div>
+    <div class="card">
+      <h2>状态信号 <span class="hint">好 / 注意 / 信息</span></h2>
+      <ul class="signals" id="signals"></ul>
+    </div>
+    <div class="card">
+      <h2>近 60 天趋势 <span class="hint">睡眠评分 / 睡眠时长 / 静息心率 / HRV</span></h2>
+      <div class="grid g4" id="trendGrid"></div>
+      <div class="note">只有数字看不出"是在变好还是变差"，所以把 90 天的原始数据也画出来。每格下方是区间内的最低→最高。</div>
+    </div>
+  </section>
+
+  <!-- 历史分析 -->
+  <section id="history">
+    <div class="card">
+      <h2>关键指标 <span class="hint">2024-05-05 至今累计</span></h2>
+      <div class="grid g4" id="kpiGrid"></div>
+    </div>
+    <div class="card">
+      <h2>月度跑量 <span class="hint">公里 / 月</span></h2>
+      <div id="barChart"></div>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <h2>月度平均配速 <span class="hint">分:秒 /km（越低越快）</span></h2>
+        <div id="paceChart"></div>
+      </div>
+      <div class="card">
+        <h2>近期跑量对比 <span class="hint">窗口累计</span></h2>
+        <div id="windowBars"></div>
+        <div class="legend"><span><i style="background:var(--accent)"></i>距离(km)</span><span><i style="background:#9bbcf6"></i>次数</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>近期跑步记录 <span class="hint">最新 12 次</span></h2>
+      <table id="recentTable"><thead><tr>
+        <th>日期</th><th>类型</th><th class="num">距离</th><th class="num">配速</th>
+        <th class="num">平均心率</th><th class="num">时长</th><th class="num">有氧TE</th>
+      </tr></thead><tbody></tbody></table>
+    </div>
+  </section>
+
+  <!-- 能力画像 -->
+  <section id="ability">
+    <div class="card">
+      <h2>综合跑步能力 <span class="hint">基于历史数据的多维评估</span></h2>
+      <div class="grade-box">
+        <div class="grade-circle" id="gradeCircle"></div>
+        <div class="plan-main">
+          <div class="pt" id="gradeTitle"></div>
+          <div class="pd" id="gradeDesc"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>能力维度 <span class="hint">0–100 分</span></h2>
+      <div id="dimBars"></div>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <h2>比赛配速估算 <span class="hint">Riegel 公式（保守）</span></h2>
+        <table id="raceTable"><thead><tr><th>项目</th><th class="num">预计完赛</th><th>说明</th></tr></thead><tbody></tbody></table>
+        <div class="note" id="raceNote"></div>
+      </div>
+      <div class="card">
+        <h2>阈值配速 &amp; 配速区间 <span class="hint">Daniels 风格五档</span></h2>
+        <table id="paceZoneTable"><thead><tr><th>区间</th><th class="num">配速</th><th>用途</th></tr></thead><tbody></tbody></table>
+        <div class="note" id="paceNote"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>心率区间目标 <span class="hint">基于心率储备(HRR)</span></h2>
+      <table id="hrZoneTable"><thead><tr><th>区间</th><th class="num">心率(bpm)</th><th>用途</th></tr></thead><tbody></tbody></table>
+    </div>
+  </section>
+
+  <!-- 今日课表 -->
+  <section id="plan">
+    <div class="card">
+      <h2>今日训练建议 <span class="hint" id="planDate"></span></h2>
+      <div class="plan-card">
+        <div class="plan-score" id="planScore"></div>
+        <div class="plan-main">
+          <div class="pt" id="planTitle"></div>
+          <div class="pd" id="planDetail"></div>
+        </div>
+      </div>
+      <div class="pkgrid" id="planCards"></div>
+      <div class="steps" id="planSteps"></div>
+      <div class="note" id="planNote"></div>
+      <div class="factors" id="planFactors"></div>
+      <div class="avwrap" id="planActual"></div>
+    </div>
+  </section>
+
+  <!-- 每周课表 -->
+  <section id="weekplan">
+    <div class="card">
+      <h2>目标与周期 <span class="hint">目标导向 · 周期化 · 上二休二作息</span></h2>
+      <div class="wkbar" id="wkBar"></div>
+      <div class="note" id="wkNote"></div>
+    </div>
+    <div class="card">
+      <h2>目标进度 <span class="hint">半马预计完赛时间 · 向目标收敛</span></h2>
+      <div id="goalChart"></div>
+      <div class="note" id="goalNote"></div>
+    </div>
+    <div class="card">
+      <h2>本周训练课表 <span class="hint" id="wkRange"></span></h2>
+      <div class="weekgrid" id="weekGrid"></div>
+      <div class="legend">
+        <span><i style="background:#2f6df0"></i>T 阈值</span>
+        <span><i style="background:#e0892b"></i>I 间歇</span>
+        <span><i style="background:#1f9d55"></i>L 长距离</span>
+        <span><i style="background:#7c5cff"></i>FL 法特莱克</span>
+        <span><i style="background:#6b7785"></i>E 轻松</span>
+        <span><i style="background:#c9d2de"></i>主班日(不训练)</span>
+        <span><i style="background:#cfe3f7"></i>备班日</span>
+      </div>
+    </div>
+    <div class="card">
+      <h2>下周预告 <span class="hint">已排定训练（每日随恢复状态微调）</span></h2>
+      <div class="nextlist" id="nextList"></div>
+    </div>
+  </section>
+
+  <!-- 跑后分析 -->
+  <section id="post">
+    <div class="card">
+      <h2>最新一次跑步 <span class="hint" id="latestDate"></span></h2>
+      <div class="grid g4" id="postStats"></div>
+      <div class="note" id="postVerdict" style="margin-top:14px"></div>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <h2>分段配速 <span class="hint">每公里（越低越快）</span></h2>
+        <div id="splitChart"></div>
+        <div class="legend" id="splitLegend"></div>
+      </div>
+      <div class="card">
+        <h2>分段关键指标</h2>
+        <div class="grid g2" id="splitStats"></div>
+      </div>
+    </div>
+    <div class="grid g2">
+      <div class="card">
+        <h2>跑姿 / 形态</h2>
+        <div class="grid g2" id="formStats"></div>
+        <div class="note" id="formNote"></div>
+      </div>
+      <div class="card">
+        <h2>心率区间分布 <span class="hint">本次跑步</span></h2>
+        <div id="hrZoneDist"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>训练效果</h2>
+      <div class="grid g2" id="teStats"></div>
+    </div>
+    <div class="card">
+      <h2>优化与改进建议 <span class="hint">数据驱动</span></h2>
+      <div class="note" id="coachSummary" style="margin-bottom:12px"></div>
+      <div id="suggestions"></div>
+    </div>
+    <div class="card">
+      <h2>如何更新数据 <span class="hint">每次跑步后刷新看板</span></h2>
+      <div class="note">
+        看板数据来自 <code>data/processed/dashboard_data.js</code>。每次跑步后，运行同步脚本重新拉取并刷新：<br>
+        1. 同步今日健康/睡眠/活动：<code>python scripts/sync.py</code><br>
+        2. 重新分析并生成数据包：<code>python scripts/analyze.py</code><br>
+        或直接双击 <code>scripts/refresh.bat</code>（Windows）一键完成。刷新后重新打开本页面即可看到最新跑后分析。
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="data/processed/dashboard_data.js"></script>
+<script>
+const D = window.DASHBOARD_DATA || {};
+const R = D.runs || {};
+const CS = D.current_state || {};
+const AB = D.ability || {};
+const PL = D.plan || {};
+const PO = D.post_run || null;
+
+/* ---------- helpers ---------- */
+function $(id){return document.getElementById(id);}
+function el(tag,cls,html){const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;return e;}
+function paceSecToStr(s){if(s==null)return '—';s=Math.round(s);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+function hmStr(s){if(s==null)return '—';s=Math.round(s);const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return h+':'+String(m).padStart(2,'0');}
+function fmtGap(sec){if(sec==null)return '—';if(sec<=0)return '已达标';return Math.floor(sec/60)+' 分 '+Math.round(sec%60)+' 秒';}
+function badge(level,text){const m={good:'b-good',warn:'b-warn',bad:'b-bad',info:'b-info'};return '<span class="badge '+(m[level]||'b-info')+'">'+text+'</span>';}
+const ZCOLOR=['#9bbcf6','#5b8def','#2f6df0','#e0892b','#d64545'];
+
+/* ---------- header ---------- */
+$('updated').textContent = '数据更新于 '+ (D.generated_at||'—') + (CS.last_sync? ' ｜ 设备最后同步 '+CS.last_sync : '');
+// 数据陈旧警示：这是驱动训练决策的东西，不能只是"一行小字"提示
+(function staleCheck(){
+  if(!D.generated_at) return;
+  const t=new Date(String(D.generated_at).replace(' ','T'));
+  if(isNaN(t.getTime())) return;
+  const hours=(Date.now()-t.getTime())/36e5;
+  if(hours>36){
+    const bar=document.createElement('div');
+    bar.className='stale';
+    bar.textContent='⚠ 数据已 '+Math.round(hours)+' 小时未更新，下面的结论可能已经失真（检查每日 07:00 的同步任务是否正常）。';
+    document.querySelector('header.top').insertAdjacentElement('afterend', bar);
+  }
+})();
+
+/* ---------- tab nav ---------- */
+document.querySelectorAll('nav.tabs button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('nav.tabs button').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('main section').forEach(s=>s.classList.remove('active'));
+    b.classList.add('active');
+    $(b.dataset.tab).classList.add('active');
+  };
+});
+
+/* ---------- 当前状态 ---------- */
+function stateCard(k,v,unit,sub,badgeHtml){
+  return '<div class="stat"><div class="k">'+k+'</div><div class="v">'+v+(unit?'<span class="u">'+unit+'</span>':'')+
+    (badgeHtml?' '+badgeHtml:'')+'</div>'+(sub?'<div class="x">'+sub+'</div>':'')+'</div>';
+}
+const sg=$('stateGrid');
+sg.innerHTML =
+  stateCard('VO2 Max', CS.vo2_max??'—', '', '有氧能力', CS.vo2_max>=50?badge('good','优秀'):(CS.vo2_max>=45?badge('good','良好'):badge('info','可提升'))) +
+  stateCard('静息心率', CS.resting_hr??'—', 'bpm', '心肺基础', CS.resting_hr<=45?badge('good','优秀'):badge('info','')) +
+  stateCard('训练状态', CS.training_status_label||'—', '', '自 '+(CS.training_status_since||'—'), badge('good','进行中')) +
+  stateCard('训练负荷 ACWR', CS.acwr_garmin??'—', '', (CS.acwr_status||''), CS.acwr_status==='OPTIMAL'?badge('good','最佳'):(CS.acwr_status==='HIGH'||CS.acwr_status==='VERY_HIGH'?badge('warn','偏高'):badge('info',''))) +
+  stateCard('近7天睡眠评分', CS.sleep_recent_avg_score??'—', '', '90天均值 '+(D.sleep_avg_90d&&D.sleep_avg_90d.sleep_score||'—'), CS.sleep_recent_avg_score>=75?badge('good','良好'):(CS.sleep_recent_avg_score>=60?badge('warn','中等'):badge('warn','不足'))) +
+  stateCard('HRV 近7天', CS.hrv_recent_avg??'—', '', '恢复指标', CS.hrv_recent_avg>=100?badge('good','健康'):badge('info','')) +
+  stateCard('身体电量', CS.body_battery_now??'—', '', '今日峰值 '+(CS.body_battery_high??'—'), CS.body_battery_now<=25?badge('warn','偏低'):(CS.body_battery_now>=50?badge('good','良好'):badge('info',''))) +
+  stateCard('本周强度分钟', (CS.intensity_minutes_week??'—'), '', '目标 '+(CS.intensity_minutes_goal??'—'), (CS.intensity_minutes_week&&CS.intensity_minutes_goal&&CS.intensity_minutes_week>=CS.intensity_minutes_goal)?badge('good','已达标'):badge('info',''));
+
+const sig=$('signals');
+(CS.signals||[]).forEach(s=>{
+  const li=el('li','sig-row');
+  li.innerHTML='<span class="dot '+s.level+'"></span><span><b>'+s.name+'：</b>'+s.desc+'</span>';
+  sig.appendChild(li);
+});
+if(!(CS.signals||[]).length) sig.innerHTML='<li class="empty">暂无信号</li>';
+
+/* ---------- 近 60 天趋势（迷你折线） ---------- */
+const TR = D.trends || {};
+function sparkline(values,color,fmt){
+  const vals=(values||[]).filter(v=>v!=null);
+  if(vals.length<2) return '<div class="empty">数据不足</div>';
+  const W=240,H=62,pad=8;
+  const min=Math.min(...vals),max=Math.max(...vals),span=(max-min)||1;
+  const x=i=>pad+(W-2*pad)*(i/(vals.length-1));
+  const y=v=>pad+(H-2*pad)*(1-(v-min)/span);
+  let pts='';
+  vals.forEach((v,i)=>{pts+=(pts?' ':'')+x(i)+','+y(v);});
+  return '<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'+
+    '<polyline points="'+pts+'" fill="none" stroke="'+color+'" stroke-width="2" stroke-linejoin="round"/>'+
+    '<text x="'+pad+'" y="'+(H-1)+'" font-size="9" fill="#9aa5b1">'+fmt(min)+'</text>'+
+    '<text x="'+(W-pad)+'" y="'+(H-1)+'" font-size="9" fill="#9aa5b1" text-anchor="end">'+fmt(max)+'</text>'+
+    '</svg>';
+}
+(function renderTrends(){
+  const g=$('trendGrid'); if(!g) return;
+  const defs=[
+    {name:'睡眠评分',vals:TR.sleep_score,color:'#2f6df0',fmt:v=>Math.round(v)},
+    {name:'睡眠时长',vals:TR.sleep_hours,color:'#7c5cff',fmt:v=>v.toFixed(1)+'h'},
+    {name:'静息心率',vals:TR.rhr,color:'#1f9d55',fmt:v=>Math.round(v)},
+    {name:'HRV',vals:TR.hrv,color:'#e0892b',fmt:v=>Math.round(v)}
+  ];
+  g.innerHTML=defs.map(d=>{
+    const vs=(d.vals||[]).filter(v=>v!=null);
+    const last=vs.length?vs[vs.length-1]:null;
+    const avg=vs.length?vs.reduce((a,b)=>a+b,0)/vs.length:null;
+    return '<div class="stat"><div class="k">'+d.name+'</div>'+
+      '<div class="v">'+(last==null?'—':d.fmt(last))+'</div>'+
+      '<div class="x">60 天均值 '+(avg==null?'—':d.fmt(avg))+'</div>'+
+      '<div class="sparkwrap">'+sparkline(d.vals,d.color,d.fmt)+'</div></div>';
+  }).join('');
+})();
+
+/* ---------- 历史 KPI ---------- */
+const kg=$('kpiGrid');
+kg.innerHTML =
+  stateCard('总跑步次数', R.total_runs??'—','次','户外'+(R.by_type&&R.by_type.running||0)+'/跑机'+(R.by_type&&R.by_type.treadmill_running||0)) +
+  stateCard('总里程', R.total_distance_km??'—','km','') +
+  stateCard('总时长', R.total_duration_hours??'—','h','') +
+  stateCard('综合平均配速', R.overall_pace||'—','','') +
+  stateCard('最快配速', R.best_pace||'—','','') +
+  stateCard('平均心率', R.avg_hr??'—','bpm','最高 '+R.max_hr_recorded) +
+  stateCard('长距离(≥15km)', R.long_runs_count??'—','次','') +
+  stateCard('跑量ACWR', R.acwr_volume??'—','','急性'+R.acute_weekly_km+'/慢性'+R.chronic_weekly_km+'km');
+
+/* ---------- 图表：月度跑量 ---------- */
+function buildBars(items,valKey,color){
+  if(!items.length) return '<div class="empty">暂无数据</div>';
+  const W=680,H=240,padL=36,padB=28,padT=16,padR=10;
+  const max=Math.max(...items.map(i=>i[valKey]))*1.12||1;
+  const bw=(W-padL-padR)/items.length*0.66;
+  const gap=(W-padL-padR)/items.length;
+  let s='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">';
+  for(let g=0;g<=4;g++){const y=padT+(H-padT-padB)*g/4;const v=max*(1-g/4);
+    s+='<line x1="'+padL+'" y1="'+y+'" x2="'+(W-padR)+'" y2="'+y+'" stroke="#eef1f6"/>';
+    s+='<text x="'+(padL-6)+'" y="'+(y+4)+'" font-size="10" fill="#9aa5b1" text-anchor="end">'+Math.round(v)+'</text>';}
+  items.forEach((it,i)=>{
+    const x=padL+gap*i+(gap-bw)/2;
+    const h=(H-padT-padB)*(it[valKey]/max);
+    const y=H-padB-h;
+    s+='<rect x="'+x+'" y="'+y+'" width="'+bw+'" height="'+h+'" rx="4" fill="'+color+'"/>';
+    s+='<text x="'+(x+bw/2)+'" y="'+(y-5)+'" font-size="10" fill="#5b6776" text-anchor="middle">'+Math.round(it[valKey])+'</text>';
+    s+='<text x="'+(x+bw/2)+'" y="'+(H-padB+14)+'" font-size="9" fill="#9aa5b1" text-anchor="middle">'+it.label+'</text>';
+  });
+  s+='</svg>';return s;
+}
+const monthly = R.monthly||{};
+const mItems = Object.keys(monthly).sort().map(ym=>{
+  const m=monthly[ym];
+  const parts=ym.split('-');
+  return {label:parts[0].slice(2)+'/'+parts[1], value:m.distance_km, pace:m.avg_pace_sec, runs:m.runs};
+});
+$('barChart').innerHTML = buildBars(mItems,'value','#2f6df0');
+
+/* ---------- 图表：月度平均配速(折线) ---------- */
+function buildLine(items,valKey,color,opts){
+  opts=opts||{};
+  if(!items.length) return '<div class="empty">暂无数据</div>';
+  const W=opts.w||340,H=opts.h||220,padL=opts.padL||34,padB=26,padT=14,padR=10;
+  const fmt=opts.fmt||paceSecToStr;
+  const vals=items.map(i=>i[valKey]).filter(v=>v!=null);
+  if(!vals.length) return '<div class="empty">暂无配速数据</div>';
+  const min=Math.min(...vals), max=Math.max(...vals);
+  const span=(max-min)||1;
+  const n=items.length;
+  const x=i=>padL+(W-padL-padR)*(n===1?0.5:i/(n-1));
+  const y=v=>padT+(H-padT-padB)*((v-min)/span);
+  // x 轴标签抽稀：点太多时隔几个画一个（18km 分段有 18 个点，全画会叠成一团）
+  const step=opts.labelStep||Math.max(1,Math.ceil(n/12));
+  let s='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">';
+  for(let g=0;g<=3;g++){const yy=padT+(H-padT-padB)*g/3;const v=max-(max-min)*g/3;
+    s+='<line x1="'+padL+'" y1="'+yy+'" x2="'+(W-padR)+'" y2="'+yy+'" stroke="#eef1f6"/>';
+    s+='<text x="'+(padL-5)+'" y="'+(yy+4)+'" font-size="9" fill="#9aa5b1" text-anchor="end">'+fmt(v)+'</text>';}
+  let pts='';
+  items.forEach((it,i)=>{ if(it[valKey]==null)return; pts+=(pts?' ':'')+x(i)+','+y(it[valKey]); });
+  s+='<polyline points="'+pts+'" fill="none" stroke="'+color+'" stroke-width="2.5" stroke-linejoin="round"/>';
+  items.forEach((it,i)=>{ if(it[valKey]==null)return;
+    s+='<circle cx="'+x(i)+'" cy="'+y(it[valKey])+'" r="3" fill="'+color+'"/>';
+    if(i%step===0||i===n-1)
+      s+='<text x="'+x(i)+'" y="'+(H-padB+13)+'" font-size="9" fill="#9aa5b1" text-anchor="middle">'+it.label+'</text>';});
+  s+='</svg>';return s;
+}
+$('paceChart').innerHTML = buildLine(mItems,'pace','#e0892b');
+
+/* ---------- 近期窗口对比 ---------- */
+function buildWindowBars(){
+  const ws=[{label:'7天',d:R.window_7d},{'label':'30天',d:R.window_30d},{'label':'90天',d:R.window_90d}].filter(x=>x.d);
+  if(!ws.length) return '<div class="empty">暂无数据</div>';
+  const W=340,H=220,padL=34,padB=26,padT=16,padR=10;
+  const maxD=Math.max(...ws.map(x=>x.d.distance_km))*1.15||1;
+  const maxR=Math.max(...ws.map(x=>x.d.runs))*1.3||1;
+  const gap=(W-padL-padR)/ws.length;
+  let s='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">';
+  ws.forEach((x,i)=>{
+    const cx=padL+gap*i+gap/2;
+    const bw=26;
+    const hD=(H-padT-padB)*(x.d.distance_km/maxD);
+    const hR=(H-padT-padB)*(x.d.runs/maxR);
+    s+='<rect x="'+(cx-bw-4)+'" y="'+(H-padB-hD)+'" width="'+bw+'" height="'+hD+'" rx="4" fill="#2f6df0"/>';
+    s+='<text x="'+(cx-bw/2-4)+'" y="'+(H-padB-hD-4)+'" font-size="10" fill="#2f6df0" text-anchor="middle">'+x.d.distance_km+'</text>';
+    s+='<rect x="'+(cx+4)+'" y="'+(H-padB-hR)+'" width="'+bw+'" height="'+hR+'" rx="4" fill="#9bbcf6"/>';
+    s+='<text x="'+(cx+bw/2+4)+'" y="'+(H-padB-hR-4)+'" font-size="10" fill="#5b8def" text-anchor="middle">'+x.d.runs+'</text>';
+    s+='<text x="'+cx+'" y="'+(H-padB+14)+'" font-size="10" fill="#5b6776" text-anchor="middle">'+x.label+'</text>';
+  });
+  s+='</svg>';return s;
+}
+$('windowBars').innerHTML = buildWindowBars();
+
+/* ---------- 近期表格 ---------- */
+const acts=(D.activities||[]).slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,12);
+const tb=$('recentTable').querySelector('tbody');
+if(acts.length){
+  acts.forEach(a=>{
+    const tr=el('tr');
+    const typeTxt = a.type==='treadmill_running'?'跑步机':'户外跑';
+    tr.innerHTML='<td>'+a.date+'</td><td>'+(typeTxt)+'</td>'+
+      '<td class="num">'+(a.distance_km??'—')+'</td>'+
+      '<td class="num">'+(a.pace_formatted||'—')+'</td>'+
+      '<td class="num">'+(a.avg_hr??'—')+'</td>'+
+      '<td class="num">'+(a.duration_formatted||'—')+'</td>'+
+      '<td class="num">'+(a.aerobic_te??'—')+'</td>';
+    tb.appendChild(tr);
+  });
+}else tb.innerHTML='<tr><td colspan="7" class="empty">暂无数据</td></tr>';
+
+/* ---------- 能力画像 ---------- */
+(function renderAbility(){
+  const gc=$('gradeCircle');
+  const g=AB.grade||'—';
+  const score=AB.composite_score??0;
+  gc.style.background = score>=85?'#1f9d55':score>=75?'#3aa76d':score>=65?'#e0892b':score>=55?'#e0a82b':'#d64545';
+  gc.innerHTML='<div class="g">'+g+'</div><div class="s">'+score+' 分</div>';
+  const titleMap={S:'顶尖业余水平',A:'优秀',B:'良好',C:'中等偏上',D:'起步阶段'};
+  $('gradeTitle').textContent='综合评级：'+g+'（'+titleMap[g]+'）';
+  $('gradeDesc').textContent='基于 '+ (R.total_runs||0) +' 次历史跑步、VO2 Max、训练负荷与恢复指标综合评估。评级会随数据更新动态变化。';
+
+  const db=$('dimBars');
+  (AB.dimensions||[]).forEach(d=>{
+    const div=el('div','dim');
+    div.innerHTML='<div class="dl"><span class="dn">'+d.name+'</span><span class="dv">'+d.score+' 分 · '+d.desc+'</span></div>'+
+      '<div class="bar"><i style="width:'+d.score+'%"></i></div>';
+    db.appendChild(div);
+  });
+
+  // 比赛估算
+  const rt=$('raceTable').querySelector('tbody');
+  const raceNote={};
+  const rows=[['5K',AB.race_estimates&&AB.race_estimates['5K'],'5 公里'],
+              ['10K',AB.race_estimates&&AB.race_estimates['10K'],'10 公里（阈值基准）'],
+              ['半马',AB.race_estimates&&AB.race_estimates['半马'],'21.1 公里'],
+              ['全马',AB.race_estimates&&AB.race_estimates['全马'],'42.2 公里']];
+  if(rows.every(r=>!r[1])){
+    rt.innerHTML='<tr><td colspan="3" class="empty">样本不足，无法估算</td></tr>';
+  }else{
+    rows.forEach(r=>{
+      if(!r[1]) return;
+      const basis = r[1].basis==='direct'
+        ? ('依据 ' + (((r[1].evidence_date||'').slice(5)) || '历史') + ' 的实测表现')
+        : ('由 ' + (r[1].derived_from || '较短距离') + ' 按 Riegel 外推');
+      rt.innerHTML+='<tr><td>'+r[0]+'</td><td class="num">'+r[1].formatted+'</td>'+
+        '<td>'+r[2]+'<div class="hint2">'+basis+'</div></td></tr>';
+    });
+  }
+  $('raceNote').innerHTML='取各距离区间里<b>最有力的一次实测努力</b>（只算户外跑，跑步机配速不可比），并按时间做轻微贬值'+
+    '（约 0.5%/月，上限 8%）；长距离同时用短距离证据按 Riegel 外推交叉验证，取更有力的一侧。'+
+    '公式 T₂=T₁×(D₂/D₁)^1.06，整体偏保守，实际比赛表现通常更接近或更优。';
+
+  // 配速区间
+  const pzt=$('paceZoneTable').querySelector('tbody');
+  const pz=AB.pace_zones||{};
+  const pzDesc={E:'轻松/恢复跑',M:'马拉松配速',T:'阈值/节奏跑',I:'间歇',R:'重复冲刺'};
+  ['E','M','T','I','R'].forEach(k=>{
+    const z=pz[k];
+    if(z) pzt.innerHTML+='<tr><td>'+k+'</td><td class="num">'+z.pace_lo+'–'+z.pace_hi+'</td><td>'+pzDesc[k]+'</td></tr>';
+  });
+  $('paceNote').innerHTML='阈值配速 = <b>'+(AB.threshold_pace||'—')+' /km</b>（由 10K 估算推导）。区间基于 Daniels 训练体系，供日常课表参考。';
+
+  // 心率区间
+  const hzt=$('hrZoneTable').querySelector('tbody');
+  const hzDesc={'Z1 恢复':'热身/冷身/恢复','Z2 有氧':'基础有氧积累','Z3 马拉松':'马拉松配速','Z4 阈值':'节奏/阈值','Z5 无氧':'间歇/最大摄氧'};
+  (AB.hr_zones||[]).forEach((z,i)=>{
+    hzt.innerHTML+='<tr><td><span class="ztag" style="background:'+ZCOLOR[i]+'"></span>'+z.name+'</td><td class="num">'+z.lo+'–'+z.hi+'</td><td>'+hzDesc[z.name]+'</td></tr>';
+  });
+})();
+
+/* ---------- 今日课表 ---------- */
+(function renderPlan(){
+  if(!PL || !PL.title){ $('planTitle').textContent='暂无课表'; return; }
+  $('planDate').textContent = PL.date?('（'+PL.date+'）'):'';
+  const ps=$('planScore');
+  ps.style.background = PL.readiness_score<40?'#d64545':(PL.readiness_score<65?'#e0892b':'#1f9d55');
+  ps.innerHTML='<div class="n">'+PL.readiness_score+'</div><div class="l">就绪度</div>';
+  $('planTitle').textContent=PL.title;
+  let pd = '基于今日恢复指标与训练负荷自动生成。';
+  if (PL.long_fatigue) {
+    const fr = PL.fatigue_run;
+    if (fr && fr.date) {
+      const ago = Math.max(0, Math.round((new Date(PL.date) - new Date(fr.date)) / 86400000));
+      pd = '⚠ 你 ' + ago + ' 天前（' + fr.date.slice(5) + '）跑了 ' + (fr.distance_km || '?') + 'km 长距离，仍在 48–72h 恢复窗口，今日以恢复/轻松为主。';
+    } else {
+      pd = '⚠ 近期有长距离/高强度，处于恢复窗口，今日以恢复为主。';
+    }
+  }
+  $('planDetail').textContent = pd;
+  // 目标卡片
+  const pc=$('planCards');
+  pc.innerHTML =
+    '<div class="pk"><div class="pk-k">目标配速</div><div class="pk-v">'+ (PL.target_pace||'—') +'</div><div class="pk-x">每公里</div></div>'+
+    '<div class="pk"><div class="pk-k">目标心率</div><div class="pk-v">'+ (PL.target_hr||'—') +'</div><div class="pk-x">bpm</div></div>'+
+    '<div class="pk"><div class="pk-k">建议时长</div><div class="pk-v">'+ (PL.duration||'—') +'</div><div class="pk-x">含热身冷身</div></div>';
+  // 结构
+  const st=$('planSteps');
+  (PL.structure||[]).forEach((s,i)=>{
+    const div=el('div','step');
+    div.innerHTML='<div class="idx">'+(i+1)+'</div><div><div class="st">'+s[0]+'</div><div class="sd">'+s[1]+'</div></div>';
+    st.appendChild(div);
+  });
+  $('planNote').innerHTML='<b>算法说明：</b>就绪度由昨夜睡眠、近 7 天睡眠评分、身体电量、训练负荷 ACWR、训练状态综合得出。'+
+    '并设有<b>长距离疲劳规则</b>：近 3 天内有 ≥15km 长距离时，强制降为恢复/轻松，避免连续高质量导致过度训练。';
+  const pf=$('planFactors');
+  (PL.factors||[]).forEach(f=>{
+    const row=el('div','factor');
+    const colorMap={good:'var(--good)',warn:'var(--warn)',bad:'var(--bad)',info:'var(--accent)'};
+    row.innerHTML='<span class="fl">'+f.name+'</span><span class="fv" style="color:'+(colorMap[f.level]||'var(--accent)')+'">'+f.value+'</span>';
+    pf.appendChild(row);
+  })
+  // 实际 vs 计划（近 N 天回看）
+  const avEl = $('planActual');
+  if (avEl) {
+    const av = PL.actual_vs_plan;
+    if (av && av.days && av.days.length) {
+      let badge = '';
+      if (av.overreach) badge += '<span class="av-flag bad">实际超量</span>';
+      if (av.missed_quality) badge += '<span class="av-flag warn">漏质量课</span>';
+      const rows = av.days.map(r => {
+        const arrow = r.delta > 0 ? '<span class="av-up">↑超量</span>'
+          : (r.delta < 0 ? '<span class="av-down">↓偏松</span>' : '<span class="av-eq">=</span>');
+        return '<div class="av-row"><span class="av-d">' + r.date + '</span>'
+          + '<span class="av-p">计划 ' + r.planned_label + '</span>'
+          + '<span class="av-a">实际 ' + (r.actual || '—') + ' '
+          + (r.actual_distance_km ? r.actual_distance_km + 'km' : '') + ' ' + (r.actual_pace || '') + '</span>'
+          + arrow + '</div>';
+      }).join('');
+      avEl.innerHTML = '<div class="av-head">近 ' + av.window + ' 天 实际 vs 计划 ' + badge + '</div>' + rows;
+    } else {
+      avEl.innerHTML = '';
+    }
+  };
+})();
+
+/* ---------- 每周课表 ---------- */
+const WK = D.plan_week || [];
+const NX = D.plan_next || [];
+const CFG = D.plan_config || {};
+function sessColor(id){
+  return {T:'#2f6df0',I:'#e0892b',L:'#1f9d55',FL:'#7c5cff',R:'#d64545',E:'#6b7785'}[id] || '#6b7785';
+}
+function renderDay(d){
+  const div=el('div','day'+(d.is_today?' today':'')+(d.blocked?' workday':''));
+  let tag='';
+  if(d.is_today) tag='<span class="tag today">今天</span>';
+  else if(d.duty==='main') tag='<span class="tag work">主班</span>';
+  else if(d.duty==='standby') tag='<span class="tag standby">备班</span>';
+  div.innerHTML='<div class="dh"><span class="dw">'+d.weekday+'</span>'+tag+'</div>'+
+    '<div class="dd">'+d.date.slice(5)+'</div>';
+  if(d.blocked){
+    div.innerHTML+='<div class="rest w">主班日<br>不安排训练</div>';
+  }else if(d.planned){
+    const eff=d.adjusted||d.planned;
+    const col=sessColor(eff.id);
+    let inner='<div class="sess">'+
+      '<div class="sid" style="color:'+col+'">'+eff.id+' · '+eff.name+'</div>'+
+      '<div class="srow"><span>配速</span><span>'+eff.pace_range+'</span></div>'+
+      '<div class="srow"><span>心率</span><span>'+eff.hr_range+'</span></div>'+
+      '<div class="srow"><span>时长</span><span>'+eff.duration+'</span></div>'+
+      '<div class="sr">'+eff.rationale+'</div></div>';
+    if(d.change==='downgraded'||d.change==='upgraded'){
+      const cls=d.change==='upgraded'?'adj up':'adj';
+      const arrow=d.change==='upgraded'?'原计划 → 上调':'原计划 → 下调';
+      const orig=(d.planned&&d.adjusted)?d.planned.name:'';
+      inner+='<div class="'+cls+'">'+arrow+'：'+orig+'<br>'+d.reason+'</div>';
+    }
+    div.innerHTML+=inner;
+  }else{
+    // 备班日是可以训练的：空着的时候给个"可以自己加一点"的提示，比一句"休息日"有用
+    if(d.duty==='standby'){
+      div.innerHTML+='<div class="rest">备班日 · 未排课<br><span class="restsub">可自行加 30–40 分钟轻松跑</span></div>';
+    }else{
+      div.innerHTML+='<div class="rest">休息日</div>';
+    }
+  }
+  if(d.actual){
+    const a=d.actual;
+    div.innerHTML += '<div class="actual'+(d.is_past?' past':'')+'">实际 · '+(a.distance_km?a.distance_km+'km ':'')+(a.pace||'')+'</div>';
+  }
+  return div;
+}
+(function renderWeek(){
+  const cfg=CFG;
+  const phase=(D.plan&&D.plan.phase_label)||'—';
+  const weeks=(D.plan&&D.plan.weeks_left);
+  const goal=cfg.goal_label||'—';
+  const tgtTime=(D.plan&&D.plan.goal_target_time)||'';
+  const gap=(D.plan&&D.plan.goal_gap_min);
+  const projStr=(D.plan&&D.plan.goal_projected_str)||'';
+  let gapHtml='';
+  if(gap!=null){
+    if(gap>0) gapHtml='<span class="meta">预计 '+projStr+' ，还差 '+gap+' 分</span>';
+    else if(gap===0) gapHtml='<span class="meta">预计 '+projStr+' ，正好达标</span>';
+    else gapHtml='<span class="meta">预计 '+projStr+' ，已可达成</span>';
+  }
+  const bar=$('wkBar');
+  bar.innerHTML='<span class="goal">🎯 '+goal+'</span>'+
+    '<span class="meta">周期阶段：'+phase+'</span>'+
+    (tgtTime?'<span class="meta">目标完赛 '+tgtTime+'</span>':'')+
+    gapHtml+
+    (weeks!=null?'<span class="meta">距比赛 '+weeks+' 周</span>':'')+
+    (cfg.work_pattern==='2on2off'?'<span class="meta">作息：上二休二（仅主班日不训练，备班日可练）</span>':'');
+  $('wkNote').innerHTML='课表按你的目标（半马 PB）、当前周期阶段与能力画像自动生成；<b>仅主班日不安排训练</b>，备班日与休息日均可排定（每周约 5–6 个可选日）。'+
+    '排课会在可选日里挑出最分散的几天，<b>优先保证两次质量课之间 ≥48 小时</b>（轻松跑去填空位）。'+
+    '每天会根据昨夜睡眠、身体电量、训练负荷与<b>长距离疲劳规则</b>自动微调，并标注「原计划 → 调整后」与原因。';
+  const grid=$('weekGrid');
+  grid.innerHTML='';
+  if(WK.length){
+    $('wkRange').textContent='（'+WK[0].date+' ~ '+WK[WK.length-1].date+'）';
+    WK.forEach(d=>grid.appendChild(renderDay(d)));
+  }else grid.innerHTML='<div class="empty">暂无课表数据</div>';
+  // 下周预告
+  const nl=$('nextList');
+  nl.innerHTML='';
+  const nxSessions=NX.filter(d=>d.planned);
+  if(!nxSessions.length){ nl.innerHTML='<div class="empty">下周暂无排定训练</div>'; }
+  else{
+    nxSessions.forEach(d=>{
+      const eff=d.adjusted||d.planned;
+      const col=sessColor(eff.id);
+      const row=el('div','nx');
+      row.innerHTML='<span><b style="color:'+col+'">'+eff.id+'</b> '+eff.name+'</span>'+
+        '<span class="nxd">'+d.weekday+' '+d.date.slice(5)+' · '+eff.pace_range+' · '+eff.duration+'</span>';
+      nl.appendChild(row);
+    });
+  }
+})();
+
+/* ---------- 目标进度 ---------- */
+(function renderGoal(){
+  const box=$('goalChart'); if(!box) return;
+  const GH=(D.goal_history||[]).filter(r=>r&&r.hm_sec);
+  const goalMin=(D.plan&&D.plan.goal_target_minutes)||null;
+  const goalSec=goalMin?goalMin*60:null;
+  if(GH.length<2){
+    box.innerHTML='<div class="empty">进度曲线需要至少两天的数据。每天 07:00 的同步任务会追加一个点，明天这里就会出现。</div>';
+  }else{
+    const W=680,H=230,padL=56,padB=26,padT=16,padR=12;
+    const vals=GH.map(r=>r.hm_sec).concat(goalSec?[goalSec]:[]);
+    const min=Math.min(...vals), max=Math.max(...vals), span=(max-min)||120;
+    const n=GH.length;
+    const x=i=>padL+(W-padL-padR)*(n===1?0.5:i/(n-1));
+    const y=v=>padT+(H-padT-padB)*((v-min)/span);
+    let s='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">';
+    for(let g=0;g<=3;g++){const yy=padT+(H-padT-padB)*g/3;const v=max-span*g/3;
+      s+='<line x1="'+padL+'" y1="'+yy+'" x2="'+(W-padR)+'" y2="'+yy+'" stroke="#eef1f6"/>';
+      s+='<text x="'+(padL-6)+'" y="'+(yy+4)+'" font-size="10" fill="#9aa5b1" text-anchor="end">'+hmStr(v)+'</text>';}
+    if(goalSec){
+      const gy=y(goalSec);
+      s+='<line x1="'+padL+'" y1="'+gy+'" x2="'+(W-padR)+'" y2="'+gy+'" stroke="#1f9d55" stroke-width="1.5" stroke-dasharray="6 4"/>';
+      s+='<text x="'+(W-padR)+'" y="'+(gy-5)+'" font-size="10" fill="#1f9d55" text-anchor="end">目标 '+hmStr(goalSec)+'</text>';
+    }
+    let pts='';
+    GH.forEach((r,i)=>{pts+=(pts?' ':'')+x(i)+','+y(r.hm_sec);});
+    s+='<polyline points="'+pts+'" fill="none" stroke="#2f6df0" stroke-width="2.5" stroke-linejoin="round"/>';
+    const step=Math.max(1,Math.ceil(n/10));
+    GH.forEach((r,i)=>{
+      s+='<circle cx="'+x(i)+'" cy="'+y(r.hm_sec)+'" r="3" fill="#2f6df0"/>';
+      if(i%step===0||i===n-1)
+        s+='<text x="'+x(i)+'" y="'+(H-padB+14)+'" font-size="9" fill="#9aa5b1" text-anchor="middle">'+r.date.slice(5)+'</text>';
+    });
+    s+='</svg>';
+    box.innerHTML=s;
+  }
+  const first=GH[0], last=GH[GH.length-1];
+  let note='每天更新一次半马预计完赛时间（Riegel 估算）——<b>曲线向下 = 在变快</b>。';
+  if(GH.length>=2){
+    const dMin=(first.hm_sec-last.hm_sec)/60;
+    note+=' 从 '+first.date.slice(5)+' 到现在：'+
+      (dMin>0.05?('快了 <b>'+dMin.toFixed(1)+' 分钟</b>'):(dMin<-0.05?('慢了 <b>'+Math.abs(dMin).toFixed(1)+' 分钟</b>'):'基本持平'))+'。';
+    if(goalSec) note+= ' 距 1:50 还差 <b>'+fmtGap(Math.round(last.hm_sec-goalSec))+'</b>（当前预计 '+hmStr(last.hm_sec)+'）。';
+  }
+  $('goalNote').innerHTML=note;
+})();
+
+/* ---------- 跑后分析 ---------- */
+(function renderPost(){
+  if(!PO){
+    $('postStats').innerHTML='<div class="empty">暂无活动明细数据（运行同步后刷新）</div>';
+    return;
+  }
+  $('latestDate').textContent='（'+PO.date+' · '+(PO.name||'跑步')+'）';
+  const ps2=$('postStats');
+  ps2.innerHTML =
+    stateCard('距离', PO.distance_km??'—','km','') +
+    stateCard('配速', PO.pace||'—','','') +
+    stateCard('平均心率', PO.avg_hr??'—','bpm','最高 '+PO.max_hr) +
+    stateCard('时长', PO.duration||'—','','') +
+    stateCard('消耗', PO.calories??'—','kcal','') +
+    stateCard('爬升', PO.elevation_gain??'—','m','') +
+    stateCard('有氧TE', PO.aerobic_te??'—','','') +
+    stateCard('训练负荷', PO.training_load??'—','','');
+
+  // 点评
+  const driftTxt = PO.cardiac_drift_pct==null?'':('心率漂移 '+PO.cardiac_drift_pct+'%');
+  $('postVerdict').innerHTML='<b>本次点评：</b>'+ (PO.te_aerobic||'') +'。配速一致性 CV '+(PO.pace_cv??'—')+'%，'+driftTxt+'。'+
+    '完整分段、跑姿、心率分布与改进建议见下方。';
+
+  // 分段折线（全公里）
+  const fullSplits=(PO.splits||[]).filter(s=>s.full_km && s.pace_sec);
+  const splitItems = fullSplits.map((s,i)=>({label:(i+1), value:s.pace_sec}));
+  $('splitChart').innerHTML = buildLine(splitItems,'value','#2f6df0',{w:680,h:240,padL:44});
+  $('splitLegend').innerHTML='<span><i style="background:#2f6df0"></i>每公里配速（越低越快）</span>';
+  // 分段关键指标
+  const ss=$('splitStats');
+  ss.innerHTML =
+    stateCard('最快公里', PO.pace_fastest||'—','','') +
+    stateCard('最慢公里', PO.pace_slowest||'—','','') +
+    stateCard('配速一致性 CV', PO.pace_cv??'—','%','越小越匀速') +
+    stateCard('心率漂移', PO.cardiac_drift_pct==null?'—':PO.cardiac_drift_pct,'%','后半 vs 前半');
+
+  // 跑姿
+  const f=PO.form||{};
+  const fs=$('formStats');
+  fs.innerHTML =
+    stateCard('平均步频', f.cadence_avg??'—','spm','范围 '+(f.cadence_min??'—')+'–'+(f.cadence_max??'—')) +
+    stateCard('估算步幅', f.stride_est_m??'—','m','由配速×步频推算') +
+    stateCard('平均心率', PO.avg_hr??'—','bpm','最高 '+PO.max_hr) +
+    stateCard('有氧TE', PO.aerobic_te??'—','','');
+  if(f.running_dynamics){
+    const rd=f.running_dynamics;
+    fs.innerHTML += stateCard('触地时间', rd.ground_contact_ms??'—','ms','') +
+                    stateCard('垂直振幅', rd.vertical_oscillation_cm??'—','cm','') +
+                    stateCard('垂直步幅比', rd.vertical_ratio??'—','','') +
+                    stateCard('步幅(实测)', rd.stride_length_m??'—','m','');
+    $('formNote').innerHTML='已读取完整跑姿动力学数据。';
+  }else{
+    $('formNote').innerHTML='本次未记录完整跑姿动力学（触地时间 / 垂直振幅 / 垂直步幅比）。如需精确到这些指标，请佩戴 HRM-Run/Pro 心率带或支持该功能的手表。当前步幅由配速与步频推算，仅供参考。';
+  }
+
+  // 心率区间分布
+  const hzd=$('hrZoneDist');
+  const hzr=PO.hr_zone_dist||[];
+  if(!hzr.length){
+    hzd.innerHTML='<div class="empty">无心率区间数据</div>';
+  }else{
+    let mx=Math.max(...hzr.map(z=>z.pct))||1;
+    hzr.forEach((z,i)=>{
+      const div=el('div','hrz');
+      const lo=z.low!=null?('≥'+z.low+'bpm '):'';
+      div.innerHTML='<div class="hl"><span class="hn">'+z.name+'</span><span>'+lo+'· '+z.pct+'% · '+Math.round(z.secs/60)+'min</span></div>'+
+        '<div class="hb"><i style="width:'+(z.pct/mx*100)+'%;background:'+ZCOLOR[(z.zone-1)]+'"></i></div>';
+      hzd.appendChild(div);
+    });
+  }
+
+  // 训练效果
+  const te=$('teStats');
+  te.innerHTML =
+    stateCard('有氧训练效果', PO.aerobic_te??'—','','') +
+    stateCard('无氧训练效果', PO.anaerobic_te??'—','','');
+  if(PO.te_aerobic) te.innerHTML+='<div class="note" style="grid-column:1/-1">'+PO.te_aerobic+(PO.te_anaerobic?(' ｜ '+PO.te_anaerobic):'')+'</div>';
+
+  // 建议
+  const csm=$('coachSummary');
+  if(csm) csm.innerHTML = PO.coaching_summary ? ('<b>AI 跑后综述：</b>'+PO.coaching_summary) : '';
+  const sg=$('suggestions');
+  if((PO.suggestions||[]).length){
+    PO.suggestions.forEach(t=>{
+      const div=el('div','sug');
+      div.innerHTML='<span class="ic">▸</span><span>'+t+'</span>';
+      sg.appendChild(div);
+    });
+  }else sg.innerHTML='<div class="empty">暂无建议</div>';
+})();
+</script>
+</body>
+</html>

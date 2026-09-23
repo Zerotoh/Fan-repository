@@ -1,0 +1,70 @@
+name: Daily Garmin Sync
+
+# 说明：
+#  - 北京时间每天 ~07:00 自动从 Garmin Connect CN 拉增量数据、刷新看板、提交并发布到 GitHub Pages。
+#  - Garmin 凭据通过仓库 Secrets（GARMIN_EMAIL / GARMIN_PASSWORD）注入，不写进代码。
+#  - Garmin 的 SSO token 通过 Artifact 在两次运行间复用，减少重复登录触发验证码的概率。
+#  - 国内访问 github.io 可能偏慢/偶发被墙；若长期访问不畅，可把同一仓库改用 Cloudflare Pages / Vercel 托管（同源静态文件）。
+
+on:
+  schedule:
+    - cron: "0 23 * * *"        # UTC 23:00 ≈ 北京 07:00
+  workflow_dispatch:           # 允许在 Actions 页面手动点一下立即跑
+
+permissions:
+  contents: write              # 用于把刷新后的数据提交回仓库
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Restore Garmin SSO token (garth)
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: garth-token
+          path: ~/.garth
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Write Garmin credentials from Secrets
+        env:
+          GARMIN_EMAIL: ${{ secrets.GARMIN_EMAIL }}
+          GARMIN_PASSWORD: ${{ secrets.GARMIN_PASSWORD }}
+        run: python -c "import os,json; p=os.path.expanduser('~/.config/garmin-cn/credentials.json'); os.makedirs(os.path.dirname(p),exist_ok=True); json.dump({'email':os.environ['GARMIN_EMAIL'],'password':os.environ['GARMIN_PASSWORD']},open(p,'w'))"
+
+      - name: Sync + build dashboard
+        id: sync
+        continue-on-error: true
+        run: python scripts/sync.py
+
+      - name: Save Garmin SSO token (garth)
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: garth-token
+          path: ~/.garth
+          retention-days: 30
+
+      - name: Commit processed data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/processed data/raw/activities_running.json
+          git commit -m "chore: daily sync $(date -u +%Y-%m-%dT%H:%M:%SZ)" || echo "no changes"
+          git push

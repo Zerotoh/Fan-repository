@@ -1,0 +1,5 @@
+# 同步 Garmin Connect CN 数据所需的依赖
+# 安装（建议用独立 venv，别装进系统 python）：
+#   python -m venv <venv>
+#   <venv>\Scripts\python.exe -m pip install -r requirements.txt
+garminconnect==0.3.16

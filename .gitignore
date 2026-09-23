@@ -1,0 +1,22 @@
+# 原始数据：健康/睡眠摘要、错误日志、备份——均可重算，不入库
+data/raw/health_90d.json
+data/raw/sleep_90d.json
+data/raw/summary_today.json
+data/raw/activity_detail_latest.json
+data/raw/_backup_prev/
+data/raw/_corrupted_backup_*/
+data/raw/*.err
+
+# 看板生成的中间日志
+data/processed/_sync_last.log
+
+# Python
+__pycache__/
+*.pyc
+
+# 本地 Garmin 凭据 / SSO 缓存（含真正凭据，绝不入库）
+.garth/
+.config/
+
+# 本地发布产物（dist 是你之前用 WorkBuddy 在线发布时生成的，仓库用 GitHub Pages 即可）
+dist/
