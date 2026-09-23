@@ -3,7 +3,7 @@ name: Daily Garmin Sync
 # 说明：
 #  - 北京时间每天 ~07:00 自动从 Garmin Connect CN 拉增量数据、刷新看板、提交并发布到 GitHub Pages。
 #  - Garmin 凭据通过仓库 Secrets（GARMIN_EMAIL / GARMIN_PASSWORD）注入，不写进代码。
-#  - Garmin 的 SSO token 通过 Artifact 在两次运行间复用，减少重复登录触发验证码的概率。
+#  - Garmin 登录 token 由 GARMINTOKENS 指定路径持久化，并用 Artifact 在两次运行间复用，避免每天重登（海外 IP 反复登录易触发验证码/锁号）。
 #  - 国内访问 github.io 可能偏慢/偶发被墙；若长期访问不畅，可把同一仓库改用 Cloudflare Pages / Vercel 托管（同源静态文件）。
 
 on:
@@ -18,6 +18,8 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    env:
+      GARMINTOKENS: /home/runner/.garminconnect   # garminconnect 把登录 token 存这里；用 Artifact 跨运行复用，避免每次重登
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,12 +31,12 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Restore Garmin SSO token (garth)
+      - name: Restore Garmin login token
         uses: actions/download-artifact@v4
         continue-on-error: true
         with:
-          name: garth-token
-          path: ~/.garth
+          name: garmin-token
+          path: /home/runner/.garminconnect
 
       - name: Install deps
         run: |
@@ -49,16 +51,15 @@ jobs:
 
       - name: Sync + build dashboard
         id: sync
-        continue-on-error: true
         run: python scripts/sync.py
 
-      - name: Save Garmin SSO token (garth)
+      - name: Save Garmin login token
         if: always()
         continue-on-error: true
         uses: actions/upload-artifact@v4
         with:
-          name: garth-token
-          path: ~/.garth
+          name: garmin-token
+          path: /home/runner/.garminconnect
           retention-days: 30
 
       - name: Commit processed data
