@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-25 01:13",
+  "generated_at": "2026-09-25 02:20",
   "runs": {
     "total_runs": 208,
     "total_distance_km": 1503.5,
@@ -4307,14 +4307,14 @@
     "chronic_load": 372,
     "sleep_recent_avg_score": 60.7,
     "hrv_recent_avg": 102.1,
-    "body_battery_now": 64,
+    "body_battery_now": 49,
     "body_battery_high": 67,
     "sleep_today_seconds": 17340,
     "intensity_minutes_week": 248,
     "intensity_minutes_goal": 300,
-    "today_distance_km": 0.2,
-    "today_steps": 295,
-    "last_sync": "2026-09-24T23:12:12.866",
+    "today_distance_km": 1.2,
+    "today_steps": 1634,
+    "last_sync": "2026-09-25T02:16:52.546",
     "signals": [
       {
         "name": "训练负荷",
@@ -4374,8 +4374,8 @@
       },
       {
         "name": "身体电量",
-        "value": "当前 64 良好",
-        "level": "good"
+        "value": "当前 49",
+        "level": "info"
       },
       {
         "name": "训练负荷",
