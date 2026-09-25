@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-09-24 01:07",
+  "generated_at": "2026-09-25 01:13",
   "runs": {
-    "total_runs": 207,
-    "total_distance_km": 1491.5,
-    "total_duration_hours": 160.2,
+    "total_runs": 208,
+    "total_distance_km": 1503.5,
+    "total_duration_hours": 161.5,
     "first_date": "2024-05-05",
-    "last_date": "2026-09-21",
+    "last_date": "2026-09-24",
     "by_type": {
       "treadmill_running": 21,
-      "running": 186
+      "running": 187
     },
     "monthly": {
       "2024-05": {
@@ -150,31 +150,31 @@
         "avg_pace_sec": 360.5194468452895
       },
       "2026-09": {
-        "distance_km": 92.6,
-        "runs": 10,
-        "avg_pace": "6:26",
-        "avg_pace_sec": 385.53104416369723
+        "distance_km": 104.6,
+        "runs": 11,
+        "avg_pace": "6:27",
+        "avg_pace_sec": 386.503249856624
       }
     },
     "window_7d": {
-      "runs": 4,
-      "distance_km": 38.2,
-      "avg_pace_sec": 389.4388903428422,
-      "avg_pace": "6:29"
+      "runs": 3,
+      "distance_km": 36.0,
+      "avg_pace_sec": 395.16634268258815,
+      "avg_pace": "6:35"
     },
     "window_30d": {
-      "runs": 13,
-      "distance_km": 113.7,
-      "avg_pace_sec": 383.00501451570335,
-      "avg_pace": "6:23"
+      "runs": 14,
+      "distance_km": 125.7,
+      "avg_pace_sec": 384.05569700827505,
+      "avg_pace": "6:24"
     },
     "window_90d": {
-      "runs": 41,
-      "distance_km": 348.8,
-      "avg_pace_sec": 376.2089162844036,
-      "avg_pace": "6:16"
+      "runs": 42,
+      "distance_km": 360.8,
+      "avg_pace_sec": 376.80111415980707,
+      "avg_pace": "6:17"
     },
-    "overall_pace_sec": 377.3003076487853,
+    "overall_pace_sec": 377.44095907318575,
     "overall_pace": "6:17",
     "best_pace_sec": 316,
     "best_pace": "5:16",
@@ -197,15 +197,15 @@
       "anaerobic_te": 0.0,
       "pace_sec": 316
     },
-    "avg_hr": 152.1,
+    "avg_hr": 152.0,
     "max_hr_recorded": 198.0,
     "long_runs_count": 7,
-    "acwr_volume": 0.91,
-    "acute_weekly_km": 24.0,
-    "chronic_weekly_km": 26.4,
+    "acwr_volume": 1.28,
+    "acute_weekly_km": 36.0,
+    "chronic_weekly_km": 28.2,
     "acwr_window": "7d/28d",
-    "acwr_anchor": "2026-09-24",
-    "runs_per_week": 3.19,
+    "acwr_anchor": "2026-09-25",
+    "runs_per_week": 3.27,
     "weekly_dist_cv": 47.6,
     "weekly_dist_cv_weeks": [
       28.5,
@@ -4155,6 +4155,25 @@
         "aerobic_te": 3.0,
         "anaerobic_te": 0.0,
         "pace_sec": 404
+      },
+      {
+        "activity_id": 643480033,
+        "name": "泉州市 跑步",
+        "type": "running",
+        "date": "2026-09-24",
+        "start_time": "2026-09-24 18:45:07",
+        "distance_km": 12.01,
+        "duration_sec": 4739.0,
+        "duration_formatted": "1h 18m 59s",
+        "pace_formatted": "6:34",
+        "avg_hr": 143.0,
+        "max_hr": 152.0,
+        "calories": 736.0,
+        "avg_speed_kmh": 9.1,
+        "elevation_gain": 15.0,
+        "aerobic_te": 3.4,
+        "anaerobic_te": 0.0,
+        "pace_sec": 394
       }
     ]
   },
@@ -4168,21 +4187,21 @@
         "evidence_sec": 1555
       },
       "10K": {
-        "sec": 3260,
-        "formatted": "54m20s",
+        "sec": 3261,
+        "formatted": "54m21s",
         "basis": "direct",
         "evidence_date": "2026-08-04",
         "evidence_sec": 3233
       },
       "半马": {
-        "sec": 7193,
+        "sec": 7195,
         "formatted": "1h59m",
         "basis": "derived",
         "derived_from": "10K"
       },
       "全马": {
-        "sec": 14998,
-        "formatted": "4h09m",
+        "sec": 15000,
+        "formatted": "4h10m",
         "basis": "derived",
         "derived_from": "10K"
       }
@@ -4192,9 +4211,9 @@
     "pace_zones": {
       "E": {
         "pace_lo": "6:48",
-        "pace_hi": "7:36",
+        "pace_hi": "7:37",
         "pace_lo_sec": 408,
-        "pace_hi_sec": 456
+        "pace_hi_sec": 457
       },
       "M": {
         "pace_lo": "6:05",
@@ -4224,7 +4243,7 @@
     "hr_zones": [
       {
         "name": "Z1 恢复",
-        "lo": 120,
+        "lo": 119,
         "hi": 135
       },
       {
@@ -4235,11 +4254,11 @@
       {
         "name": "Z3 马拉松",
         "lo": 151,
-        "hi": 167
+        "hi": 166
       },
       {
         "name": "Z4 阈值",
-        "lo": 167,
+        "lo": 166,
         "hi": 182
       },
       {
@@ -4252,8 +4271,8 @@
       {
         "key": "aerobic",
         "name": "有氧底盘",
-        "score": 53,
-        "desc": "周均里程 26km，ACWR 0.5"
+        "score": 56,
+        "desc": "周均里程 28km，ACWR 0.7"
       },
       {
         "key": "speed",
@@ -4264,42 +4283,42 @@
       {
         "key": "regularity",
         "name": "训练规律性",
-        "score": 50,
-        "desc": "周均 3.19 次，周里程波动 CV 48%"
+        "score": 51,
+        "desc": "周均 3.27 次，周里程波动 CV 48%"
       },
       {
         "key": "recovery",
         "name": "恢复能力",
-        "score": 68,
-        "desc": "静息心率 41 bpm · HRV 106（基线 107） · 睡眠 61"
+        "score": 67,
+        "desc": "静息心率 40 bpm · HRV 102（基线 107） · 睡眠 61"
       }
     ],
-    "composite_score": 61,
+    "composite_score": 62,
     "grade": "C"
   },
   "current_state": {
-    "training_status_label": "Recovery",
-    "training_status_since": "2026-09-24",
+    "training_status_label": "Maintaining",
+    "training_status_since": "2026-09-21",
     "vo2_max": 51.0,
-    "resting_hr": 41,
-    "acwr_garmin": 0.5,
+    "resting_hr": 40,
+    "acwr_garmin": 0.7,
     "acwr_status": "LOW",
-    "acute_load": 211,
-    "chronic_load": 355,
-    "sleep_recent_avg_score": 61.0,
-    "hrv_recent_avg": 105.6,
-    "body_battery_now": 84,
-    "body_battery_high": 87,
-    "sleep_today_seconds": 27272,
-    "intensity_minutes_week": 84,
+    "acute_load": 270,
+    "chronic_load": 372,
+    "sleep_recent_avg_score": 60.7,
+    "hrv_recent_avg": 102.1,
+    "body_battery_now": 64,
+    "body_battery_high": 67,
+    "sleep_today_seconds": 17340,
+    "intensity_minutes_week": 248,
     "intensity_minutes_goal": 300,
-    "today_distance_km": 0.1,
-    "today_steps": 143,
-    "last_sync": "2026-09-24T00:33:57.589",
+    "today_distance_km": 0.2,
+    "today_steps": 295,
+    "last_sync": "2026-09-24T23:12:12.866",
     "signals": [
       {
         "name": "训练负荷",
-        "desc": "ACWR 0.5 偏低/不足，可酌情增量",
+        "desc": "ACWR 0.7 偏低/不足，可酌情增量",
         "level": "info"
       },
       {
@@ -4309,47 +4328,44 @@
       },
       {
         "name": "静息心率",
-        "desc": "41 bpm，心肺基础优秀、恢复底子好",
+        "desc": "40 bpm，心肺基础优秀、恢复底子好",
         "level": "good"
       },
       {
         "name": "睡眠评分",
         "desc": "近7天均值 61，偏中等，有改善空间",
         "level": "warn"
+      },
+      {
+        "name": "昨夜睡眠",
+        "desc": "仅 4.8 小时，明显不足，今日宜低强度",
+        "level": "warn"
       }
     ]
   },
   "plan": {
-    "date": "2026-09-24",
-    "readiness_score": 75,
-    "session_type": "L",
+    "date": "2026-09-25",
+    "readiness_score": 55,
+    "session_type": "rest",
     "long_fatigue": false,
-    "days_since_last_run": 3,
+    "days_since_last_run": 1,
     "fatigue_run": null,
-    "title": "长距离(保守)",
-    "target_pace": "6:48–7:36",
-    "target_hr": "135–151",
-    "duration": "70–90 分钟 / 14–16km",
+    "title": "休息日 / 主动恢复",
+    "target_pace": "—",
+    "target_hr": "—",
+    "duration": "完全休息 或 20–30 分钟轻松活动",
     "structure": [
       [
-        "热身",
-        "10 分钟慢跑"
-      ],
-      [
-        "主项",
-        "60–80 分钟 轻松跑，配速 E 区、心率 Z2"
-      ],
-      [
-        "冷身",
-        "5–10 分钟慢走 + 拉伸"
+        "可选活动",
+        "瑜伽/散步/泡沫轴放松，促进血液循环"
       ]
     ],
-    "note": "积累有氧底盘与耐力，慢而稳",
+    "note": "今天没有安排训练（主班日或休息日）。本周有质量课未按计划完成（实际只跑了轻松/没跑），可在备班或休息日补一次阈值课。",
     "factors": [
       {
         "name": "昨夜睡眠",
-        "value": "7.6h 充足",
-        "level": "good"
+        "value": "4.8h 严重不足",
+        "level": "bad"
       },
       {
         "name": "近期睡眠评分",
@@ -4358,25 +4374,36 @@
       },
       {
         "name": "身体电量",
-        "value": "当前 84 良好",
+        "value": "当前 64 良好",
         "level": "good"
       },
       {
         "name": "训练负荷",
-        "value": "ACWR 0.5 可加量",
+        "value": "ACWR 0.7 可加量",
         "level": "good"
       },
       {
         "name": "训练状态",
-        "value": "Recovery",
+        "value": "Maintaining",
         "level": "info"
       }
     ],
     "actual_vs_plan": {
       "overreach": false,
-      "missed_quality": false,
+      "missed_quality": true,
       "window": 2,
       "days": [
+        {
+          "date": "2026-09-24",
+          "planned": "L",
+          "planned_label": "长距离",
+          "actual": "泉州市 跑步",
+          "actual_distance_km": 12.01,
+          "actual_pace": "6:34",
+          "actual_ord": 1,
+          "planned_ord": 2,
+          "delta": -1
+        },
         {
           "date": "2026-09-23",
           "planned": "E",
@@ -4387,17 +4414,6 @@
           "actual_ord": 0,
           "planned_ord": 1,
           "delta": -1
-        },
-        {
-          "date": "2026-09-22",
-          "planned": "rest",
-          "planned_label": "休息",
-          "actual": "（无记录）",
-          "actual_distance_km": 0,
-          "actual_pace": null,
-          "actual_ord": 0,
-          "planned_ord": 0,
-          "delta": 0
         }
       ]
     },
@@ -4422,7 +4438,7 @@
         "pace_key": "T",
         "hr_name": "Z4 阈值",
         "pace_range": "5:26–5:46",
-        "hr_range": "167–182",
+        "hr_range": "166–182",
         "duration": "约 45 分钟",
         "rationale": "拉升乳酸阈值，强度适中",
         "structure": [
@@ -4478,7 +4494,7 @@
         "name": "轻松有氧",
         "pace_key": "E",
         "hr_name": "Z2 有氧",
-        "pace_range": "6:48–7:36",
+        "pace_range": "6:48–7:37",
         "hr_range": "135–151",
         "duration": "40–50 分钟",
         "rationale": "恢复与有氧基础，低强度",
@@ -4516,7 +4532,7 @@
         "name": "长距离(保守)",
         "pace_key": "E",
         "hr_name": "Z2 有氧",
-        "pace_range": "6:48–7:36",
+        "pace_range": "6:48–7:37",
         "hr_range": "135–151",
         "duration": "70–90 分钟 / 14–16km",
         "rationale": "积累有氧底盘与耐力，慢而稳",
@@ -4536,65 +4552,18 @@
         ],
         "priority": 1
       },
-      "adjusted": {
-        "id": "L",
-        "name": "长距离(保守)",
-        "pace_key": "E",
-        "hr_name": "Z2 有氧",
-        "pace_range": "6:48–7:36",
-        "hr_range": "135–151",
-        "duration": "70–90 分钟 / 14–16km",
-        "rationale": "积累有氧底盘与耐力，慢而稳",
-        "structure": [
-          [
-            "热身",
-            "10 分钟慢跑"
-          ],
-          [
-            "主项",
-            "60–80 分钟 轻松跑，配速 E 区、心率 Z2"
-          ],
-          [
-            "冷身",
-            "5–10 分钟慢走 + 拉伸"
-          ]
-        ],
-        "priority": 1
-      },
-      "change": "kept",
+      "adjusted": null,
+      "change": "none",
       "reason": "",
-      "is_today": true,
-      "is_past": false,
-      "actual": null,
-      "actual_ctx": {
-        "overreach": false,
-        "missed_quality": false,
-        "window": 2,
-        "days": [
-          {
-            "date": "2026-09-23",
-            "planned": "E",
-            "planned_label": "轻松",
-            "actual": "（无记录）",
-            "actual_distance_km": 0,
-            "actual_pace": null,
-            "actual_ord": 0,
-            "planned_ord": 1,
-            "delta": -1
-          },
-          {
-            "date": "2026-09-22",
-            "planned": "rest",
-            "planned_label": "休息",
-            "actual": "（无记录）",
-            "actual_distance_km": 0,
-            "actual_pace": null,
-            "actual_ord": 0,
-            "planned_ord": 0,
-            "delta": 0
-          }
-        ]
-      }
+      "is_today": false,
+      "is_past": true,
+      "actual": {
+        "distance_km": 12.01,
+        "pace": "6:34",
+        "name": "泉州市 跑步",
+        "id": 643480033
+      },
+      "actual_ctx": null
     },
     {
       "date": "2026-09-25",
@@ -4605,10 +4574,38 @@
       "adjusted": null,
       "change": "none",
       "reason": "",
-      "is_today": false,
+      "is_today": true,
       "is_past": false,
       "actual": null,
-      "actual_ctx": null
+      "actual_ctx": {
+        "overreach": false,
+        "missed_quality": true,
+        "window": 2,
+        "days": [
+          {
+            "date": "2026-09-24",
+            "planned": "L",
+            "planned_label": "长距离",
+            "actual": "泉州市 跑步",
+            "actual_distance_km": 12.01,
+            "actual_pace": "6:34",
+            "actual_ord": 1,
+            "planned_ord": 2,
+            "delta": -1
+          },
+          {
+            "date": "2026-09-23",
+            "planned": "E",
+            "planned_label": "轻松",
+            "actual": "（无记录）",
+            "actual_distance_km": 0,
+            "actual_pace": null,
+            "actual_ord": 0,
+            "planned_ord": 1,
+            "delta": -1
+          }
+        ]
+      }
     },
     {
       "date": "2026-09-26",
@@ -4635,7 +4632,7 @@
         "pace_key": "I",
         "hr_name": "Z4 阈值",
         "pace_range": "5:03–5:16",
-        "hr_range": "167–182",
+        "hr_range": "166–182",
         "duration": "约 50 分钟",
         "rationale": "轻量速度刺激，提升跑感与经济性",
         "structure": [
@@ -4675,7 +4672,7 @@
         "pace_key": "T",
         "hr_name": "Z4 阈值",
         "pace_range": "5:26–5:46",
-        "hr_range": "167–182",
+        "hr_range": "166–182",
         "duration": "约 45 分钟",
         "rationale": "拉升乳酸阈值，强度适中",
         "structure": [
@@ -4712,7 +4709,7 @@
         "name": "轻松有氧",
         "pace_key": "E",
         "hr_name": "Z2 有氧",
-        "pace_range": "6:48–7:36",
+        "pace_range": "6:48–7:37",
         "hr_range": "135–151",
         "duration": "40–50 分钟",
         "rationale": "恢复与有氧基础，低强度",
@@ -4764,7 +4761,7 @@
         "name": "长距离(保守)",
         "pace_key": "E",
         "hr_name": "Z2 有氧",
-        "pace_range": "6:48–7:36",
+        "pace_range": "6:48–7:37",
         "hr_range": "135–151",
         "duration": "70–90 分钟 / 14–16km",
         "rationale": "积累有氧底盘与耐力，慢而稳",
@@ -4817,7 +4814,7 @@
         "pace_key": "I",
         "hr_name": "Z4 阈值",
         "pace_range": "5:03–5:16",
-        "hr_range": "167–182",
+        "hr_range": "166–182",
         "duration": "约 50 分钟",
         "rationale": "轻量速度刺激，提升跑感与经济性",
         "structure": [
@@ -4869,99 +4866,147 @@
     "work_anchor": "2026-09-22"
   },
   "post_run": {
-    "activity_id": "642255765",
-    "date": "2026-09-21",
+    "activity_id": "643480033",
+    "date": "2026-09-24",
     "name": "泉州市 跑步",
-    "distance_km": 6.0,
-    "pace_sec": 404,
-    "pace": "6:44",
-    "duration_sec": 2429.0,
-    "duration": "40m29s",
-    "avg_hr": 146.0,
-    "max_hr": 153.0,
-    "calories": 383.0,
-    "elevation_gain": 14.0,
-    "avg_cadence": 170.3,
-    "aerobic_te": 3.0,
+    "distance_km": 12.01,
+    "pace_sec": 394,
+    "pace": "6:34",
+    "duration_sec": 4739.0,
+    "duration": "1h18m",
+    "avg_hr": 143.0,
+    "max_hr": 152.0,
+    "calories": 736.0,
+    "elevation_gain": 15.0,
+    "avg_cadence": 170.5,
+    "aerobic_te": 3.4,
     "anaerobic_te": 0.0,
-    "training_load": 69.2,
+    "training_load": 106.8,
     "vo2_max": null,
     "splits": [
       {
         "km": 1.0,
-        "pace_sec": 403,
-        "pace": "6:43",
-        "hr": 141.0,
-        "cadence": 169.5,
+        "pace_sec": 388,
+        "pace": "6:28",
+        "hr": 136.0,
+        "cadence": 164.3,
         "full_km": true
       },
       {
         "km": 1.0,
-        "pace_sec": 405,
-        "pace": "6:45",
-        "hr": 146.0,
-        "cadence": 170.8,
+        "pace_sec": 394,
+        "pace": "6:34",
+        "hr": 143.0,
+        "cadence": 167.5,
         "full_km": true
       },
       {
         "km": 1.0,
         "pace_sec": 400,
         "pace": "6:40",
-        "hr": 147.0,
-        "cadence": 169.9,
+        "hr": 144.0,
+        "cadence": 167.0,
+        "full_km": true
+      },
+      {
+        "km": 1.0,
+        "pace_sec": 403,
+        "pace": "6:43",
+        "hr": 143.0,
+        "cadence": 168.1,
+        "full_km": true
+      },
+      {
+        "km": 1.0,
+        "pace_sec": 400,
+        "pace": "6:40",
+        "hr": 144.0,
+        "cadence": 170.8,
         "full_km": true
       },
       {
         "km": 1.0,
         "pace_sec": 401,
         "pace": "6:41",
-        "hr": 147.0,
-        "cadence": 171.6,
+        "hr": 143.0,
+        "cadence": 172.1,
         "full_km": true
       },
       {
         "km": 1.0,
-        "pace_sec": 406,
-        "pace": "6:46",
-        "hr": 147.0,
-        "cadence": 169.3,
-        "full_km": true
-      },
-      {
-        "km": 1.0,
-        "pace_sec": 410,
-        "pace": "6:50",
-        "hr": 147.0,
-        "cadence": 170.7,
-        "full_km": true
-      },
-      {
-        "km": 0.0,
-        "pace_sec": 335,
-        "pace": "5:35",
+        "pace_sec": 396,
+        "pace": "6:36",
         "hr": 145.0,
-        "cadence": 170.0,
+        "cadence": 173.5,
+        "full_km": true
+      },
+      {
+        "km": 1.0,
+        "pace_sec": 390,
+        "pace": "6:30",
+        "hr": 145.0,
+        "cadence": 174.2,
+        "full_km": true
+      },
+      {
+        "km": 1.0,
+        "pace_sec": 393,
+        "pace": "6:33",
+        "hr": 145.0,
+        "cadence": 172.0,
+        "full_km": true
+      },
+      {
+        "km": 1.0,
+        "pace_sec": 395,
+        "pace": "6:35",
+        "hr": 144.0,
+        "cadence": 173.1,
+        "full_km": true
+      },
+      {
+        "km": 1.0,
+        "pace_sec": 382,
+        "pace": "6:22",
+        "hr": 145.0,
+        "cadence": 172.7,
+        "full_km": true
+      },
+      {
+        "km": 1.0,
+        "pace_sec": 389,
+        "pace": "6:29",
+        "hr": 145.0,
+        "cadence": 170.2,
+        "full_km": true
+      },
+      {
+        "km": 0.01,
+        "pace_sec": 267,
+        "pace": "4:27",
+        "hr": 143.0,
+        "cadence": 165.0,
         "full_km": false
       }
     ],
-    "pace_cv": 0.8,
-    "pace_fastest": "6:40",
-    "pace_slowest": "6:50",
-    "cardiac_drift_pct": 1.6,
+    "pace_cv": 1.5,
+    "pace_fastest": "6:22",
+    "pace_slowest": "6:43",
+    "cardiac_drift_pct": 1.9,
     "hr_zone_dist": [
       {
         "zone": 1,
         "name": "Z1 恢复",
-        "low": 131,
-        "secs": 2384,
-        "pct": 99.5
+        "low": 132,
+        "secs": 4678,
+        "pct": 100.0
       },
       {
         "zone": 2,
         "name": "Z2 有氧",
         "low": 153,
-        "secs": 12,
-        "pct": 0.5
+        "secs": 0,
+        "pct": 0.0
       },
       {
         "zone": 3,
@@ -4986,32 +5031,32 @@
       }
     ],
     "form": {
-      "cadence_avg": 170.3,
-      "cadence_min": 169.3,
-      "cadence_max": 171.6,
-      "stride_est_m": 0.87,
+      "cadence_avg": 170.5,
+      "cadence_min": 164.3,
+      "cadence_max": 174.2,
+      "stride_est_m": 0.89,
       "running_dynamics": {
-        "stride_length_m": 0.87,
-        "vertical_oscillation_cm": 8.31,
-        "vertical_ratio": 9.53,
-        "ground_contact_ms": 269.4,
-        "cadence_spm": 170.2
+        "stride_length_m": 0.89,
+        "vertical_oscillation_cm": 8.39,
+        "vertical_ratio": 9.42,
+        "ground_contact_ms": 267.7,
+        "cadence_spm": 170.6
       }
     },
-    "te_aerobic": "有氧训练效果 3.0（有效提升）",
+    "te_aerobic": "有氧训练效果 3.4（有效提升）",
     "te_anaerobic": "无氧训练效果 0.0（无效）",
     "suggestions": [
-      "配速一致性极佳（CV 0.8%）：匀速能力强，比赛可直接执行“负分割”（后程比前程快 5–10 秒/km）而不崩。",
-      "心率漂移仅 1.6%：有氧底盘扎实，脂肪供能占比高，马拉松后程不易崩，继续保持堆量。",
+      "配速一致性极佳（CV 1.5%）：匀速能力强，比赛可直接执行“负分割”（后程比前程快 5–10 秒/km）而不崩。",
+      "心率漂移仅 1.9%：有氧底盘扎实，脂肪供能占比高，马拉松后程不易崩，继续保持堆量。",
       "平均步频 170 spm 在高效区间（170–180），保持。",
-      "步幅 0.87 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
-      "垂直振幅 8.3 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
-      "垂直步幅比 9.5% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
-      "触地时间 269 ms 偏长：推进/弹性不足。练法：节奏跑、弹力带髋屈、短促赤足感知（每次 1–2 分钟）、增强小腿与跟腱刚度。",
+      "步幅 0.89 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+      "垂直振幅 8.4 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+      "垂直步幅比 9.4% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+      "触地时间 268 ms 偏长：推进/弹性不足。练法：节奏跑、弹力带髋屈、短促赤足感知（每次 1–2 分钟）、增强小腿与跟腱刚度。",
       "本次 100% 在 Z2 有氧，是典型的打底盘跑，符合基础期定位；要破 1:50，每周还需塞 1–2 次质量课（阈值/间歇）。",
-      "本次训练负荷 69：正常训练刺激，质量课与恢复日交替即可。"
+      "本次训练负荷 107：正常训练刺激，质量课与恢复日交替即可。"
     ],
-    "coaching_summary": "本次6.0km、配速 6:44, 平均心率 146，整体是有氧基础跑。优点：配速稳、心率漂移低、步频高效。可优化：触地偏长——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+    "coaching_summary": "本次12.0km、配速 6:34, 平均心率 143，整体是有氧基础跑。优点：配速稳、心率漂移低、步频高效。可优化：触地偏长——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
   },
   "goal_history": [
     {
@@ -5037,11 +5082,18 @@
       "acute_weekly_km": 24.0,
       "chronic_weekly_km": 26.4,
       "composite": 61
+    },
+    {
+      "date": "2026-09-25",
+      "hm_sec": 7195,
+      "threshold_pace_sec": 326,
+      "acute_weekly_km": 36.0,
+      "chronic_weekly_km": 28.2,
+      "composite": 62
     }
   ],
   "trends": {
     "dates": [
-      "07-27",
       "07-28",
       "07-29",
       "07-30",
@@ -5100,10 +5152,10 @@
       "09-21",
       "09-22",
       "09-23",
-      "09-24"
+      "09-24",
+      "09-25"
     ],
     "sleep_score": [
-      81,
       70,
       63,
       75,
@@ -5162,10 +5214,10 @@
       71,
       58,
       49,
-      77
+      77,
+      65
     ],
     "sleep_hours": [
-      6.7,
       5.6,
       6.2,
       6.3,
@@ -5224,10 +5276,10 @@
       6.8,
       6.6,
       5.9,
-      7.6
+      7.6,
+      4.8
     ],
     "rhr": [
-      41,
       39,
       42,
       42,
@@ -5286,10 +5338,10 @@
       42,
       39,
       44,
-      41
+      41,
+      40
     ],
     "hrv": [
-      107,
       104,
       100,
       98,
@@ -5348,14 +5400,15 @@
       114,
       109,
       85,
-      103
+      103,
+      100
     ]
   },
   "sleep_avg_90d": {
-    "sleep_score": 67.2,
-    "total_seconds_avg": 20321.3,
-    "total_formatted_avg": "5h 38m 41s",
-    "avg_overnight_hrv": 107.7,
+    "sleep_score": 67.1,
+    "total_seconds_avg": 20277.0,
+    "total_formatted_avg": "5h 37m 57s",
+    "avg_overnight_hrv": 107.8,
     "body_battery_high": 82.3,
     "resting_heart_rate": 40.1,
     "days_with_data": 90
@@ -5367,12 +5420,12 @@
       "max": 47.0
     },
     "hrv_last_night_avg": {
-      "avg": 107.7,
+      "avg": 107.8,
       "min": 67.0,
       "max": 127.0
     }
   },
-  "raw_activities_count": 207,
+  "raw_activities_count": 208,
   "activities": [
     {
       "activity_id": 354055651,
@@ -9306,6 +9359,25 @@
       "aerobic_te": 3.0,
       "anaerobic_te": 0.0,
       "pace_sec": 404
+    },
+    {
+      "activity_id": 643480033,
+      "name": "泉州市 跑步",
+      "type": "running",
+      "date": "2026-09-24",
+      "start_time": "2026-09-24 18:45:07",
+      "distance_km": 12.01,
+      "duration_sec": 4739.0,
+      "duration_formatted": "1h 18m 59s",
+      "pace_formatted": "6:34",
+      "avg_hr": 143.0,
+      "max_hr": 152.0,
+      "calories": 736.0,
+      "avg_speed_kmh": 9.1,
+      "elevation_gain": 15.0,
+      "aerobic_te": 3.4,
+      "anaerobic_te": 0.0,
+      "pace_sec": 394
     }
   ]
 }
