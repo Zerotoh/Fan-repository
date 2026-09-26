@@ -51,6 +51,25 @@
   .sig-row .dot{width:8px;height:8px;border-radius:50%;margin-top:7px;flex:0 0 auto}
   .dot.good{background:var(--good)} .dot.warn{background:var(--warn)} .dot.info{background:var(--accent)}
   svg{display:block;width:100%;height:auto}
+  select.postsel{font-size:13px;font-weight:600;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);margin-left:8px}
+  .progress{margin:10px 0}
+  .pbar{display:flex;align-items:center;gap:10px;margin:8px 0}
+  .pbar .pl{width:84px;font-size:13px;color:var(--muted)}
+  .pbar .ptrack{flex:1;height:14px;background:var(--info-bg);border-radius:999px;overflow:hidden}
+  .pbar .pfill{height:100%;background:var(--accent);border-radius:999px}
+  .pbar .ptxt{width:150px;font-size:12px;color:var(--muted);text-align:right}
+  .ef-block{margin-top:14px}
+  .ef-summary{font-size:13px;color:var(--muted);margin-bottom:6px}
+  .feedback{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px}
+  .feedback .frow{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:6px 0}
+  .feedback label{font-size:12px;color:var(--muted)}
+  .feedback input{font-size:13px;padding:5px 8px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+  .feedback button{font-size:13px;font-weight:600;padding:6px 12px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+  .fb-list{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.7}
+  .band{font-size:11px;padding:1px 6px;border-radius:999px;margin-left:4px;vertical-align:middle}
+  .band.up{background:var(--good-bg);color:var(--good)}
+  .band.down{background:var(--bad-bg);color:var(--bad)}
+  .band.flat{background:var(--info-bg);color:var(--accent)}
   table{width:100%;border-collapse:collapse;font-size:13px}
   th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
   th{color:var(--muted);font-weight:600;font-size:12px}
@@ -187,6 +206,14 @@
       <div class="grid g4" id="trendGrid"></div>
       <div class="note">只有数字看不出"是在变好还是变差"，所以把 90 天的原始数据也画出来。每格下方是区间内的最低→最高。</div>
     </div>
+    <div class="card">
+      <h2>跑步效率 EF 趋势 <span class="hint">速度÷心率，同配速心率下降=变强</span></h2>
+      <div class="ef-block">
+        <div class="ef-summary" id="efSummary"></div>
+        <div id="efChart"></div>
+        <div class="note">EF = 配速换算成的速度(m/min) ÷ 平均心率。曲线<b>向上 = 有氧效率在提升</b>（同样配速心率更低，或同样心率能跑更快）。只看户外跑、距离≥3km。</div>
+      </div>
+    </div>
   </section>
 
   <!-- 历史分析 -->
@@ -285,6 +312,10 @@
       <div class="note" id="goalNote"></div>
     </div>
     <div class="card">
+      <h2>本周完成度 <span class="hint">计划 vs 实际</span></h2>
+      <div id="weekProgress"></div>
+    </div>
+    <div class="card">
       <h2>本周训练课表 <span class="hint" id="wkRange"></span></h2>
       <div class="weekgrid" id="weekGrid"></div>
       <div class="legend">
@@ -306,9 +337,12 @@
   <!-- 跑后分析 -->
   <section id="post">
     <div class="card">
-      <h2>最新一次跑步 <span class="hint" id="latestDate"></span></h2>
+      <h2>跑后分析 <span class="hint" id="latestDate"></span>
+        <select class="postsel" id="postSelect"></select>
+      </h2>
       <div class="grid g4" id="postStats"></div>
       <div class="note" id="postVerdict" style="margin-top:14px"></div>
+      <div class="feedback" id="feedbackBox"></div>
     </div>
     <div class="grid g2">
       <div class="card">
@@ -387,6 +421,17 @@ $('updated').textContent = '数据更新于 '+ (D.generated_at||'—') + (CS.las
   }
 })();
 
+// 设备快照陈旧提示：训练日历按真实日期，但恢复 / 睡眠 / 电量信号可能来自更早的设备同步
+(function snapCheck(){
+  const sd = D.state_date, n = D.state_stale_days;
+  if(!sd || n == null || n <= 0) return;
+  const bar=document.createElement('div');
+  bar.className='stale';
+  bar.innerHTML='设备快照停留在 '+sd+'（已 '+n+' 天未同步手表数据）。训练日历与今日课表按真实日期 '+(D.today||'')+
+    ' 显示；下方“当前状态”里的睡眠 / 身体电量 / HRV 仍是 '+sd+' 的旧值，恢复建议仅供参考。';
+  document.querySelector('header.top').insertAdjacentElement('afterend', bar);
+})();
+
 /* ---------- tab nav ---------- */
 document.querySelectorAll('nav.tabs button').forEach(b=>{
   b.onclick=()=>{
@@ -403,13 +448,22 @@ function stateCard(k,v,unit,sub,badgeHtml){
     (badgeHtml?' '+badgeHtml:'')+'</div>'+(sub?'<div class="x">'+sub+'</div>':'')+'</div>';
 }
 const sg=$('stateGrid');
+const tsLvl = (l)=> (l==='Productive'||l==='Recovery'||l==='Maintaining')?'good':(l==='Overreaching'||l==='Detraining'||l==='Unproductive')?'warn':'info';
+const ssScore = CS.status_score;
+const hrvBand = (CS.hrv_recent_avg!=null && CS.hrv_baseline!=null)
+  ? ((CS.hrv_recent_avg - CS.hrv_baseline) >= 0 ? badge('good','高于基线') : badge('warn','低于基线')) : '';
+const sleepBand = (CS.sleep_recent_avg_score!=null && CS.sleep_baseline!=null)
+  ? ((CS.sleep_recent_avg_score - CS.sleep_baseline) >= 0 ? badge('good','高于基线') : badge('warn','低于基线')) : '';
 sg.innerHTML =
+  stateCard('状态分(今日)', ssScore==null?'—':ssScore, '', '每日就绪度', ssScore>=70?badge('good','佳'):(ssScore>=50?badge('info','中'):badge('warn','偏低'))) +
+  stateCard('能力分', AB.composite_score??'—', '', '稳定·历史性能', badge('info','')) +
   stateCard('VO2 Max', CS.vo2_max??'—', '', '有氧能力', CS.vo2_max>=50?badge('good','优秀'):(CS.vo2_max>=45?badge('good','良好'):badge('info','可提升'))) +
-  stateCard('静息心率', CS.resting_hr??'—', 'bpm', '心肺基础', CS.resting_hr<=45?badge('good','优秀'):badge('info','')) +
-  stateCard('训练状态', CS.training_status_label||'—', '', '自 '+(CS.training_status_since||'—'), badge('good','进行中')) +
+  stateCard('静息心率', CS.resting_hr??'—', 'bpm', '基线 '+(CS.rhr_baseline??'—'), CS.resting_hr<=45?badge('good','优秀'):(CS.resting_hr<=55?badge('good','良好'):badge('warn','偏高'))) +
+  stateCard('训练状态', CS.training_status_label||'—', '', '自 '+(CS.training_status_since||'—'), badge(tsLvl(CS.training_status_label), CS.training_status_label||'—')) +
+  stateCard('Form(TSB)', CS.form_tsb==null?'—':CS.form_tsb, '', CS.form_label||'', CS.form_tsb>=0?badge('good','可练'):badge('warn','疲劳')) +
   stateCard('训练负荷 ACWR', CS.acwr_garmin??'—', '', (CS.acwr_status||''), CS.acwr_status==='OPTIMAL'?badge('good','最佳'):(CS.acwr_status==='HIGH'||CS.acwr_status==='VERY_HIGH'?badge('warn','偏高'):badge('info',''))) +
-  stateCard('近7天睡眠评分', CS.sleep_recent_avg_score??'—', '', '90天均值 '+(D.sleep_avg_90d&&D.sleep_avg_90d.sleep_score||'—'), CS.sleep_recent_avg_score>=75?badge('good','良好'):(CS.sleep_recent_avg_score>=60?badge('warn','中等'):badge('warn','不足'))) +
-  stateCard('HRV 近7天', CS.hrv_recent_avg??'—', '', '恢复指标', CS.hrv_recent_avg>=100?badge('good','健康'):badge('info','')) +
+  stateCard('近7天睡眠评分', CS.sleep_recent_avg_score??'—', '', '基线 '+(CS.sleep_baseline??'—')+' '+sleepBand, CS.sleep_recent_avg_score>=75?badge('good','良好'):(CS.sleep_recent_avg_score>=60?badge('warn','中等'):badge('warn','不足'))) +
+  stateCard('HRV 近7天', CS.hrv_recent_avg??'—', '', '基线 '+(CS.hrv_baseline??'—')+' '+hrvBand, CS.hrv_recent_avg>=100?badge('good','健康'):badge('info','')) +
   stateCard('身体电量', CS.body_battery_now??'—', '', '今日峰值 '+(CS.body_battery_high??'—'), CS.body_battery_now<=25?badge('warn','偏低'):(CS.body_battery_now>=50?badge('good','良好'):badge('info',''))) +
   stateCard('本周强度分钟', (CS.intensity_minutes_week??'—'), '', '目标 '+(CS.intensity_minutes_goal??'—'), (CS.intensity_minutes_week&&CS.intensity_minutes_goal&&CS.intensity_minutes_week>=CS.intensity_minutes_goal)?badge('good','已达标'):badge('info',''));
 
@@ -455,6 +509,21 @@ function sparkline(values,color,fmt){
       '<div class="x">60 天均值 '+(avg==null?'—':d.fmt(avg))+'</div>'+
       '<div class="sparkwrap">'+sparkline(d.vals,d.color,d.fmt)+'</div></div>';
   }).join('');
+})();
+
+/* ---------- 跑步效率 EF 趋势（P1c） ---------- */
+(function renderEF(){
+  const ef = D.ef_trend || {};
+  const sum = $('efSummary'); if(!sum) return;
+  const cur = ef.recent_avg, base = ef.baseline, delta = ef.delta;
+  if(cur==null){ sum.innerHTML='数据不足（需要带心率的户外跑记录）'; return; }
+  const arrow = delta==null ? '' :
+    (delta > 0.02 ? (' <span class="band up">↑ 比基线高 '+delta+'（变强）</span>')
+     : (delta < -0.02 ? (' <span class="band down">↓ 比基线低 '+Math.abs(delta)+'（心率偏高/状态下滑）</span>')
+        : ' <span class="band flat">与基线持平</span>'));
+  sum.innerHTML = '近 5 次均值 <b>'+cur+'</b>（m/min ÷ bpm）｜基线 '+base+'｜'+arrow;
+  const tr = (ef.trend||[]).map(r=>({label:r.date.slice(5), value:r.ef}));
+  $('efChart').innerHTML = buildLine(tr,'value','#1f9d55',{w:680,h:200,padL:40});
 })();
 
 /* ---------- 历史 KPI ---------- */
@@ -578,7 +647,7 @@ if(acts.length){
   gc.innerHTML='<div class="g">'+g+'</div><div class="s">'+score+' 分</div>';
   const titleMap={S:'顶尖业余水平',A:'优秀',B:'良好',C:'中等偏上',D:'起步阶段'};
   $('gradeTitle').textContent='综合评级：'+g+'（'+titleMap[g]+'）';
-  $('gradeDesc').textContent='基于 '+ (R.total_runs||0) +' 次历史跑步、VO2 Max、训练负荷与恢复指标综合评估。评级会随数据更新动态变化。';
+  $('gradeDesc').textContent='能力分：基于 '+ (R.total_runs||0) +' 次历史跑步、VO2 Max、训练负荷与静息心率等稳定指标评估，不随单日睡眠/电量波动。每日状态见「当前状态」页的「状态分(今日)」。';
 
   const db=$('dimBars');
   (AB.dimensions||[]).forEach(d=>{
@@ -600,9 +669,10 @@ if(acts.length){
   }else{
     rows.forEach(r=>{
       if(!r[1]) return;
+      const eage = r[1].evidence_age_days;
       const basis = r[1].basis==='direct'
-        ? ('依据 ' + (((r[1].evidence_date||'').slice(5)) || '历史') + ' 的实测表现')
-        : ('由 ' + (r[1].derived_from || '较短距离') + ' 按 Riegel 外推');
+        ? ('依据 ' + (((r[1].evidence_date||'').slice(5)) || '历史') + ' 的实测表现' + (eage!=null?('（'+eage+' 天前）'):''))
+        : ('由 ' + (r[1].derived_from || '较短距离') + ' 按 Riegel 外推' + (eage!=null?('（依据 '+eage+' 天前的实测）'):''));
       rt.innerHTML+='<tr><td>'+r[0]+'</td><td class="num">'+r[1].formatted+'</td>'+
         '<td>'+r[2]+'<div class="hint2">'+basis+'</div></td></tr>';
     });
@@ -771,6 +841,20 @@ function renderDay(d){
     $('wkRange').textContent='（'+WK[0].date+' ~ '+WK[WK.length-1].date+'）';
     WK.forEach(d=>grid.appendChild(renderDay(d)));
   }else grid.innerHTML='<div class="empty">暂无课表数据</div>';
+  // 本周完成度（P2a）
+  const wp=$('weekProgress');
+  if(wp){
+    const days=WK.filter(d=>d && !d.blocked);
+    const planned=days.filter(d=>d.planned);
+    const plannedQ=planned.filter(d=>{const e=d.adjusted||d.planned;return e&&['T','I'].includes(e.id);});
+    const done=days.filter(d=>d.actual&&d.actual.distance_km);
+    const doneQ=plannedQ.filter(d=>d.actual&&d.actual.distance_km);
+    const actualKm=done.reduce((s,d)=>s+(d.actual.distance_km||0),0);
+    const bar=(label,dn,tn)=>{const pct=tn?Math.round(dn/tn*100):0;
+      return '<div class="pbar"><span class="pl">'+label+'</span><span class="ptrack"><i class="pfill" style="width:'+pct+'%"></i></span><span class="ptxt">'+dn+' / '+tn+'（'+pct+'%）</span></div>';};
+    wp.innerHTML=bar('训练次数',done.length,planned.length)+bar('质量课',doneQ.length,plannedQ.length)+
+      '<div class="ef-summary">本周实跑里程合计 <b>'+actualKm.toFixed(1)+' km</b>（仅统计已过天数里的实际完成）</div>';
+  }
   // 下周预告
   const nl=$('nextList');
   nl.innerHTML='';
@@ -835,8 +919,24 @@ function renderDay(d){
   $('goalNote').innerHTML=note;
 })();
 
-/* ---------- 跑后分析 ---------- */
-(function renderPost(){
+/* ---------- 跑后分析（支持历史场次 + 主观反馈） ---------- */
+const POSTS = D.post_runs || [];
+(function initPostSelect(){
+  const sel=$('postSelect');
+  if(!sel) return;
+  if(!POSTS.length){ sel.style.display='none'; return; }
+  POSTS.forEach((p,i)=>{
+    const o=document.createElement('option');
+    o.value=i;
+    o.textContent=(p.date||'')+' · '+(p.name||'跑步')+' · '+(p.distance_km!=null?p.distance_km+'km ':'')+(p.pace||'');
+    sel.appendChild(o);
+  });
+  if (sel.addEventListener) {
+    sel.addEventListener('change', ()=>{ renderPostObj(POSTS[+sel.value]); });
+  }
+})();
+(function renderPost(){ renderPostObj(PO || (POSTS[0]||null)); })();
+function renderPostObj(PO){
   if(!PO){
     $('postStats').innerHTML='<div class="empty">暂无活动明细数据（运行同步后刷新）</div>';
     return;
@@ -924,7 +1024,48 @@ function renderDay(d){
       sg.appendChild(div);
     });
   }else sg.innerHTML='<div class="empty">暂无建议</div>';
-})();
+  renderFeedback(PO);
+}
+
+/* 主观反馈（P2c）：RPE / 体重 / 伤痛，存 localStorage，按日期关联，不上传 */
+function renderFeedback(pr){
+  const box=$('feedbackBox'); if(!box) return;
+  const date=pr && pr.date;
+  if(!date){ box.innerHTML=''; return; }
+  let saved={};
+  try{ if(typeof localStorage!=='undefined') saved=JSON.parse(localStorage.getItem('runfb_'+date)||'{}'); }catch(e){ saved={}; }
+  box.innerHTML=
+    '<div class="frow"><b style="font-size:13px">主观反馈（'+date+'）</b> <span class="ef-summary">存本地浏览器，不会上传</span></div>'+
+    '<div class="frow">'+
+      '<label>RPE <input id="fbRpe" type="number" min="1" max="10" value="'+(saved.rpe||'')+'" style="width:52px"></label>'+
+      '<label>体重kg <input id="fbWeight" type="number" step="0.1" value="'+(saved.weight||'')+'" style="width:62px"></label>'+
+      '<input id="fbInjury" type="text" placeholder="伤痛/备注" value="'+(saved.injury||'')+'" style="width:150px">'+
+      '<button id="fbSave">保存</button>'+
+    '</div>'+
+    '<div class="fb-list" id="fbList"></div>';
+  $('fbSave').onclick=function(){
+    const data={ rpe:$('fbRpe').value||null, weight:$('fbWeight').value||null,
+      injury:$('fbInjury').value||'', ts:new Date().toISOString() };
+    try{ localStorage.setItem('runfb_'+date, JSON.stringify(data)); }catch(e){}
+    renderFeedbackList();
+  };
+  renderFeedbackList();
+}
+function renderFeedbackList(){
+  const el=$('fbList'); if(!el) return;
+  if(typeof localStorage==='undefined'){ el.innerHTML='（当前环境不支持本地存储）'; return; }
+  const items=[];
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k && k.indexOf('runfb_')===0){
+      try{ const v=JSON.parse(localStorage.getItem(k)); items.push({date:k.slice(6), v}); }catch(e){}
+    }
+  }
+  items.sort((a,b)=>b.date.localeCompare(a.date));
+  el.innerHTML=items.length? ('已记录 '+items.length+' 次：'+items.slice(0,5).map(it=>
+    (it.date+' RPE '+(it.v.rpe||'-')+(it.v.weight?(' '+it.v.weight+'kg'):'')+(it.v.injury?(' · '+it.v.injury):''))
+  ).join(' ｜ ')) : '暂无记录（RPE 1-10：越高代表越疲劳）';
+}
 </script>
 </body>
 </html>

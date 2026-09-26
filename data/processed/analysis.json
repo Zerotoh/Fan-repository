@@ -1,5 +1,8 @@
 {
-  "generated_at": "2026-09-25 02:20",
+  "generated_at": "2026-09-26 12:05",
+  "today": "2026-09-26",
+  "state_date": "2026-09-26",
+  "state_stale_days": 0,
   "runs": {
     "total_runs": 208,
     "total_distance_km": 1503.5,
@@ -200,11 +203,11 @@
     "avg_hr": 152.0,
     "max_hr_recorded": 198.0,
     "long_runs_count": 7,
-    "acwr_volume": 1.28,
-    "acute_weekly_km": 36.0,
+    "acwr_volume": 0.64,
+    "acute_weekly_km": 18.0,
     "chronic_weekly_km": 28.2,
     "acwr_window": "7d/28d",
-    "acwr_anchor": "2026-09-25",
+    "acwr_anchor": "2026-09-26",
     "runs_per_week": 3.27,
     "weekly_dist_cv": 47.6,
     "weekly_dist_cv_weeks": [
@@ -4184,26 +4187,30 @@
         "formatted": "26m07s",
         "basis": "direct",
         "evidence_date": "2026-08-10",
-        "evidence_sec": 1555
+        "evidence_sec": 1555,
+        "evidence_age_days": 47
       },
       "10K": {
         "sec": 3261,
         "formatted": "54m21s",
         "basis": "direct",
         "evidence_date": "2026-08-04",
-        "evidence_sec": 3233
+        "evidence_sec": 3233,
+        "evidence_age_days": 53
       },
       "半马": {
-        "sec": 7195,
+        "sec": 7196,
         "formatted": "1h59m",
         "basis": "derived",
-        "derived_from": "10K"
+        "derived_from": "10K",
+        "evidence_age_days": 53
       },
       "全马": {
-        "sec": 15000,
+        "sec": 15003,
         "formatted": "4h10m",
         "basis": "derived",
-        "derived_from": "10K"
+        "derived_from": "10K",
+        "evidence_age_days": 53
       }
     },
     "threshold_pace_sec": 326,
@@ -4243,27 +4250,27 @@
     "hr_zones": [
       {
         "name": "Z1 恢复",
-        "lo": 119,
-        "hi": 135
+        "lo": 122,
+        "hi": 137
       },
       {
         "name": "Z2 有氧",
-        "lo": 135,
-        "hi": 151
+        "lo": 137,
+        "hi": 152
       },
       {
         "name": "Z3 马拉松",
-        "lo": 151,
-        "hi": 166
+        "lo": 152,
+        "hi": 167
       },
       {
         "name": "Z4 阈值",
-        "lo": 166,
-        "hi": 182
+        "lo": 167,
+        "hi": 183
       },
       {
         "name": "Z5 无氧",
-        "lo": 182,
+        "lo": 183,
         "hi": 198
       }
     ],
@@ -4272,7 +4279,7 @@
         "key": "aerobic",
         "name": "有氧底盘",
         "score": 56,
-        "desc": "周均里程 28km，ACWR 0.7"
+        "desc": "周均里程 28km，ACWR 0.6"
       },
       {
         "key": "speed",
@@ -4289,36 +4296,41 @@
       {
         "key": "recovery",
         "name": "恢复能力",
-        "score": 67,
-        "desc": "静息心率 40 bpm · HRV 102（基线 107） · 睡眠 61"
+        "score": 70,
+        "desc": "静息心率 45 bpm"
       }
     ],
-    "composite_score": 62,
+    "composite_score": 63,
     "grade": "C"
   },
   "current_state": {
-    "training_status_label": "Maintaining",
-    "training_status_since": "2026-09-21",
+    "training_status_label": "Recovery",
+    "training_status_since": "2026-09-26",
     "vo2_max": 51.0,
-    "resting_hr": 40,
-    "acwr_garmin": 0.7,
+    "resting_hr": 45,
+    "acwr_garmin": 0.6,
     "acwr_status": "LOW",
-    "acute_load": 270,
-    "chronic_load": 372,
-    "sleep_recent_avg_score": 60.7,
-    "hrv_recent_avg": 102.1,
-    "body_battery_now": 49,
-    "body_battery_high": 67,
-    "sleep_today_seconds": 17340,
+    "acute_load": 221,
+    "chronic_load": 358,
+    "sleep_recent_avg_score": 63.6,
+    "hrv_recent_avg": 102.4,
+    "body_battery_now": 60,
+    "body_battery_high": 64,
+    "sleep_today_seconds": 23700,
     "intensity_minutes_week": 248,
     "intensity_minutes_goal": 300,
-    "today_distance_km": 1.2,
-    "today_steps": 1634,
-    "last_sync": "2026-09-25T02:16:52.546",
+    "today_distance_km": 0.9,
+    "today_steps": 1206,
+    "last_sync": "2026-09-26T01:48:24.308",
+    "hrv_baseline": 109.1,
+    "sleep_baseline": 68.1,
+    "rhr_baseline": 39.7,
+    "form_tsb": 137,
+    "form_label": "状态充沛（可冲强度）",
     "signals": [
       {
         "name": "训练负荷",
-        "desc": "ACWR 0.7 偏低/不足，可酌情增量",
+        "desc": "ACWR 0.6 偏低/不足，可酌情增量",
         "level": "info"
       },
       {
@@ -4328,27 +4340,23 @@
       },
       {
         "name": "静息心率",
-        "desc": "40 bpm，心肺基础优秀、恢复底子好",
+        "desc": "45 bpm，心肺基础优秀、恢复底子好",
         "level": "good"
       },
       {
         "name": "睡眠评分",
-        "desc": "近7天均值 61，偏中等，有改善空间",
-        "level": "warn"
-      },
-      {
-        "name": "昨夜睡眠",
-        "desc": "仅 4.8 小时，明显不足，今日宜低强度",
+        "desc": "近7天均值 64，偏中等，有改善空间",
         "level": "warn"
       }
-    ]
+    ],
+    "status_score": 75
   },
   "plan": {
-    "date": "2026-09-25",
-    "readiness_score": 55,
+    "date": "2026-09-26",
+    "readiness_score": 75,
     "session_type": "rest",
     "long_fatigue": false,
-    "days_since_last_run": 1,
+    "days_since_last_run": 2,
     "fatigue_run": null,
     "title": "休息日 / 主动恢复",
     "target_pace": "—",
@@ -4364,27 +4372,27 @@
     "factors": [
       {
         "name": "昨夜睡眠",
-        "value": "4.8h 严重不足",
-        "level": "bad"
+        "value": "6.6h 充足",
+        "level": "good"
       },
       {
         "name": "近期睡眠评分",
-        "value": "61 偏低",
+        "value": "64 偏低",
         "level": "warn"
       },
       {
         "name": "身体电量",
-        "value": "当前 49",
-        "level": "info"
+        "value": "当前 60 良好",
+        "level": "good"
       },
       {
         "name": "训练负荷",
-        "value": "ACWR 0.7 可加量",
+        "value": "ACWR 0.6 可加量",
         "level": "good"
       },
       {
         "name": "训练状态",
-        "value": "Maintaining",
+        "value": "Recovery",
         "level": "info"
       }
     ],
@@ -4393,6 +4401,17 @@
       "missed_quality": true,
       "window": 2,
       "days": [
+        {
+          "date": "2026-09-25",
+          "planned": "rest",
+          "planned_label": "休息",
+          "actual": "（无记录）",
+          "actual_distance_km": 0,
+          "actual_pace": null,
+          "actual_ord": 0,
+          "planned_ord": 0,
+          "delta": 0
+        },
         {
           "date": "2026-09-24",
           "planned": "L",
@@ -4403,28 +4422,17 @@
           "actual_ord": 1,
           "planned_ord": 2,
           "delta": -1
-        },
-        {
-          "date": "2026-09-23",
-          "planned": "E",
-          "planned_label": "轻松",
-          "actual": "（无记录）",
-          "actual_distance_km": 0,
-          "actual_pace": null,
-          "actual_ord": 0,
-          "planned_ord": 1,
-          "delta": -1
         }
       ]
     },
-    "phase": "build_perm",
-    "phase_label": "永续强化期",
-    "weeks_left": null,
-    "goal_target_time": null,
-    "goal_target_minutes": null,
+    "phase": "base",
+    "phase_label": "基础期(打底盘)",
+    "weeks_left": 14,
+    "goal_target_time": "1:50:00",
+    "goal_target_minutes": 110,
     "goal_projected_str": "1h59m",
     "goal_projected_min": 119,
-    "goal_gap_min": null
+    "goal_gap_min": 9
   },
   "plan_week": [
     {
@@ -4438,7 +4446,7 @@
         "pace_key": "T",
         "hr_name": "Z4 阈值",
         "pace_range": "5:26–5:46",
-        "hr_range": "166–182",
+        "hr_range": "167–183",
         "duration": "约 45 分钟",
         "rationale": "拉升乳酸阈值，强度适中",
         "structure": [
@@ -4495,7 +4503,7 @@
         "pace_key": "E",
         "hr_name": "Z2 有氧",
         "pace_range": "6:48–7:37",
-        "hr_range": "135–151",
+        "hr_range": "137–152",
         "duration": "40–50 分钟",
         "rationale": "恢复与有氧基础，低强度",
         "structure": [
@@ -4533,7 +4541,7 @@
         "pace_key": "E",
         "hr_name": "Z2 有氧",
         "pace_range": "6:48–7:37",
-        "hr_range": "135–151",
+        "hr_range": "137–152",
         "duration": "70–90 分钟 / 14–16km",
         "rationale": "积累有氧底盘与耐力，慢而稳",
         "structure": [
@@ -4574,38 +4582,10 @@
       "adjusted": null,
       "change": "none",
       "reason": "",
-      "is_today": true,
-      "is_past": false,
+      "is_today": false,
+      "is_past": true,
       "actual": null,
-      "actual_ctx": {
-        "overreach": false,
-        "missed_quality": true,
-        "window": 2,
-        "days": [
-          {
-            "date": "2026-09-24",
-            "planned": "L",
-            "planned_label": "长距离",
-            "actual": "泉州市 跑步",
-            "actual_distance_km": 12.01,
-            "actual_pace": "6:34",
-            "actual_ord": 1,
-            "planned_ord": 2,
-            "delta": -1
-          },
-          {
-            "date": "2026-09-23",
-            "planned": "E",
-            "planned_label": "轻松",
-            "actual": "（无记录）",
-            "actual_distance_km": 0,
-            "actual_pace": null,
-            "actual_ord": 0,
-            "planned_ord": 1,
-            "delta": -1
-          }
-        ]
-      }
+      "actual_ctx": null
     },
     {
       "date": "2026-09-26",
@@ -4616,10 +4596,38 @@
       "adjusted": null,
       "change": "none",
       "reason": "",
-      "is_today": false,
+      "is_today": true,
       "is_past": false,
       "actual": null,
-      "actual_ctx": null
+      "actual_ctx": {
+        "overreach": false,
+        "missed_quality": true,
+        "window": 2,
+        "days": [
+          {
+            "date": "2026-09-25",
+            "planned": "rest",
+            "planned_label": "休息",
+            "actual": "（无记录）",
+            "actual_distance_km": 0,
+            "actual_pace": null,
+            "actual_ord": 0,
+            "planned_ord": 0,
+            "delta": 0
+          },
+          {
+            "date": "2026-09-24",
+            "planned": "L",
+            "planned_label": "长距离",
+            "actual": "泉州市 跑步",
+            "actual_distance_km": 12.01,
+            "actual_pace": "6:34",
+            "actual_ord": 1,
+            "planned_ord": 2,
+            "delta": -1
+          }
+        ]
+      }
     },
     {
       "date": "2026-09-27",
@@ -4632,7 +4640,7 @@
         "pace_key": "I",
         "hr_name": "Z4 阈值",
         "pace_range": "5:03–5:16",
-        "hr_range": "166–182",
+        "hr_range": "167–183",
         "duration": "约 50 分钟",
         "rationale": "轻量速度刺激，提升跑感与经济性",
         "structure": [
@@ -4672,7 +4680,7 @@
         "pace_key": "T",
         "hr_name": "Z4 阈值",
         "pace_range": "5:26–5:46",
-        "hr_range": "166–182",
+        "hr_range": "167–183",
         "duration": "约 45 分钟",
         "rationale": "拉升乳酸阈值，强度适中",
         "structure": [
@@ -4710,7 +4718,7 @@
         "pace_key": "E",
         "hr_name": "Z2 有氧",
         "pace_range": "6:48–7:37",
-        "hr_range": "135–151",
+        "hr_range": "137–152",
         "duration": "40–50 分钟",
         "rationale": "恢复与有氧基础，低强度",
         "structure": [
@@ -4762,7 +4770,7 @@
         "pace_key": "E",
         "hr_name": "Z2 有氧",
         "pace_range": "6:48–7:37",
-        "hr_range": "135–151",
+        "hr_range": "137–152",
         "duration": "70–90 分钟 / 14–16km",
         "rationale": "积累有氧底盘与耐力，慢而稳",
         "structure": [
@@ -4814,7 +4822,7 @@
         "pace_key": "I",
         "hr_name": "Z4 阈值",
         "pace_range": "5:03–5:16",
-        "hr_range": "166–182",
+        "hr_range": "167–183",
         "duration": "约 50 分钟",
         "rationale": "轻量速度刺激，提升跑感与经济性",
         "structure": [
@@ -4858,12 +4866,14 @@
   ],
   "plan_config": {
     "goal": "half_marathon_pb",
-    "goal_label": "半程马拉松 PB",
+    "goal_label": "半马跑进1:50",
     "race_distance_km": 21.0975,
-    "race_date": null,
+    "race_date": "2027-01-01",
     "runs_per_week": 4,
     "work_pattern": "2on2off",
-    "work_anchor": "2026-09-22"
+    "work_anchor": "2026-09-22",
+    "goal_target_time": "1:50:00",
+    "goal_target_minutes": 110
   },
   "post_run": {
     "activity_id": "643480033",
@@ -5058,15 +5068,626 @@
     ],
     "coaching_summary": "本次12.0km、配速 6:34, 平均心率 143，整体是有氧基础跑。优点：配速稳、心率漂移低、步频高效。可优化：触地偏长——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
   },
-  "goal_history": [
+  "post_runs": [
     {
-      "date": "2026-09-22",
-      "hm_sec": 7191,
-      "threshold_pace_sec": 326,
-      "acute_weekly_km": 30.0,
-      "chronic_weekly_km": 28.4,
-      "composite": 67
+      "activity_id": "633633486",
+      "date": "2026-08-30",
+      "name": "泉州市 - 基础训练",
+      "distance_km": 8.03,
+      "pace_sec": 355,
+      "pace": "5:55",
+      "duration_sec": 2859.0,
+      "duration": "47m39s",
+      "avg_hr": 159.0,
+      "max_hr": 170.0,
+      "calories": 522.0,
+      "elevation_gain": 12.0,
+      "avg_cadence": null,
+      "aerobic_te": 4.0,
+      "anaerobic_te": 0.0,
+      "training_load": null,
+      "vo2_max": null,
+      "splits": [],
+      "pace_cv": null,
+      "pace_fastest": null,
+      "pace_slowest": null,
+      "cardiac_drift_pct": null,
+      "hr_zone_dist": [],
+      "form": {
+        "cadence_avg": null,
+        "cadence_min": null,
+        "cadence_max": null,
+        "stride_est_m": null,
+        "running_dynamics": null
+      },
+      "te_aerobic": "有氧训练效果 4.0（显著提升）",
+      "te_anaerobic": "无氧训练效果 0.0（无效）",
+      "suggestions": [
+        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。",
+        "有氧训练效果 4.0 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。"
+      ],
+      "coaching_summary": "本次8.0km、配速 5:55, 平均心率 159，整体是一次高质量刺激。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
     },
+    {
+      "activity_id": "634365555",
+      "date": "2026-09-01",
+      "name": "泉州市 - 恢复",
+      "distance_km": 12.01,
+      "pace_sec": 408,
+      "pace": "6:48",
+      "duration_sec": 4904.0,
+      "duration": "1h21m",
+      "avg_hr": 142.0,
+      "max_hr": 154.0,
+      "calories": 737.0,
+      "elevation_gain": 19.0,
+      "avg_cadence": null,
+      "aerobic_te": 3.3,
+      "anaerobic_te": 0.0,
+      "training_load": null,
+      "vo2_max": null,
+      "splits": [],
+      "pace_cv": null,
+      "pace_fastest": null,
+      "pace_slowest": null,
+      "cardiac_drift_pct": null,
+      "hr_zone_dist": [],
+      "form": {
+        "cadence_avg": null,
+        "cadence_min": null,
+        "cadence_max": null,
+        "stride_est_m": null,
+        "running_dynamics": null
+      },
+      "te_aerobic": "有氧训练效果 3.3（有效提升）",
+      "te_anaerobic": "无氧训练效果 0.0（无效）",
+      "suggestions": [
+        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。"
+      ],
+      "coaching_summary": "本次12.0km、配速 6:48, 平均心率 142，整体是恢复性慢跑。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+    },
+    {
+      "activity_id": "635490056",
+      "date": "2026-09-04",
+      "name": "泉州市 - 无氧效果",
+      "distance_km": 10.01,
+      "pace_sec": 362,
+      "pace": "6:02",
+      "duration_sec": 3629.0,
+      "duration": "1h00m",
+      "avg_hr": 161.0,
+      "max_hr": 198.0,
+      "calories": 635.0,
+      "elevation_gain": 15.0,
+      "avg_cadence": null,
+      "aerobic_te": 4.3,
+      "anaerobic_te": 3.2,
+      "training_load": null,
+      "vo2_max": null,
+      "splits": [],
+      "pace_cv": null,
+      "pace_fastest": null,
+      "pace_slowest": null,
+      "cardiac_drift_pct": null,
+      "hr_zone_dist": [],
+      "form": {
+        "cadence_avg": null,
+        "cadence_min": null,
+        "cadence_max": null,
+        "stride_est_m": null,
+        "running_dynamics": null
+      },
+      "te_aerobic": "有氧训练效果 4.3（显著提升）",
+      "te_anaerobic": "无氧训练效果 3.2（有效提升）",
+      "suggestions": [
+        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。",
+        "有氧训练效果 4.3 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。"
+      ],
+      "coaching_summary": "本次10.0km、配速 6:02, 平均心率 161，整体是一次高质量刺激。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+    },
+    {
+      "activity_id": "635915593",
+      "date": "2026-09-05",
+      "name": "泉州市 跑步",
+      "distance_km": 11.2,
+      "pace_sec": 400,
+      "pace": "6:40",
+      "duration_sec": 4488.0,
+      "duration": "1h14m",
+      "avg_hr": 145.0,
+      "max_hr": 154.0,
+      "calories": 696.0,
+      "elevation_gain": 19.0,
+      "avg_cadence": null,
+      "aerobic_te": 3.4,
+      "anaerobic_te": 0.0,
+      "training_load": null,
+      "vo2_max": null,
+      "splits": [],
+      "pace_cv": null,
+      "pace_fastest": null,
+      "pace_slowest": null,
+      "cardiac_drift_pct": null,
+      "hr_zone_dist": [],
+      "form": {
+        "cadence_avg": null,
+        "cadence_min": null,
+        "cadence_max": null,
+        "stride_est_m": null,
+        "running_dynamics": null
+      },
+      "te_aerobic": "有氧训练效果 3.4（有效提升）",
+      "te_anaerobic": "无氧训练效果 0.0（无效）",
+      "suggestions": [
+        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。"
+      ],
+      "coaching_summary": "本次11.2km、配速 6:40, 平均心率 145，整体是恢复性慢跑。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+    },
+    {
+      "activity_id": "636720331",
+      "date": "2026-09-07",
+      "name": "泉州市 - 恢复",
+      "distance_km": 4.51,
+      "pace_sec": 432,
+      "pace": "7:12",
+      "duration_sec": 1951.0,
+      "duration": "32m31s",
+      "avg_hr": 126.0,
+      "max_hr": 135.0,
+      "calories": 268.0,
+      "elevation_gain": 5.0,
+      "avg_cadence": null,
+      "aerobic_te": 2.2,
+      "anaerobic_te": 0.0,
+      "training_load": null,
+      "vo2_max": null,
+      "splits": [],
+      "pace_cv": null,
+      "pace_fastest": null,
+      "pace_slowest": null,
+      "cardiac_drift_pct": null,
+      "hr_zone_dist": [],
+      "form": {
+        "cadence_avg": null,
+        "cadence_min": null,
+        "cadence_max": null,
+        "stride_est_m": null,
+        "running_dynamics": null
+      },
+      "te_aerobic": "有氧训练效果 2.2（小幅提升）",
+      "te_anaerobic": "无氧训练效果 0.0（无效）",
+      "suggestions": [
+        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。"
+      ],
+      "coaching_summary": "本次4.5km、配速 7:12, 平均心率 126，整体是恢复性慢跑。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+    },
+    {
+      "activity_id": "637057645",
+      "date": "2026-09-08",
+      "name": "泉州市 - 乳酸阈值",
+      "distance_km": 6.66,
+      "pace_sec": 324,
+      "pace": "5:24",
+      "duration_sec": 2158.0,
+      "duration": "35m58s",
+      "avg_hr": 165.0,
+      "max_hr": 185.0,
+      "calories": 413.0,
+      "elevation_gain": 9.0,
+      "avg_cadence": null,
+      "aerobic_te": 4.1,
+      "anaerobic_te": 0.2,
+      "training_load": null,
+      "vo2_max": null,
+      "splits": [],
+      "pace_cv": null,
+      "pace_fastest": null,
+      "pace_slowest": null,
+      "cardiac_drift_pct": null,
+      "hr_zone_dist": [],
+      "form": {
+        "cadence_avg": null,
+        "cadence_min": null,
+        "cadence_max": null,
+        "stride_est_m": null,
+        "running_dynamics": null
+      },
+      "te_aerobic": "有氧训练效果 4.1（显著提升）",
+      "te_anaerobic": "无氧训练效果 0.2（无效）",
+      "suggestions": [
+        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。",
+        "有氧训练效果 4.1 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。"
+      ],
+      "coaching_summary": "本次6.7km、配速 5:24, 平均心率 165，整体是一次高质量刺激。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+    },
+    {
+      "activity_id": "639494648",
+      "date": "2026-09-14",
+      "name": "泉州市 跑步",
+      "distance_km": 10.01,
+      "pace_sec": 371,
+      "pace": "6:11",
+      "duration_sec": 3715.0,
+      "duration": "1h01m",
+      "avg_hr": 148.0,
+      "max_hr": 159.0,
+      "calories": 622.0,
+      "elevation_gain": 25.0,
+      "avg_cadence": null,
+      "aerobic_te": 3.7,
+      "anaerobic_te": 0.0,
+      "training_load": null,
+      "vo2_max": null,
+      "splits": [],
+      "pace_cv": null,
+      "pace_fastest": null,
+      "pace_slowest": null,
+      "cardiac_drift_pct": null,
+      "hr_zone_dist": [],
+      "form": {
+        "cadence_avg": null,
+        "cadence_min": null,
+        "cadence_max": null,
+        "stride_est_m": null,
+        "running_dynamics": null
+      },
+      "te_aerobic": "有氧训练效果 3.7（有效提升）",
+      "te_anaerobic": "无氧训练效果 0.0（无效）",
+      "suggestions": [
+        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。"
+      ],
+      "coaching_summary": "本次10.0km、配速 6:11, 平均心率 148，整体是恢复性慢跑。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+    },
+    {
+      "activity_id": "639940273",
+      "date": "2026-09-15",
+      "name": "泉州市 - 阈值训练",
+      "distance_km": 8.21,
+      "pace_sec": 326,
+      "pace": "5:26",
+      "duration_sec": 2684.0,
+      "duration": "44m44s",
+      "avg_hr": 168.0,
+      "max_hr": 189.0,
+      "calories": 507.0,
+      "elevation_gain": 16.0,
+      "avg_cadence": null,
+      "aerobic_te": 4.7,
+      "anaerobic_te": 0.4,
+      "training_load": null,
+      "vo2_max": null,
+      "splits": [],
+      "pace_cv": null,
+      "pace_fastest": null,
+      "pace_slowest": null,
+      "cardiac_drift_pct": null,
+      "hr_zone_dist": [],
+      "form": {
+        "cadence_avg": null,
+        "cadence_min": null,
+        "cadence_max": null,
+        "stride_est_m": null,
+        "running_dynamics": null
+      },
+      "te_aerobic": "有氧训练效果 4.7（显著提升）",
+      "te_anaerobic": "无氧训练效果 0.4（无效）",
+      "suggestions": [
+        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。",
+        "有氧训练效果 4.7 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。"
+      ],
+      "coaching_summary": "本次8.2km、配速 5:26, 平均心率 168，整体是一次高质量刺激。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+    },
+    {
+      "activity_id": "640319982",
+      "date": "2026-09-16",
+      "name": "泉州市 跑步",
+      "distance_km": 6.0,
+      "pace_sec": 451,
+      "pace": "7:31",
+      "duration_sec": 2714.0,
+      "duration": "45m14s",
+      "avg_hr": 128.0,
+      "max_hr": 136.0,
+      "calories": 354.0,
+      "elevation_gain": 12.0,
+      "avg_cadence": null,
+      "aerobic_te": 2.3,
+      "anaerobic_te": 0.0,
+      "training_load": null,
+      "vo2_max": null,
+      "splits": [],
+      "pace_cv": null,
+      "pace_fastest": null,
+      "pace_slowest": null,
+      "cardiac_drift_pct": null,
+      "hr_zone_dist": [],
+      "form": {
+        "cadence_avg": null,
+        "cadence_min": null,
+        "cadence_max": null,
+        "stride_est_m": null,
+        "running_dynamics": null
+      },
+      "te_aerobic": "有氧训练效果 2.3（小幅提升）",
+      "te_anaerobic": "无氧训练效果 0.0（无效）",
+      "suggestions": [
+        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。"
+      ],
+      "coaching_summary": "本次6.0km、配速 7:31, 平均心率 128，整体是恢复性慢跑。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+    },
+    {
+      "activity_id": "641563088",
+      "date": "2026-09-19",
+      "name": "泉州市 跑步",
+      "distance_km": 18.0,
+      "pace_sec": 393,
+      "pace": "6:33",
+      "duration_sec": 7084.0,
+      "duration": "1h58m",
+      "avg_hr": 155.0,
+      "max_hr": 170.0,
+      "calories": 1155.0,
+      "elevation_gain": 30.0,
+      "avg_cadence": null,
+      "aerobic_te": 4.2,
+      "anaerobic_te": 0.0,
+      "training_load": null,
+      "vo2_max": null,
+      "splits": [],
+      "pace_cv": null,
+      "pace_fastest": null,
+      "pace_slowest": null,
+      "cardiac_drift_pct": null,
+      "hr_zone_dist": [],
+      "form": {
+        "cadence_avg": null,
+        "cadence_min": null,
+        "cadence_max": null,
+        "stride_est_m": null,
+        "running_dynamics": null
+      },
+      "te_aerobic": "有氧训练效果 4.2（显著提升）",
+      "te_anaerobic": "无氧训练效果 0.0（无效）",
+      "suggestions": [
+        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。",
+        "有氧训练效果 4.2 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。",
+        "本次 18km 长距离，身体需要 48–72h 修复：接下来两天以 Z2 轻松/休息为主，别连质量课。"
+      ],
+      "coaching_summary": "本次18.0km、配速 6:33, 平均心率 155，整体是一次高质量刺激。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+    },
+    {
+      "activity_id": "642255765",
+      "date": "2026-09-21",
+      "name": "泉州市 跑步",
+      "distance_km": 6.0,
+      "pace_sec": 404,
+      "pace": "6:44",
+      "duration_sec": 2429.0,
+      "duration": "40m29s",
+      "avg_hr": 146.0,
+      "max_hr": 153.0,
+      "calories": 383.0,
+      "elevation_gain": 14.0,
+      "avg_cadence": null,
+      "aerobic_te": 3.0,
+      "anaerobic_te": 0.0,
+      "training_load": null,
+      "vo2_max": null,
+      "splits": [],
+      "pace_cv": null,
+      "pace_fastest": null,
+      "pace_slowest": null,
+      "cardiac_drift_pct": null,
+      "hr_zone_dist": [],
+      "form": {
+        "cadence_avg": null,
+        "cadence_min": null,
+        "cadence_max": null,
+        "stride_est_m": null,
+        "running_dynamics": null
+      },
+      "te_aerobic": "有氧训练效果 3.0（有效提升）",
+      "te_anaerobic": "无氧训练效果 0.0（无效）",
+      "suggestions": [
+        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。"
+      ],
+      "coaching_summary": "本次6.0km、配速 6:44, 平均心率 146，整体是恢复性慢跑。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+    },
+    {
+      "activity_id": "643480033",
+      "date": "2026-09-24",
+      "name": "泉州市 跑步",
+      "distance_km": 12.01,
+      "pace_sec": 394,
+      "pace": "6:34",
+      "duration_sec": 4739.0,
+      "duration": "1h18m",
+      "avg_hr": 143.0,
+      "max_hr": 152.0,
+      "calories": 736.0,
+      "elevation_gain": 15.0,
+      "avg_cadence": 170.5,
+      "aerobic_te": 3.4,
+      "anaerobic_te": 0.0,
+      "training_load": 106.8,
+      "vo2_max": null,
+      "splits": [
+        {
+          "km": 1.0,
+          "pace_sec": 388,
+          "pace": "6:28",
+          "hr": 136.0,
+          "cadence": 164.3,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 394,
+          "pace": "6:34",
+          "hr": 143.0,
+          "cadence": 167.5,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 400,
+          "pace": "6:40",
+          "hr": 144.0,
+          "cadence": 167.0,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 403,
+          "pace": "6:43",
+          "hr": 143.0,
+          "cadence": 168.1,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 400,
+          "pace": "6:40",
+          "hr": 144.0,
+          "cadence": 170.8,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 401,
+          "pace": "6:41",
+          "hr": 143.0,
+          "cadence": 172.1,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 396,
+          "pace": "6:36",
+          "hr": 145.0,
+          "cadence": 173.5,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 390,
+          "pace": "6:30",
+          "hr": 145.0,
+          "cadence": 174.2,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 393,
+          "pace": "6:33",
+          "hr": 145.0,
+          "cadence": 172.0,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 395,
+          "pace": "6:35",
+          "hr": 144.0,
+          "cadence": 173.1,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 382,
+          "pace": "6:22",
+          "hr": 145.0,
+          "cadence": 172.7,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 389,
+          "pace": "6:29",
+          "hr": 145.0,
+          "cadence": 170.2,
+          "full_km": true
+        },
+        {
+          "km": 0.01,
+          "pace_sec": 267,
+          "pace": "4:27",
+          "hr": 143.0,
+          "cadence": 165.0,
+          "full_km": false
+        }
+      ],
+      "pace_cv": 1.5,
+      "pace_fastest": "6:22",
+      "pace_slowest": "6:43",
+      "cardiac_drift_pct": 1.9,
+      "hr_zone_dist": [
+        {
+          "zone": 1,
+          "name": "Z1 恢复",
+          "low": 132,
+          "secs": 4678,
+          "pct": 100.0
+        },
+        {
+          "zone": 2,
+          "name": "Z2 有氧",
+          "low": 153,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 3,
+          "name": "Z3 马拉松",
+          "low": 170,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 4,
+          "name": "Z4 阈值",
+          "low": 175,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 5,
+          "name": "Z5 无氧",
+          "low": 187,
+          "secs": 0,
+          "pct": 0.0
+        }
+      ],
+      "form": {
+        "cadence_avg": 170.5,
+        "cadence_min": 164.3,
+        "cadence_max": 174.2,
+        "stride_est_m": 0.89,
+        "running_dynamics": {
+          "stride_length_m": 0.89,
+          "vertical_oscillation_cm": 8.39,
+          "vertical_ratio": 9.42,
+          "ground_contact_ms": 267.7,
+          "cadence_spm": 170.6
+        }
+      },
+      "te_aerobic": "有氧训练效果 3.4（有效提升）",
+      "te_anaerobic": "无氧训练效果 0.0（无效）",
+      "suggestions": [
+        "配速一致性极佳（CV 1.5%）：匀速能力强，比赛可直接执行“负分割”（后程比前程快 5–10 秒/km）而不崩。",
+        "心率漂移仅 1.9%：有氧底盘扎实，脂肪供能占比高，马拉松后程不易崩，继续保持堆量。",
+        "平均步频 170 spm 在高效区间（170–180），保持。",
+        "步幅 0.89 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+        "垂直振幅 8.4 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+        "垂直步幅比 9.4% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+        "触地时间 268 ms 偏长：推进/弹性不足。练法：节奏跑、弹力带髋屈、短促赤足感知（每次 1–2 分钟）、增强小腿与跟腱刚度。",
+        "本次 100% 在 Z2 有氧，是典型的打底盘跑，符合基础期定位；要破 1:50，每周还需塞 1–2 次质量课（阈值/间歇）。",
+        "本次训练负荷 107：正常训练刺激，质量课与恢复日交替即可。"
+      ],
+      "coaching_summary": "本次12.0km、配速 6:34, 平均心率 143，整体是有氧基础跑。优点：配速稳、心率漂移低、步频高效。可优化：触地偏长——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+    }
+  ],
+  "goal_history": [
     {
       "date": "2026-09-23",
       "hm_sec": 7192,
@@ -5076,12 +5697,12 @@
       "composite": 62
     },
     {
-      "date": "2026-09-24",
-      "hm_sec": 7193,
+      "date": "2026-09-22",
+      "hm_sec": 7191,
       "threshold_pace_sec": 326,
-      "acute_weekly_km": 24.0,
-      "chronic_weekly_km": 26.4,
-      "composite": 61
+      "acute_weekly_km": 30.0,
+      "chronic_weekly_km": 28.4,
+      "composite": 67
     },
     {
       "date": "2026-09-25",
@@ -5089,12 +5710,19 @@
       "threshold_pace_sec": 326,
       "acute_weekly_km": 36.0,
       "chronic_weekly_km": 28.2,
-      "composite": 62
+      "composite": 67
+    },
+    {
+      "date": "2026-09-26",
+      "hm_sec": 7196,
+      "threshold_pace_sec": 326,
+      "acute_weekly_km": 18.0,
+      "chronic_weekly_km": 28.2,
+      "composite": 63
     }
   ],
   "trends": {
     "dates": [
-      "07-28",
       "07-29",
       "07-30",
       "07-31",
@@ -5153,10 +5781,10 @@
       "09-22",
       "09-23",
       "09-24",
-      "09-25"
+      "09-25",
+      "09-26"
     ],
     "sleep_score": [
-      70,
       63,
       75,
       72,
@@ -5215,10 +5843,10 @@
       58,
       49,
       77,
-      65
+      65,
+      71
     ],
     "sleep_hours": [
-      5.6,
       6.2,
       6.3,
       6.5,
@@ -5277,10 +5905,10 @@
       6.6,
       5.9,
       7.6,
-      4.8
+      4.8,
+      6.6
     ],
     "rhr": [
-      39,
       42,
       42,
       40,
@@ -5339,10 +5967,10 @@
       39,
       44,
       41,
-      40
+      40,
+      45
     ],
     "hrv": [
-      104,
       100,
       98,
       98,
@@ -5401,15 +6029,191 @@
       109,
       85,
       103,
-      100
+      100,
+      97
     ]
   },
+  "ef_trend": {
+    "trend": [
+      {
+        "date": "2026-07-31",
+        "ef": 1.179,
+        "pace": "5:56",
+        "avg_hr": 143.0,
+        "distance_km": 5.8
+      },
+      {
+        "date": "2026-08-03",
+        "ef": 1.065,
+        "pace": "6:01",
+        "avg_hr": 156.0,
+        "distance_km": 10.0
+      },
+      {
+        "date": "2026-08-04",
+        "ef": 1.126,
+        "pace": "5:21",
+        "avg_hr": 166.0,
+        "distance_km": 9.0
+      },
+      {
+        "date": "2026-08-07",
+        "ef": 1.088,
+        "pace": "6:15",
+        "avg_hr": 147.0,
+        "distance_km": 5.0
+      },
+      {
+        "date": "2026-08-08",
+        "ef": 1.038,
+        "pace": "6:28",
+        "avg_hr": 149.0,
+        "distance_km": 14.0
+      },
+      {
+        "date": "2026-08-10",
+        "ef": 1.151,
+        "pace": "5:16",
+        "avg_hr": 165.0,
+        "distance_km": 6.7
+      },
+      {
+        "date": "2026-08-11",
+        "ef": 1.191,
+        "pace": "6:05",
+        "avg_hr": 138.0,
+        "distance_km": 5.1
+      },
+      {
+        "date": "2026-08-13",
+        "ef": 1.24,
+        "pace": "5:48",
+        "avg_hr": 139.0,
+        "distance_km": 5.0
+      },
+      {
+        "date": "2026-08-15",
+        "ef": 1.06,
+        "pace": "5:56",
+        "avg_hr": 159.0,
+        "distance_km": 11.6
+      },
+      {
+        "date": "2026-08-16",
+        "ef": 1.145,
+        "pace": "6:09",
+        "avg_hr": 142.0,
+        "distance_km": 5.0
+      },
+      {
+        "date": "2026-08-27",
+        "ef": 0.999,
+        "pace": "6:30",
+        "avg_hr": 154.0,
+        "distance_km": 8.0
+      },
+      {
+        "date": "2026-08-28",
+        "ef": 1.067,
+        "pace": "6:10",
+        "avg_hr": 152.0,
+        "distance_km": 5.0
+      },
+      {
+        "date": "2026-08-30",
+        "ef": 1.063,
+        "pace": "5:55",
+        "avg_hr": 159.0,
+        "distance_km": 8.0
+      },
+      {
+        "date": "2026-09-01",
+        "ef": 1.036,
+        "pace": "6:48",
+        "avg_hr": 142.0,
+        "distance_km": 12.0
+      },
+      {
+        "date": "2026-09-04",
+        "ef": 1.029,
+        "pace": "6:02",
+        "avg_hr": 161.0,
+        "distance_km": 10.0
+      },
+      {
+        "date": "2026-09-05",
+        "ef": 1.034,
+        "pace": "6:40",
+        "avg_hr": 145.0,
+        "distance_km": 11.2
+      },
+      {
+        "date": "2026-09-07",
+        "ef": 1.102,
+        "pace": "7:12",
+        "avg_hr": 126.0,
+        "distance_km": 4.5
+      },
+      {
+        "date": "2026-09-08",
+        "ef": 1.122,
+        "pace": "5:24",
+        "avg_hr": 165.0,
+        "distance_km": 6.7
+      },
+      {
+        "date": "2026-09-14",
+        "ef": 1.093,
+        "pace": "6:11",
+        "avg_hr": 148.0,
+        "distance_km": 10.0
+      },
+      {
+        "date": "2026-09-15",
+        "ef": 1.096,
+        "pace": "5:26",
+        "avg_hr": 168.0,
+        "distance_km": 8.2
+      },
+      {
+        "date": "2026-09-16",
+        "ef": 1.039,
+        "pace": "7:31",
+        "avg_hr": 128.0,
+        "distance_km": 6.0
+      },
+      {
+        "date": "2026-09-19",
+        "ef": 0.985,
+        "pace": "6:33",
+        "avg_hr": 155.0,
+        "distance_km": 18.0
+      },
+      {
+        "date": "2026-09-21",
+        "ef": 1.017,
+        "pace": "6:44",
+        "avg_hr": 146.0,
+        "distance_km": 6.0
+      },
+      {
+        "date": "2026-09-24",
+        "ef": 1.065,
+        "pace": "6:34",
+        "avg_hr": 143.0,
+        "distance_km": 12.0
+      }
+    ],
+    "baseline": 1.042,
+    "recent_avg": 1.04,
+    "delta": -0.002
+  },
   "sleep_avg_90d": {
-    "sleep_score": 67.1,
-    "total_seconds_avg": 20277.0,
-    "total_formatted_avg": "5h 37m 57s",
-    "avg_overnight_hrv": 107.8,
-    "body_battery_high": 82.3,
+    "sleep_score": 67.2,
+    "total_seconds_avg": 20540.3,
+    "total_formatted_avg": "5h 42m 20s",
+    "avg_overnight_hrv": 107.7,
+    "body_battery_high": 82.0,
     "resting_heart_rate": 40.1,
     "days_with_data": 90
   },
@@ -5420,7 +6224,7 @@
       "max": 47.0
     },
     "hrv_last_night_avg": {
-      "avg": 107.8,
+      "avg": 107.7,
       "min": 67.0,
       "max": 127.0
     }

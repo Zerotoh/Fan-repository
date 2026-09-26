@@ -1,0 +1,11 @@
+{
+  "goal": "half_marathon_pb",
+  "goal_label": "半马跑进1:50",
+  "goal_target_time": "1:50:00",
+  "goal_target_minutes": 110,
+  "race_distance_km": 21.0975,
+  "race_date": "2027-01-01",
+  "runs_per_week": 4,
+  "work_pattern": "2on2off",
+  "work_anchor": "2026-09-22"
+}

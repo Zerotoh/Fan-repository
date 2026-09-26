@@ -20,3 +20,6 @@ __pycache__/
 
 # 本地发布产物（dist 是你之前用 WorkBuddy 在线发布时生成的，仓库用 GitHub Pages 即可）
 dist/
+
+# 本地 GitHub PAT（明文，绝不入库）
+pat.txt

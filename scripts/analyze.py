@@ -11,7 +11,8 @@ analyze.py — 处理 Garmin CN 导入的原始数据，产出：
                         + Riegel 比赛配速估算 + 配速区间 / 心率区间推导
   - analyze_current_state  当前状态信号（对象数组，修 bug #1）
   - compute_plan        今日课表（含 48–72h 长距离疲劳规则 + 详细可执行课表）
-  - build_post_run      跑后全维度分析（分段一致性 / 心率漂移 / 跑姿 / 心率区间 / 训练效果 / 优化建议）
+  - build_post_runs / _build_post_run_one  跑后全维度分析（支持近 N 次历史场次切换；仅最新一次含完整分段/跑姿明细）
+  - build_ef_trend      跑步效率 EF 趋势（速度÷心率，同配速心率下降=变强）
 并在 stdout 打印一份人类可读报告。
 依赖: 仅标准库
 """
@@ -25,6 +26,16 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(BASE, "data", "raw")
 OUT = os.path.join(BASE, "data", "processed")
 CFG_PATH = os.path.join(BASE, "data", "plan_config.json")
+
+# 强制 stdout/stderr 为 UTF-8，避免 Windows GBK 控制台打印非 GBK 字符（原报告里的警告符号）时 'gbk' codec 崩溃
+import sys as _sys
+try:
+    if hasattr(_sys.stdout, "reconfigure"):
+        _sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+    if hasattr(_sys.stderr, "reconfigure"):
+        _sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
 
 
 def load_plan_config():
@@ -344,8 +355,19 @@ def estimate_race_times(acts, max_hr, resting_hr, today=None):
             ev = evidence.get(anchor) or {}
             item["evidence_date"] = ev.get("date")
             item["evidence_sec"] = ev.get("raw_sec")
+            if ev.get("date") and today_dt:
+                try:
+                    item["evidence_age_days"] = (today_dt - datetime.strptime(ev["date"], "%Y-%m-%d")).days
+                except Exception:
+                    item["evidence_age_days"] = None
         else:
             item["derived_from"] = {5.0: "5K", 10.0: "10K", 21.0975: "半马"}.get(src, "")
+            src_ev = evidence.get(src) or {}
+            if src_ev.get("date") and today_dt:
+                try:
+                    item["evidence_age_days"] = (today_dt - datetime.strptime(src_ev["date"], "%Y-%m-%d")).days
+                except Exception:
+                    item["evidence_age_days"] = None
         out[label] = item
     return out
 
@@ -550,25 +572,39 @@ def analyze_current_state(runs_a, sleep_recs, sleep_avg, health_recs, health_sum
     if bb_now is not None and bb_now <= 25:
         add("身体电量", f"当前仅 {bb_now}，整体偏疲劳", "warn")
 
-    # 用 HRV / 睡眠 联合修正恢复维度（三个来源分别归一化后加权，修正原来的量纲混算）
-    hrv_baseline = _mean([r.get("hrv", {}).get("weekly_avg") for r in health_recs[-90:]
-                          if isinstance(r.get("hrv"), dict) and r["hrv"].get("weekly_avg")])
-    if not hrv_baseline:
-        hrv_baseline = (health_sum.get("hrv_last_night_avg") or {}).get("avg")
-    s_rec, rec_desc = recovery_score(rhr, hrv_recent_avg, hrv_baseline, sleep_recent_avg)
-    for _d in ability.get("dimensions", []):
-        if _d.get("key") == "recovery":
-            _d["score"] = round(s_rec)
-            _d["desc"] = rec_desc
-    # 修正后重算综合评级，保持与维度一致
-    dims = ability["dimensions"]
-    ability["composite_score"] = round(
-        dims[0]["score"] * 0.30 + dims[1]["score"] * 0.25 +
-        dims[2]["score"] * 0.20 + dims[3]["score"] * 0.25)
-    ability["grade"] = ("S" if ability["composite_score"] >= 85 else
-                        "A" if ability["composite_score"] >= 75 else
-                        "B" if ability["composite_score"] >= 65 else
-                        "C" if ability["composite_score"] >= 55 else "D")
+    # ── 关键：能力分（composite_score / grade）在 assess_ability 已基于稳定的历史性能
+    # 维度（有氧底盘 / 速度 / 规律性 / 静息心率）算好，**不在此用每日 HRV/睡眠重算**——
+    # 否则昨夜睡眠 59、电量 12 这类单日波动会让评级一天掉一级（如 09-22 B → 09-23 C）。
+    # 每日恢复信号只作为「状态分」（compute_readiness 的 score）与下方 signals 展示。
+
+    # ── 个人基线（P2d：状态卡偏离提示）──
+    hrv_all = [r.get("hrv", {}).get("last_night_avg") for r in health_recs[-60:]
+               if isinstance(r.get("hrv"), dict) and r.get("hrv", {}).get("last_night_avg")]
+    hrv_baseline = round(_mean(hrv_all), 1) if hrv_all else None
+    sleep_all = [r.get("sleep_score") for r in sleep_recs[-60:] if r.get("sleep_score")]
+    sleep_baseline = round(_mean(sleep_all), 1) if sleep_all else None
+    rhr_all = [r.get("resting_heart_rate") for r in health_recs[-60:]
+               if r.get("resting_heart_rate")]
+    if not rhr_all:
+        rhr_all = [r.get("resting_heart_rate") for r in sleep_recs[-60:]
+                   if r.get("resting_heart_rate")]
+    rhr_baseline = round(_mean(rhr_all), 1) if rhr_all else None
+
+    # ── TSB / Form（P1c：今天能不能硬）── chronic - acute
+    acute_load = tl.get("acute_load"); chronic_load = tl.get("chronic_load")
+    form_tsb = (round(chronic_load - acute_load)
+                if (acute_load is not None and chronic_load is not None)
+                else round((runs_a.get("chronic_weekly_km") or 0) - (runs_a.get("acute_weekly_km") or 0)))
+    if form_tsb >= 15:
+        form_label = "状态充沛（可冲强度）"
+    elif form_tsb >= 0:
+        form_label = "恢复良好（训练窗口佳）"
+    elif form_tsb >= -15:
+        form_label = "中性（保持节奏）"
+    elif form_tsb >= -30:
+        form_label = "疲劳累积（宜降量）"
+    else:
+        form_label = "过度训练风险（强制恢复）"
 
     return {
         "training_status_label": ts.get("label"),
@@ -589,13 +625,18 @@ def analyze_current_state(runs_a, sleep_recs, sleep_avg, health_recs, health_sum
         "today_distance_km": summary.get("distance_km"),
         "today_steps": summary.get("steps"),
         "last_sync": summary.get("last_sync"),
+        "hrv_baseline": hrv_baseline,
+        "sleep_baseline": sleep_baseline,
+        "rhr_baseline": rhr_baseline,
+        "form_tsb": form_tsb,
+        "form_label": form_label,
         "signals": signals,
     }
 
 
 # ─────────────────────────────── 就绪度（共享：课表与整周调整共用） ───────────────────────────────
-def compute_readiness(runs_a, state, summary):
-    today = summary.get("date") or datetime.now().strftime("%Y-%m-%d")
+def compute_readiness(runs_a, state, summary, today=None):
+    today = today or datetime.now().strftime("%Y-%m-%d")
     last_run = runs_a.get("last_date")
     days_since = None
     long_fatigue = False
@@ -1052,12 +1093,13 @@ def compute_plan(today_cell, score, factors, long_fatigue, fatigue_run, days_sin
 
 
 # ─────────────────────────────── 跑后全维度分析 ───────────────────────────────
-def build_post_run(detail, acts):
-    if not detail:
+def _build_post_run_one(detail, acts, aid=None):
+    d = detail or {}
+    if aid is None and detail:
+        aid = str(d.get("activity_id"))
+    rec = next((a for a in acts if str(a.get("activity_id")) == aid), None) if aid else None
+    if not (detail or rec):
         return None
-    d = detail
-    aid = str(d.get("activity_id"))
-    rec = next((a for a in acts if str(a.get("activity_id")) == aid), None)
 
     def pick(k, default=None):
         v = d.get(k)
@@ -1294,6 +1336,26 @@ def build_post_run(detail, acts):
     }
 
 
+def build_post_runs(acts, detail):
+    """近 N 次跑步的跑后分析列表，供前端下拉切换（仅最新一次含完整分段/跑姿明细）。
+
+    历史场次只有活动摘要（无逐公里分段、心率区间、跑姿动力学），
+    这些完整数据需设备同步后才有，因此仅 'latest' 那次齐全。
+    """
+    if not acts:
+        return []
+    detail_id = str(detail.get("activity_id")) if detail else None
+    recent = sorted(acts, key=lambda a: a["date"])[-12:]
+    out = []
+    for a in recent:
+        aid = str(a.get("activity_id"))
+        d = detail if aid == detail_id else None
+        pr = _build_post_run_one(d, acts, aid)
+        if pr:
+            out.append(pr)
+    return out
+
+
 # ─────────────────────────────── 目标进度历史 / 近 60 天趋势 ───────────────────────────────
 GOAL_HIST = os.path.join(OUT, "goal_history.jsonl")
 
@@ -1370,6 +1432,37 @@ def build_trends(sleep_recs, health_recs, days=60):
     return out
 
 
+def build_ef_trend(acts, n=24):
+    """跑步效率 EF = 速度(m/min) ÷ 平均心率。
+
+    跨次跑的趋势：同一配速下心率越低，EF 越高 = 有氧效率在变好。
+    只用户外跑、且距离 ≥3km（排除跑步机与超短距离噪声）。
+    """
+    rows = []
+    for a in acts:
+        if a.get("type") != "running":
+            continue
+        p, hr, d = a.get("pace_sec"), a.get("avg_hr"), a.get("distance_km")
+        if not (p and hr and d and d >= 3):
+            continue
+        speed = 1000.0 / p * 60.0  # m/min
+        ef = round(speed / hr, 3)
+        rows.append({"date": a["date"], "ef": ef, "pace": a.get("pace_formatted"),
+                     "avg_hr": hr, "distance_km": round(d, 1)})
+    rows.sort(key=lambda x: x["date"])
+    recent = rows[-n:]
+    allv = [r["ef"] for r in rows]
+    baseline = round(_mean(allv), 3) if allv else None
+    rec = [r["ef"] for r in recent[-5:]] if recent else []
+    recent_avg = round(_mean(rec), 3) if rec else None
+    return {
+        "trend": recent,
+        "baseline": baseline,
+        "recent_avg": recent_avg,
+        "delta": round(recent_avg - baseline, 3) if (recent_avg is not None and baseline is not None) else None,
+    }
+
+
 # ─────────────────────────────── 主流程 ───────────────────────────────
 def main():
     acts = load_activities()
@@ -1379,7 +1472,16 @@ def main():
     detail = load_latest_detail()
 
     cfg = load_plan_config()
-    today = summary.get("date") or datetime.now().strftime("%Y-%m-%d")
+    # 今天永远取真实本地日期；summary 的 date 只是"设备最后同步那天的快照"，
+    # 同步一旦断更，看板的日历 / 今日课表仍须按真实日期走，不能停留在旧快照。
+    today = datetime.now().strftime("%Y-%m-%d")
+    state_date = summary.get("date")   # 恢复 / 睡眠 / 电量等信号的实际快照日期（可能早于今天）
+    state_stale_days = None
+    if state_date:
+        try:
+            state_stale_days = (datetime.strptime(today, "%Y-%m-%d") - datetime.strptime(state_date, "%Y-%m-%d")).days
+        except Exception:
+            state_stale_days = None
 
     # 把原始活动塞进 runs_a 供 plan 使用（长距离疲劳规则需要逐条扫描）
     runs_a = analyze_runs(acts, today)
@@ -1387,12 +1489,15 @@ def main():
 
     ability = assess_ability(acts, runs_a, summary, today)
     state = analyze_current_state(runs_a, sleep_recs, sleep_avg, health_recs, health_sum, summary, ability)
-    post_run = build_post_run(detail, acts)
+    post_run = _build_post_run_one(detail, acts)
+    post_runs = build_post_runs(acts, detail)
     goal_history = update_goal_history(today, ability, runs_a)
     trends = build_trends(sleep_recs, health_recs)
+    ef = build_ef_trend(acts)
 
     # ── 目标导向 / 整周课表 ──
-    score, factors, long_fatigue, fatigue_run, days_since = compute_readiness(runs_a, state, summary)
+    score, factors, long_fatigue, fatigue_run, days_since = compute_readiness(runs_a, state, summary, today)
+    state["status_score"] = score  # 状态分（今日）：每日就绪度，与稳定的能力分区分
     phase_key, phase_label, weeks_left = phase_for(cfg["race_date"], today)
     today_dt = datetime.strptime(today, "%Y-%m-%d")
     week_start = today_dt - timedelta(days=today_dt.weekday())
@@ -1425,6 +1530,9 @@ def main():
 
     out = {
         "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "today": today,
+        "state_date": state_date,
+        "state_stale_days": state_stale_days,
         "runs": runs_a,
         "ability": ability,
         "current_state": state,
@@ -1433,8 +1541,10 @@ def main():
         "plan_next": plan_next,
         "plan_config": cfg,
         "post_run": post_run,
+        "post_runs": post_runs,
         "goal_history": goal_history,
         "trends": trends,
+        "ef_trend": ef,
         "sleep_avg_90d": sleep_avg,
         "health_summary_90d": health_sum,
         "raw_activities_count": len(acts),
@@ -1474,6 +1584,9 @@ def main():
         icon = {"good": "OK ", "warn": "!! ", "info": ".. "}.get(s["level"], "   ")
         print(f"  [{icon}] {s['name']}: {s['desc']}")
     print("-" * 56)
+    print(f"【状态分(今日)】{score}  | TSB/Form {state.get('form_tsb')}（{state.get('form_label')}）")
+    print(f"【跑步效率 EF】基线 {ef.get('baseline')}  近5次均值 {ef.get('recent_avg')}  变化 {ef.get('delta')}")
+    print("-" * 56)
     print(f"【周期阶段】{phase_label}  | 距比赛 {weeks_left} 周  | 目标 {cfg.get('goal_label')}")
     print("【整周课表】")
     for d in plan_week:
@@ -1502,12 +1615,12 @@ def main():
     print("【今日课表】", plan["title"], f"(就绪度 {plan['readiness_score']})")
     print(f"  目标配速: {plan['target_pace']}  目标心率: {plan['target_hr']}  时长: {plan['duration']}")
     if plan["long_fatigue"]:
-        print("  ⚠ 触发长距离疲劳规则：昨日长距离仍在恢复窗口")
+        print("  [!] 触发长距离疲劳规则：昨日长距离仍在恢复窗口")
     avp = plan.get("actual_vs_plan")
     if avp:
         flags = []
         if avp["overreach"]:
-            flags.append("实际超量⚠")
+            flags.append("实际超量[!]")
         if avp["missed_quality"]:
             flags.append("漏质量课")
         if flags:
