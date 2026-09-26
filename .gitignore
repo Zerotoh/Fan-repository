@@ -3,6 +3,7 @@ data/raw/health_90d.json
 data/raw/sleep_90d.json
 data/raw/summary_today.json
 data/raw/activity_detail_latest.json
+data/raw/activity_details.json
 data/raw/_backup_prev/
 data/raw/_corrupted_backup_*/
 data/raw/*.err

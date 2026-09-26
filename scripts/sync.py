@@ -27,6 +27,7 @@ BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(BASE, "data", "raw")
 BACKUP = os.path.join(RAW, "_backup_prev")
 RETRY = 1  # 失败额外重试次数
+DETAIL_COUNT = 25  # 每次同步抓取最近 N 场跑步的完整详情（分段/心率区间/跑姿）
 
 
 def log(msg):
@@ -231,20 +232,24 @@ def main():
     ok = sum(1 for v in results.values() if v is not None)
     log(f"[sync] 核心拉取完成 {ok}/{len(results)}")
 
-    # 最新一次跑步的 detail（分段/心率区间/跑姿/训练效果）——失败不算致命
+    # 最近 N 场跑步的完整详情（分段/心率区间/跑姿动力学），按 activity_id 索引存盘。
+    # 这样历史场次的跑后分析也有完整数据，而不只是最新一次。失败不算致命。
     try:
         acts_doc = read_json(os.path.join(RAW, "activities_running.json"))
         acts = acts_doc.get("data", []) if isinstance(acts_doc, dict) else []
-        if acts:
-            latest = sorted(acts, key=lambda a: str(a.get("date") or ""))[-1]
-            aid = latest.get("activity_id")
-            if aid:
-                got = run_job([py, cli, "detail", str(aid)],
-                              os.path.join(RAW, "activity_detail_latest.json"), cmd="detail")
-                if got is not None:
-                    log(f"[sync] 已抓取最新跑步 detail (id={aid}, {latest.get('date')})")
+        runs = [a for a in acts
+                if str(a.get("type") or "") in ("running", "treadmill_running")
+                and a.get("activity_id") is not None]
+        recent = sorted(runs, key=lambda a: str(a.get("date") or ""))[-DETAIL_COUNT:]
+        ids = [str(a["activity_id"]) for a in recent]
+        if ids:
+            got = run_job([py, cli, "details", "--ids", ",".join(ids)],
+                          os.path.join(RAW, "activity_details.json"), cmd="details")
+            if got is not None:
+                ok_n = sum(1 for v in got.values() if isinstance(v, dict) and "error" not in v)
+                log(f"[sync] 已抓取最近 {ok_n}/{len(ids)} 场跑步详情 -> activity_details.json")
     except Exception as e:
-        log(f"[sync] detail 抓取跳过: {e}")
+        log(f"[sync] 多场详情抓取跳过: {e}")
 
     # 重新分析并生成看板数据
     analyze_failed = False

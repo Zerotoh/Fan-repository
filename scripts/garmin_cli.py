@@ -475,6 +475,107 @@ def cmd_activities(args):
         return {"status": "error", "command": "activities", "message": str(exc)}
 
 
+def build_detail(client, activity_id):
+    """单次已登录 client 内，为单个活动抓取 摘要/分段/心率区间/跑姿动力学。
+
+    摘要指标以 get_activity 的 summaryDTO 为准（含 averageRunCadence 等逐场指标）；
+    跑姿动力学优先 summaryDTO 聚合字段，否则从 get_activity_details 的逐样本时间序列还原。
+    失败返回带 error 的字典（不抛异常，便于批量时单场失败不影响其它场）。
+    """
+    activity = details = hr_zones = splits = None
+    try:
+        try:
+            activity = client.get_activity(activity_id)
+        except Exception:
+            pass
+        try:
+            details = client.get_activity_details(activity_id)
+        except Exception:
+            pass
+        try:
+            hr_zones = client.get_activity_hr_in_timezones(activity_id)
+        except Exception:
+            pass
+        try:
+            splits = client.get_activity_splits(activity_id)
+        except Exception:
+            pass
+
+        # 摘要以 get_activity 的 summaryDTO 为准
+        summary = (activity or {}).get("summaryDTO") or (activity or {})
+        dist = summary.get("distance") or 0
+        dur = summary.get("duration") or summary.get("elapsedDuration") or 0
+        pace = (dur / dist * 1000) if dist > 0 else None
+
+        # 跑姿动力学：优先 summaryDTO 聚合字段，否则从逐样本时间序列还原
+        dyn = {}
+        if isinstance(summary, dict):
+            dyn_map = {
+                "avgStrideLength": "stride_length_m",
+                "avgGroundContactTime": "ground_contact_ms",
+                "avgVerticalOscillation": "vertical_oscillation_cm",
+                "avgVerticalRatio": "vertical_ratio",
+                "avgStanceTimePercent": "stance_time_pct",
+                "avgDoubleSupportTime": "double_support_ms",
+            }
+            for src, out in dyn_map.items():
+                v = summary.get(src)
+                if v is not None:
+                    dyn[out] = safe_round(v, 2) if isinstance(v, (int, float)) else v
+        if not dyn:
+            dyn_from_ts = _parse_running_dynamics_from_details(details)
+            if dyn_from_ts:
+                dyn = dyn_from_ts
+
+        # 分段 / 每公里
+        laps = []
+        if splits and isinstance(splits, dict):
+            for lap in splits.get("lapDTOs") or []:
+                lap_dist = lap.get("distance") or 0
+                lap_dur = lap.get("duration") or 0
+                lap_pace = (lap_dur / lap_dist * 1000) if lap_dist > 0 else None
+                laps.append({
+                    "lap": lap.get("lapIndex"),
+                    "distance_m": safe_round(lap_dist, 0),
+                    "duration_formatted": format_duration(lap_dur),
+                    "pace_formatted": format_pace(lap_pace) if lap_pace else None,
+                    "avg_hr": lap.get("averageHR"),
+                    "max_hr": lap.get("maxHR"),
+                    "avg_power": lap.get("averagePower"),
+                    "cadence": safe_round(lap.get("averageRunCadence") or lap.get("averageBikeCadence")),
+                    "elevation_gain": lap.get("elevationGain"),
+                })
+
+        result = {
+            "activity_id": activity_id,
+            "name": (activity or {}).get("activityName"),
+            "type": ((activity or {}).get("activityTypeDTO") or {}).get("typeKey"),
+            "date": ((activity or {}).get("summaryDTO") or {}).get("startTimeLocal")
+                   or (activity or {}).get("startTimeLocal"),
+            "distance_km": safe_round(dist / 1000, 2) if dist else None,
+            "duration_sec": safe_round(dur, 0) if dur else None,
+            "duration_formatted": format_duration(dur) if dur else None,
+            "pace_formatted": format_pace(pace) if pace else None,
+            "avg_hr": summary.get("averageHR") or summary.get("averageHeartRate"),
+            "max_hr": summary.get("maxHR") or summary.get("maxHeartRate"),
+            "calories": summary.get("calories"),
+            "elevation_gain": summary.get("elevationGain"),
+            "avg_cadence": safe_round(summary.get("averageRunCadence") or summary.get("averageBikeCadence")),
+            "aerobic_te": safe_round(summary.get("aerobicTrainingEffect") or (activity or {}).get("aerobicTrainingEffect")),
+            "anaerobic_te": safe_round(summary.get("anaerobicTrainingEffect") or (activity or {}).get("anaerobicTrainingEffect")),
+            "training_load": safe_round(summary.get("activityTrainingLoad") or (activity or {}).get("activityTrainingLoad")),
+            "vo2_max": summary.get("vO2MaxValue") or (activity or {}).get("vO2MaxValue"),
+            "laps": laps,
+        }
+        if dyn:
+            result["running_dynamics"] = dyn
+        if hr_zones:
+            result["hr_zones"] = hr_zones
+        return result
+    except Exception as exc:
+        return {"activity_id": activity_id, "error": str(exc)}
+
+
 def cmd_detail(args):
     client, err = get_client()
     if err:
@@ -618,6 +719,20 @@ def cmd_detail(args):
         return resp
     except Exception as exc:
         return {"status": "error", "command": "detail", "message": str(exc)}
+
+
+def cmd_details(args):
+    """批量抓取多场跑步详情（单次登录），返回 {activity_id: build_detail 结果}。"""
+    client, err = get_client()
+    if err:
+        return {"status": "error", "command": "details", "message": err}
+    ids = [x.strip() for x in (args.ids or "").split(",") if x.strip()]
+    if not ids:
+        return {"status": "error", "command": "details", "message": "未提供 activity_id (--ids 逗号分隔)"}
+    data = {}
+    for aid in ids:
+        data[aid] = build_detail(client, aid)
+    return {"status": "success", "command": "details", "data": data}
 
 
 def cmd_run(args):
@@ -1145,6 +1260,10 @@ def main():
     p_detail = subparsers.add_parser("detail", help="活动详细数据")
     p_detail.add_argument("activity_id", help="活动ID")
 
+    # details（批量）
+    p_details = subparsers.add_parser("details", help="批量抓取多场跑步详情（单次登录）")
+    p_details.add_argument("--ids", required=True, help="逗号分隔的 activity_id 列表")
+
     # run
     p_run = subparsers.add_parser("run", help="跑步专项分析")
     p_run.add_argument("activity_id", nargs="?", default=None, help="活动ID (默认最近一次跑步)")
@@ -1180,6 +1299,7 @@ def main():
         "summary": cmd_summary,
         "activities": cmd_activities,
         "detail": cmd_detail,
+        "details": cmd_details,
         "run": cmd_run,
         "sleep": cmd_sleep,
         "health": cmd_health,

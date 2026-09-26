@@ -143,6 +143,21 @@ def load_latest_detail():
         return None
 
 
+def load_details():
+    """读取多场跑步详情字典 {activity_id: {laps, hr_zones, running_dynamics, ...}}。
+    过滤掉抓取失败的条目（含 'error' 字段）。无文件时返回空字典。"""
+    p = os.path.join(RAW, "activity_details.json")
+    if not os.path.exists(p):
+        return {}
+    try:
+        doc = json.load(open(p, encoding="utf-8"))
+        d = doc.get("data", doc) if isinstance(doc, dict) else {}
+        return {k: v for k, v in d.items()
+                if isinstance(v, dict) and "error" not in v}
+    except Exception:
+        return {}
+
+
 # ─────────────────────────────── 历史跑量聚合 ───────────────────────────────
 def analyze_runs(acts, today=None):
     if not acts:
@@ -1336,21 +1351,20 @@ def _build_post_run_one(detail, acts, aid=None):
     }
 
 
-def build_post_runs(acts, detail):
-    """近 N 次跑步的跑后分析列表，供前端下拉切换（仅最新一次含完整分段/跑姿明细）。
+def build_post_runs(acts, details):
+    """近 12 次跑步的跑后分析列表，供前端下拉切换。
 
-    历史场次只有活动摘要（无逐公里分段、心率区间、跑姿动力学），
-    这些完整数据需设备同步后才有，因此仅 'latest' 那次齐全。
+    每场都尽量用同步抓取的完整详情（逐公里分段 / 心率区间 / 跑姿动力学）；
+    若某场缺详情，则退化为只含活动摘要的精简分析（距离/配速/心率等仍来自摘要）。
     """
     if not acts:
         return []
-    detail_id = str(detail.get("activity_id")) if detail else None
-    recent = sorted(acts, key=lambda a: a["date"])[-12:]
+    details = details or {}
+    recent = sorted(acts, key=lambda a: str(a.get("date") or ""))[-12:]
     out = []
     for a in recent:
         aid = str(a.get("activity_id"))
-        d = detail if aid == detail_id else None
-        pr = _build_post_run_one(d, acts, aid)
+        pr = _build_post_run_one(details.get(aid), acts, aid)
         if pr:
             out.append(pr)
     return out
@@ -1469,7 +1483,7 @@ def main():
     sleep_recs, sleep_avg = load_sleep()
     health_recs, health_sum = load_health()
     summary = load_summary_today()
-    detail = load_latest_detail()
+    details = load_details()
 
     cfg = load_plan_config()
     # 今天永远取真实本地日期；summary 的 date 只是"设备最后同步那天的快照"，
@@ -1489,8 +1503,11 @@ def main():
 
     ability = assess_ability(acts, runs_a, summary, today)
     state = analyze_current_state(runs_a, sleep_recs, sleep_avg, health_recs, health_sum, summary, ability)
-    post_run = _build_post_run_one(detail, acts)
-    post_runs = build_post_runs(acts, detail)
+    latest_aid = None
+    if acts:
+        latest_aid = str(sorted(acts, key=lambda a: str(a.get("date") or ""))[-1].get("activity_id"))
+    post_run = _build_post_run_one(details.get(latest_aid), acts, latest_aid) if latest_aid else None
+    post_runs = build_post_runs(acts, details)
     goal_history = update_goal_history(today, ability, runs_a)
     trends = build_trends(sleep_recs, health_recs)
     ef = build_ef_trend(acts)

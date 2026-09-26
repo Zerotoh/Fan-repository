@@ -992,6 +992,7 @@ function renderPostObj(PO){
 
   // 心率区间分布
   const hzd=$('hrZoneDist');
+  hzd.innerHTML='';
   const hzr=PO.hr_zone_dist||[];
   if(!hzr.length){
     hzd.innerHTML='<div class="empty">无心率区间数据</div>';
@@ -1017,6 +1018,7 @@ function renderPostObj(PO){
   const csm=$('coachSummary');
   if(csm) csm.innerHTML = PO.coaching_summary ? ('<b>AI 跑后综述：</b>'+PO.coaching_summary) : '';
   const sg=$('suggestions');
+  sg.innerHTML='';
   if((PO.suggestions||[]).length){
     PO.suggestions.forEach(t=>{
       const div=el('div','sug');

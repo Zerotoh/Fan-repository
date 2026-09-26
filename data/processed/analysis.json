@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-26 12:05",
+  "generated_at": "2026-09-26 14:58",
   "today": "2026-09-26",
   "state_date": "2026-09-26",
   "state_stale_days": 0,
@@ -4314,14 +4314,14 @@
     "chronic_load": 358,
     "sleep_recent_avg_score": 63.6,
     "hrv_recent_avg": 102.4,
-    "body_battery_now": 60,
+    "body_battery_now": 38,
     "body_battery_high": 64,
     "sleep_today_seconds": 23700,
     "intensity_minutes_week": 248,
     "intensity_minutes_goal": 300,
-    "today_distance_km": 0.9,
-    "today_steps": 1206,
-    "last_sync": "2026-09-26T01:48:24.308",
+    "today_distance_km": 2.6,
+    "today_steps": 3381,
+    "last_sync": "2026-09-26T06:34:21.618",
     "hrv_baseline": 109.1,
     "sleep_baseline": 68.1,
     "rhr_baseline": 39.7,
@@ -4382,8 +4382,8 @@
       },
       {
         "name": "身体电量",
-        "value": "当前 60 良好",
-        "level": "good"
+        "value": "当前 38",
+        "level": "info"
       },
       {
         "name": "训练负荷",
@@ -5082,31 +5082,154 @@
       "max_hr": 170.0,
       "calories": 522.0,
       "elevation_gain": 12.0,
-      "avg_cadence": null,
+      "avg_cadence": 171.1,
       "aerobic_te": 4.0,
       "anaerobic_te": 0.0,
-      "training_load": null,
+      "training_load": 149.9,
       "vo2_max": null,
-      "splits": [],
-      "pace_cv": null,
-      "pace_fastest": null,
-      "pace_slowest": null,
-      "cardiac_drift_pct": null,
-      "hr_zone_dist": [],
+      "splits": [
+        {
+          "km": 1.0,
+          "pace_sec": 360,
+          "pace": "6:00",
+          "hr": 140.0,
+          "cadence": 168.1,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 356,
+          "pace": "5:56",
+          "hr": 156.0,
+          "cadence": 171.4,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 348,
+          "pace": "5:48",
+          "hr": 160.0,
+          "cadence": 172.7,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 346,
+          "pace": "5:46",
+          "hr": 163.0,
+          "cadence": 172.6,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 353,
+          "pace": "5:53",
+          "hr": 163.0,
+          "cadence": 172.2,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 351,
+          "pace": "5:51",
+          "hr": 163.0,
+          "cadence": 172.1,
+          "full_km": true
+        },
+        {
+          "km": 0.96,
+          "pace_sec": 356,
+          "pace": "5:56",
+          "hr": 166.0,
+          "cadence": 171.5,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 370,
+          "pace": "6:10",
+          "hr": 164.0,
+          "cadence": 169.3,
+          "full_km": true
+        },
+        {
+          "km": 0.07,
+          "pace_sec": 389,
+          "pace": "6:29",
+          "hr": 157.0,
+          "cadence": 162.5,
+          "full_km": false
+        }
+      ],
+      "pace_cv": 2.0,
+      "pace_fastest": "5:46",
+      "pace_slowest": "6:10",
+      "cardiac_drift_pct": 6.0,
+      "hr_zone_dist": [
+        {
+          "zone": 1,
+          "name": "Z1 恢复",
+          "low": 131,
+          "secs": 312,
+          "pct": 11.1
+        },
+        {
+          "zone": 2,
+          "name": "Z2 有氧",
+          "low": 153,
+          "secs": 2466,
+          "pct": 88.1
+        },
+        {
+          "zone": 3,
+          "name": "Z3 马拉松",
+          "low": 170,
+          "secs": 22,
+          "pct": 0.8
+        },
+        {
+          "zone": 4,
+          "name": "Z4 阈值",
+          "low": 175,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 5,
+          "name": "Z5 无氧",
+          "low": 187,
+          "secs": 0,
+          "pct": 0.0
+        }
+      ],
       "form": {
-        "cadence_avg": null,
-        "cadence_min": null,
-        "cadence_max": null,
-        "stride_est_m": null,
-        "running_dynamics": null
+        "cadence_avg": 171.1,
+        "cadence_min": 168.1,
+        "cadence_max": 172.7,
+        "stride_est_m": 0.99,
+        "running_dynamics": {
+          "stride_length_m": 0.98,
+          "vertical_oscillation_cm": 8.78,
+          "vertical_ratio": 8.94,
+          "ground_contact_ms": 259.8,
+          "cadence_spm": 171.3
+        }
       },
       "te_aerobic": "有氧训练效果 4.0（显著提升）",
       "te_anaerobic": "无氧训练效果 0.0（无效）",
       "suggestions": [
-        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。",
-        "有氧训练效果 4.0 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。"
+        "配速一致性极佳（CV 2.0%）：匀速能力强，比赛可直接执行“负分割”（后程比前程快 5–10 秒/km）而不崩。",
+        "心率漂移 6.0%（前半 HR 高、后程更高）：有氧基础偏弱或起跑过快。练法：起跑前 2km 故意慢 10–15 秒/km；Z2 长跑后半段主动把心率压低 3–5 bpm。",
+        "平均步频 171 spm 在高效区间（170–180），保持。",
+        "步幅 0.98 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+        "垂直振幅 8.8 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+        "垂直步幅比 8.9% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+        "触地时间 260 ms 偏长：推进/弹性不足。练法：节奏跑、弹力带髋屈、短促赤足感知（每次 1–2 分钟）、增强小腿与跟腱刚度。",
+        "本次 88% 在 Z2 有氧，是典型的打底盘跑，符合基础期定位；要破 1:50，每周还需塞 1–2 次质量课（阈值/间歇）。",
+        "有氧训练效果 4.0 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。",
+        "本次训练负荷 150：正常训练刺激，质量课与恢复日交替即可。"
       ],
-      "coaching_summary": "本次8.0km、配速 5:55, 平均心率 159，整体是一次高质量刺激。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+      "coaching_summary": "本次8.0km、配速 5:55, 平均心率 159，整体是一次高质量刺激。优点：配速稳、步频高效。可优化：触地偏长——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
     },
     {
       "activity_id": "634365555",
@@ -5121,30 +5244,185 @@
       "max_hr": 154.0,
       "calories": 737.0,
       "elevation_gain": 19.0,
-      "avg_cadence": null,
+      "avg_cadence": 167.5,
       "aerobic_te": 3.3,
       "anaerobic_te": 0.0,
-      "training_load": null,
+      "training_load": 93.7,
       "vo2_max": null,
-      "splits": [],
-      "pace_cv": null,
-      "pace_fastest": null,
-      "pace_slowest": null,
-      "cardiac_drift_pct": null,
-      "hr_zone_dist": [],
+      "splits": [
+        {
+          "km": 1.0,
+          "pace_sec": 411,
+          "pace": "6:51",
+          "hr": 126.0,
+          "cadence": 164.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 409,
+          "pace": "6:49",
+          "hr": 140.0,
+          "cadence": 167.7,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 413,
+          "pace": "6:53",
+          "hr": 140.0,
+          "cadence": 167.5,
+          "full_km": true
+        },
+        {
+          "km": 0.21,
+          "pace_sec": 408,
+          "pace": "6:48",
+          "hr": 141.0,
+          "cadence": 168.3,
+          "full_km": false
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 414,
+          "pace": "6:54",
+          "hr": 143.0,
+          "cadence": 169.4,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 411,
+          "pace": "6:51",
+          "hr": 143.0,
+          "cadence": 168.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 417,
+          "pace": "6:57",
+          "hr": 142.0,
+          "cadence": 168.6,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 409,
+          "pace": "6:49",
+          "hr": 144.0,
+          "cadence": 168.6,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 404,
+          "pace": "6:44",
+          "hr": 143.0,
+          "cadence": 168.0,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 409,
+          "pace": "6:49",
+          "hr": 143.0,
+          "cadence": 167.3,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 408,
+          "pace": "6:48",
+          "hr": 143.0,
+          "cadence": 167.1,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 393,
+          "pace": "6:33",
+          "hr": 146.0,
+          "cadence": 165.8,
+          "full_km": true
+        },
+        {
+          "km": 0.8,
+          "pace_sec": 396,
+          "pace": "6:36",
+          "hr": 151.0,
+          "cadence": 164.7,
+          "full_km": false
+        }
+      ],
+      "pace_cv": 1.5,
+      "pace_fastest": "6:33",
+      "pace_slowest": "6:57",
+      "cardiac_drift_pct": 3.7,
+      "hr_zone_dist": [
+        {
+          "zone": 1,
+          "name": "Z1 恢复",
+          "low": 131,
+          "secs": 4623,
+          "pct": 98.8
+        },
+        {
+          "zone": 2,
+          "name": "Z2 有氧",
+          "low": 153,
+          "secs": 54,
+          "pct": 1.2
+        },
+        {
+          "zone": 3,
+          "name": "Z3 马拉松",
+          "low": 170,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 4,
+          "name": "Z4 阈值",
+          "low": 175,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 5,
+          "name": "Z5 无氧",
+          "low": 187,
+          "secs": 0,
+          "pct": 0.0
+        }
+      ],
       "form": {
-        "cadence_avg": null,
-        "cadence_min": null,
-        "cadence_max": null,
-        "stride_est_m": null,
-        "running_dynamics": null
+        "cadence_avg": 167.5,
+        "cadence_min": 164.9,
+        "cadence_max": 169.4,
+        "stride_est_m": 0.88,
+        "running_dynamics": {
+          "stride_length_m": 0.88,
+          "vertical_oscillation_cm": 8.51,
+          "vertical_ratio": 9.7,
+          "ground_contact_ms": 274.1,
+          "cadence_spm": 167.4
+        }
       },
       "te_aerobic": "有氧训练效果 3.3（有效提升）",
       "te_anaerobic": "无氧训练效果 0.0（无效）",
       "suggestions": [
-        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。"
+        "配速一致性极佳（CV 1.5%）：匀速能力强，比赛可直接执行“负分割”（后程比前程快 5–10 秒/km）而不崩。",
+        "心率漂移 3.7% 属正常区间：继续把 80% 跑量放在能边跑边聊天的 Z2，拉长慢肌耐力。",
+        "平均步频 168 spm 在高效区间（170–180），保持。",
+        "步幅 0.88 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+        "垂直振幅 8.5 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+        "垂直步幅比 9.7% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+        "触地时间 274 ms 偏长：推进/弹性不足。练法：节奏跑、弹力带髋屈、短促赤足感知（每次 1–2 分钟）、增强小腿与跟腱刚度。",
+        "本次 99% 在 Z2 有氧，是典型的打底盘跑，符合基础期定位；要破 1:50，每周还需塞 1–2 次质量课（阈值/间歇）。",
+        "本次训练负荷 94：正常训练刺激，质量课与恢复日交替即可。"
       ],
-      "coaching_summary": "本次12.0km、配速 6:48, 平均心率 142，整体是恢复性慢跑。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+      "coaching_summary": "本次12.0km、配速 6:48, 平均心率 142，整体是有氧基础跑。优点：配速稳。可优化：步频偏低、触地偏长——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
     },
     {
       "activity_id": "635490056",
@@ -5159,31 +5437,250 @@
       "max_hr": 198.0,
       "calories": 635.0,
       "elevation_gain": 15.0,
-      "avg_cadence": null,
+      "avg_cadence": 169.5,
       "aerobic_te": 4.3,
       "anaerobic_te": 3.2,
-      "training_load": null,
+      "training_load": 243.3,
       "vo2_max": null,
-      "splits": [],
-      "pace_cv": null,
-      "pace_fastest": null,
-      "pace_slowest": null,
-      "cardiac_drift_pct": null,
-      "hr_zone_dist": [],
+      "splits": [
+        {
+          "km": 1.0,
+          "pace_sec": 345,
+          "pace": "5:45",
+          "hr": 143.0,
+          "cadence": 168.0,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 349,
+          "pace": "5:49",
+          "hr": 153.0,
+          "cadence": 169.6,
+          "full_km": true
+        },
+        {
+          "km": 0.58,
+          "pace_sec": 350,
+          "pace": "5:50",
+          "hr": 154.0,
+          "cadence": 170.3,
+          "full_km": false
+        },
+        {
+          "km": 0.18,
+          "pace_sec": 216,
+          "pace": "3:36",
+          "hr": 171.0,
+          "cadence": 189.8,
+          "full_km": false
+        },
+        {
+          "km": 0.45,
+          "pace_sec": 399,
+          "pace": "6:39",
+          "hr": 162.0,
+          "cadence": 165.7,
+          "full_km": false
+        },
+        {
+          "km": 0.19,
+          "pace_sec": 207,
+          "pace": "3:27",
+          "hr": 156.0,
+          "cadence": 192.1,
+          "full_km": false
+        },
+        {
+          "km": 0.44,
+          "pace_sec": 410,
+          "pace": "6:50",
+          "hr": 165.0,
+          "cadence": 164.8,
+          "full_km": false
+        },
+        {
+          "km": 0.19,
+          "pace_sec": 211,
+          "pace": "3:31",
+          "hr": 168.0,
+          "cadence": 195.2,
+          "full_km": false
+        },
+        {
+          "km": 0.44,
+          "pace_sec": 409,
+          "pace": "6:49",
+          "hr": 167.0,
+          "cadence": 165.6,
+          "full_km": false
+        },
+        {
+          "km": 0.2,
+          "pace_sec": 198,
+          "pace": "3:18",
+          "hr": 172.0,
+          "cadence": 202.7,
+          "full_km": false
+        },
+        {
+          "km": 0.69,
+          "pace_sec": 437,
+          "pace": "7:17",
+          "hr": 162.0,
+          "cadence": 162.5,
+          "full_km": false
+        },
+        {
+          "km": 0.19,
+          "pace_sec": 210,
+          "pace": "3:30",
+          "hr": 170.0,
+          "cadence": 195.8,
+          "full_km": false
+        },
+        {
+          "km": 0.42,
+          "pace_sec": 432,
+          "pace": "7:12",
+          "hr": 169.0,
+          "cadence": 163.1,
+          "full_km": false
+        },
+        {
+          "km": 0.2,
+          "pace_sec": 205,
+          "pace": "3:25",
+          "hr": 158.0,
+          "cadence": 193.8,
+          "full_km": false
+        },
+        {
+          "km": 0.43,
+          "pace_sec": 418,
+          "pace": "6:58",
+          "hr": 170.0,
+          "cadence": 163.7,
+          "full_km": false
+        },
+        {
+          "km": 0.2,
+          "pace_sec": 203,
+          "pace": "3:23",
+          "hr": 173.0,
+          "cadence": 199.6,
+          "full_km": false
+        },
+        {
+          "km": 0.41,
+          "pace_sec": 441,
+          "pace": "7:21",
+          "hr": 171.0,
+          "cadence": 162.0,
+          "full_km": false
+        },
+        {
+          "km": 0.2,
+          "pace_sec": 201,
+          "pace": "3:21",
+          "hr": 170.0,
+          "cadence": 200.6,
+          "full_km": false
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 366,
+          "pace": "6:06",
+          "hr": 174.0,
+          "cadence": 172.8,
+          "full_km": true
+        },
+        {
+          "km": 0.61,
+          "pace_sec": 381,
+          "pace": "6:21",
+          "hr": 163.0,
+          "cadence": 169.8,
+          "full_km": false
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 429,
+          "pace": "7:09",
+          "hr": 156.0,
+          "cadence": 165.9,
+          "full_km": true
+        }
+      ],
+      "pace_cv": 9.1,
+      "pace_fastest": "5:45",
+      "pace_slowest": "7:09",
+      "cardiac_drift_pct": 11.5,
+      "hr_zone_dist": [
+        {
+          "zone": 1,
+          "name": "Z1 恢复",
+          "low": 131,
+          "secs": 661,
+          "pct": 18.6
+        },
+        {
+          "zone": 2,
+          "name": "Z2 有氧",
+          "low": 153,
+          "secs": 2101,
+          "pct": 59.0
+        },
+        {
+          "zone": 3,
+          "name": "Z3 马拉松",
+          "low": 171,
+          "secs": 224,
+          "pct": 6.3
+        },
+        {
+          "zone": 4,
+          "name": "Z4 阈值",
+          "low": 175,
+          "secs": 470,
+          "pct": 13.2
+        },
+        {
+          "zone": 5,
+          "name": "Z5 无氧",
+          "low": 188,
+          "secs": 108,
+          "pct": 3.0
+        }
+      ],
       "form": {
-        "cadence_avg": null,
-        "cadence_min": null,
-        "cadence_max": null,
-        "stride_est_m": null,
-        "running_dynamics": null
+        "cadence_avg": 169.5,
+        "cadence_min": 165.9,
+        "cadence_max": 172.8,
+        "stride_est_m": 0.95,
+        "running_dynamics": {
+          "stride_length_m": 0.97,
+          "vertical_oscillation_cm": 8.72,
+          "vertical_ratio": 9.22,
+          "ground_contact_ms": 264.5,
+          "cadence_spm": 169.5
+        }
       },
       "te_aerobic": "有氧训练效果 4.3（显著提升）",
       "te_anaerobic": "无氧训练效果 3.2（有效提升）",
       "suggestions": [
-        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。",
-        "有氧训练效果 4.3 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。"
+        "分段配速波动大（CV 9.1%），说明配速靠感觉。练法：跑步机定速跑 / 节拍器，把每公里误差练到 ±5 秒以内。",
+        "心率漂移 11.5%（前半 HR 高、后程更高）：有氧基础偏弱或起跑过快。练法：起跑前 2km 故意慢 10–15 秒/km；Z2 长跑后半段主动把心率压低 3–5 bpm。",
+        "平均步频 170 spm 在高效区间（170–180），保持。",
+        "步幅 0.97 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+        "垂直振幅 8.7 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+        "垂直步幅比 9.2% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+        "触地时间 264 ms 偏长：推进/弹性不足。练法：节奏跑、弹力带髋屈、短促赤足感知（每次 1–2 分钟）、增强小腿与跟腱刚度。",
+        "本次触达 Z4/Z5 质量区间（占比 13%），速度刺激到位；注意安排 48h+ 恢复再做下一次质量课。",
+        "有氧训练效果 4.3 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。",
+        "本次训练负荷 243：正常训练刺激，质量课与恢复日交替即可。"
       ],
-      "coaching_summary": "本次10.0km、配速 6:02, 平均心率 161，整体是一次高质量刺激。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+      "coaching_summary": "本次10.0km、配速 6:02, 平均心率 161，整体是一次高质量刺激。可优化：触地偏长、配速波动大——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
     },
     {
       "activity_id": "635915593",
@@ -5198,30 +5695,177 @@
       "max_hr": 154.0,
       "calories": 696.0,
       "elevation_gain": 19.0,
-      "avg_cadence": null,
+      "avg_cadence": 167.0,
       "aerobic_te": 3.4,
       "anaerobic_te": 0.0,
-      "training_load": null,
+      "training_load": 99.2,
       "vo2_max": null,
-      "splits": [],
-      "pace_cv": null,
-      "pace_fastest": null,
-      "pace_slowest": null,
-      "cardiac_drift_pct": null,
-      "hr_zone_dist": [],
+      "splits": [
+        {
+          "km": 1.0,
+          "pace_sec": 393,
+          "pace": "6:33",
+          "hr": 133.0,
+          "cadence": 161.3,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 402,
+          "pace": "6:42",
+          "hr": 144.0,
+          "cadence": 164.0,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 400,
+          "pace": "6:40",
+          "hr": 144.0,
+          "cadence": 166.0,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 400,
+          "pace": "6:40",
+          "hr": 146.0,
+          "cadence": 166.7,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 402,
+          "pace": "6:42",
+          "hr": 148.0,
+          "cadence": 167.4,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 403,
+          "pace": "6:43",
+          "hr": 146.0,
+          "cadence": 167.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 397,
+          "pace": "6:37",
+          "hr": 145.0,
+          "cadence": 169.7,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 399,
+          "pace": "6:39",
+          "hr": 144.0,
+          "cadence": 168.2,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 403,
+          "pace": "6:43",
+          "hr": 145.0,
+          "cadence": 167.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 399,
+          "pace": "6:39",
+          "hr": 145.0,
+          "cadence": 168.3,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 394,
+          "pace": "6:34",
+          "hr": 149.0,
+          "cadence": 167.9,
+          "full_km": true
+        },
+        {
+          "km": 0.2,
+          "pace_sec": 441,
+          "pace": "7:21",
+          "hr": 148.0,
+          "cadence": 165.5,
+          "full_km": false
+        }
+      ],
+      "pace_cv": 0.8,
+      "pace_fastest": "6:33",
+      "pace_slowest": "6:43",
+      "cardiac_drift_pct": 1.9,
+      "hr_zone_dist": [
+        {
+          "zone": 1,
+          "name": "Z1 恢复",
+          "low": 131,
+          "secs": 4397,
+          "pct": 99.5
+        },
+        {
+          "zone": 2,
+          "name": "Z2 有氧",
+          "low": 153,
+          "secs": 20,
+          "pct": 0.5
+        },
+        {
+          "zone": 3,
+          "name": "Z3 马拉松",
+          "low": 170,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 4,
+          "name": "Z4 阈值",
+          "low": 175,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 5,
+          "name": "Z5 无氧",
+          "low": 187,
+          "secs": 0,
+          "pct": 0.0
+        }
+      ],
       "form": {
-        "cadence_avg": null,
-        "cadence_min": null,
-        "cadence_max": null,
-        "stride_est_m": null,
-        "running_dynamics": null
+        "cadence_avg": 167.0,
+        "cadence_min": 161.3,
+        "cadence_max": 169.7,
+        "stride_est_m": 0.9,
+        "running_dynamics": {
+          "stride_length_m": 0.9,
+          "vertical_oscillation_cm": 8.64,
+          "vertical_ratio": 9.63,
+          "ground_contact_ms": 273.5,
+          "cadence_spm": 167.2
+        }
       },
       "te_aerobic": "有氧训练效果 3.4（有效提升）",
       "te_anaerobic": "无氧训练效果 0.0（无效）",
       "suggestions": [
-        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。"
+        "配速一致性极佳（CV 0.8%）：匀速能力强，比赛可直接执行“负分割”（后程比前程快 5–10 秒/km）而不崩。",
+        "心率漂移仅 1.9%：有氧底盘扎实，脂肪供能占比高，马拉松后程不易崩，继续保持堆量。",
+        "平均步频 167 spm 在高效区间（170–180），保持。",
+        "步幅 0.90 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+        "垂直振幅 8.6 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+        "垂直步幅比 9.6% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+        "触地时间 274 ms 偏长：推进/弹性不足。练法：节奏跑、弹力带髋屈、短促赤足感知（每次 1–2 分钟）、增强小腿与跟腱刚度。",
+        "本次 100% 在 Z2 有氧，是典型的打底盘跑，符合基础期定位；要破 1:50，每周还需塞 1–2 次质量课（阈值/间歇）。",
+        "本次训练负荷 99：正常训练刺激，质量课与恢复日交替即可。"
       ],
-      "coaching_summary": "本次11.2km、配速 6:40, 平均心率 145，整体是恢复性慢跑。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+      "coaching_summary": "本次11.2km、配速 6:40, 平均心率 145，整体是有氧基础跑。优点：配速稳、心率漂移低。可优化：步频偏低、触地偏长——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
     },
     {
       "activity_id": "636720331",
@@ -5236,30 +5880,129 @@
       "max_hr": 135.0,
       "calories": 268.0,
       "elevation_gain": 5.0,
-      "avg_cadence": null,
+      "avg_cadence": 169.0,
       "aerobic_te": 2.2,
       "anaerobic_te": 0.0,
-      "training_load": null,
+      "training_load": 32.4,
       "vo2_max": null,
-      "splits": [],
-      "pace_cv": null,
-      "pace_fastest": null,
-      "pace_slowest": null,
-      "cardiac_drift_pct": null,
-      "hr_zone_dist": [],
+      "splits": [
+        {
+          "km": 1.0,
+          "pace_sec": 422,
+          "pace": "7:02",
+          "hr": 125.0,
+          "cadence": 167.1,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 435,
+          "pace": "7:15",
+          "hr": 128.0,
+          "cadence": 168.7,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 432,
+          "pace": "7:12",
+          "hr": 127.0,
+          "cadence": 169.2,
+          "full_km": true
+        },
+        {
+          "km": 0.07,
+          "pace_sec": 422,
+          "pace": "7:02",
+          "hr": 126.0,
+          "cadence": 168.8,
+          "full_km": false
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 439,
+          "pace": "7:19",
+          "hr": 126.0,
+          "cadence": 169.8,
+          "full_km": true
+        },
+        {
+          "km": 0.44,
+          "pace_sec": 434,
+          "pace": "7:14",
+          "hr": 125.0,
+          "cadence": 171.8,
+          "full_km": false
+        }
+      ],
+      "pace_cv": 1.5,
+      "pace_fastest": "7:02",
+      "pace_slowest": "7:19",
+      "cardiac_drift_pct": 0.0,
+      "hr_zone_dist": [
+        {
+          "zone": 1,
+          "name": "Z1 恢复",
+          "low": 131,
+          "secs": 155,
+          "pct": 100.0
+        },
+        {
+          "zone": 2,
+          "name": "Z2 有氧",
+          "low": 153,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 3,
+          "name": "Z3 马拉松",
+          "low": 170,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 4,
+          "name": "Z4 阈值",
+          "low": 175,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 5,
+          "name": "Z5 无氧",
+          "low": 187,
+          "secs": 0,
+          "pct": 0.0
+        }
+      ],
       "form": {
-        "cadence_avg": null,
-        "cadence_min": null,
-        "cadence_max": null,
-        "stride_est_m": null,
-        "running_dynamics": null
+        "cadence_avg": 169.0,
+        "cadence_min": 167.1,
+        "cadence_max": 169.8,
+        "stride_est_m": 0.82,
+        "running_dynamics": {
+          "stride_length_m": 0.82,
+          "vertical_oscillation_cm": 8.11,
+          "vertical_ratio": 9.88,
+          "ground_contact_ms": 274.9,
+          "cadence_spm": 169.0
+        }
       },
       "te_aerobic": "有氧训练效果 2.2（小幅提升）",
       "te_anaerobic": "无氧训练效果 0.0（无效）",
       "suggestions": [
-        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。"
+        "配速一致性极佳（CV 1.5%）：匀速能力强，比赛可直接执行“负分割”（后程比前程快 5–10 秒/km）而不崩。",
+        "心率漂移仅 0.0%：有氧底盘扎实，脂肪供能占比高，马拉松后程不易崩，继续保持堆量。",
+        "平均步频 169 spm 在高效区间（170–180），保持。",
+        "步幅 0.82 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+        "垂直振幅 8.1 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+        "垂直步幅比 9.9% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+        "触地时间 275 ms 偏长：推进/弹性不足。练法：节奏跑、弹力带髋屈、短促赤足感知（每次 1–2 分钟）、增强小腿与跟腱刚度。",
+        "本次 100% 在 Z2 有氧，是典型的打底盘跑，符合基础期定位；要破 1:50，每周还需塞 1–2 次质量课（阈值/间歇）。",
+        "本次训练负荷 32：正常训练刺激，质量课与恢复日交替即可。"
       ],
-      "coaching_summary": "本次4.5km、配速 7:12, 平均心率 126，整体是恢复性慢跑。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+      "coaching_summary": "本次4.5km、配速 7:12, 平均心率 126，整体是有氧基础跑。优点：配速稳、心率漂移低。可优化：触地偏长——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
     },
     {
       "activity_id": "637057645",
@@ -5274,31 +6017,154 @@
       "max_hr": 185.0,
       "calories": 413.0,
       "elevation_gain": 9.0,
-      "avg_cadence": null,
+      "avg_cadence": 177.7,
       "aerobic_te": 4.1,
       "anaerobic_te": 0.2,
-      "training_load": null,
+      "training_load": 159.4,
       "vo2_max": null,
-      "splits": [],
-      "pace_cv": null,
-      "pace_fastest": null,
-      "pace_slowest": null,
-      "cardiac_drift_pct": null,
-      "hr_zone_dist": [],
+      "splits": [
+        {
+          "km": 1.0,
+          "pace_sec": 364,
+          "pace": "6:04",
+          "hr": 143.0,
+          "cadence": 172.9,
+          "full_km": true
+        },
+        {
+          "km": 0.66,
+          "pace_sec": 358,
+          "pace": "5:58",
+          "hr": 151.0,
+          "cadence": 175.5,
+          "full_km": false
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 284,
+          "pace": "4:44",
+          "hr": 172.0,
+          "cadence": 179.2,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 284,
+          "pace": "4:44",
+          "hr": 178.0,
+          "cadence": 181.4,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 280,
+          "pace": "4:40",
+          "hr": 180.0,
+          "cadence": 180.8,
+          "full_km": true
+        },
+        {
+          "km": 0.18,
+          "pace_sec": 277,
+          "pace": "4:37",
+          "hr": 179.0,
+          "cadence": 179.5,
+          "full_km": false
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 356,
+          "pace": "5:56",
+          "hr": 167.0,
+          "cadence": 177.6,
+          "full_km": true
+        },
+        {
+          "km": 0.68,
+          "pace_sec": 359,
+          "pace": "5:59",
+          "hr": 164.0,
+          "cadence": 180.4,
+          "full_km": false
+        },
+        {
+          "km": 0.14,
+          "pace_sec": 409,
+          "pace": "6:49",
+          "hr": 157.0,
+          "cadence": 165.8,
+          "full_km": false
+        }
+      ],
+      "pace_cv": 12.1,
+      "pace_fastest": "4:40",
+      "pace_slowest": "6:04",
+      "cardiac_drift_pct": 11.1,
+      "hr_zone_dist": [
+        {
+          "zone": 1,
+          "name": "Z1 恢复",
+          "low": 131,
+          "secs": 525,
+          "pct": 24.4
+        },
+        {
+          "zone": 2,
+          "name": "Z2 有氧",
+          "low": 153,
+          "secs": 687,
+          "pct": 31.9
+        },
+        {
+          "zone": 3,
+          "name": "Z3 马拉松",
+          "low": 170,
+          "secs": 193,
+          "pct": 9.0
+        },
+        {
+          "zone": 4,
+          "name": "Z4 阈值",
+          "low": 175,
+          "secs": 750,
+          "pct": 34.8
+        },
+        {
+          "zone": 5,
+          "name": "Z5 无氧",
+          "low": 187,
+          "secs": 0,
+          "pct": 0.0
+        }
+      ],
       "form": {
-        "cadence_avg": null,
-        "cadence_min": null,
-        "cadence_max": null,
-        "stride_est_m": null,
-        "running_dynamics": null
+        "cadence_avg": 177.7,
+        "cadence_min": 172.9,
+        "cadence_max": 181.4,
+        "stride_est_m": 1.08,
+        "running_dynamics": {
+          "stride_length_m": 1.03,
+          "vertical_oscillation_cm": 8.51,
+          "vertical_ratio": 8.3,
+          "ground_contact_ms": 244.9,
+          "cadence_spm": 177.9
+        }
       },
       "te_aerobic": "有氧训练效果 4.1（显著提升）",
       "te_anaerobic": "无氧训练效果 0.2（无效）",
       "suggestions": [
-        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。",
-        "有氧训练效果 4.1 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。"
+        "分段配速波动大（CV 12.1%），说明配速靠感觉。练法：跑步机定速跑 / 节拍器，把每公里误差练到 ±5 秒以内。",
+        "心率漂移 11.1%（前半 HR 高、后程更高）：有氧基础偏弱或起跑过快。练法：起跑前 2km 故意慢 10–15 秒/km；Z2 长跑后半段主动把心率压低 3–5 bpm。",
+        "平均步频 178 spm 在高效区间（170–180），保持。",
+        "步幅 1.03 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+        "垂直振幅 8.5 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+        "垂直步幅比 8.3% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+        "触地时间 245 ms 良好。",
+        "本次触达 Z4/Z5 质量区间（占比 35%），速度刺激到位；注意安排 48h+ 恢复再做下一次质量课。",
+        "有氧训练效果 4.1 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。",
+        "本次训练负荷 159：正常训练刺激，质量课与恢复日交替即可。"
       ],
-      "coaching_summary": "本次6.7km、配速 5:24, 平均心率 165，整体是一次高质量刺激。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+      "coaching_summary": "本次6.7km、配速 5:24, 平均心率 165，整体是一次高质量刺激。优点：步频高效。可优化：配速波动大——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
     },
     {
       "activity_id": "639494648",
@@ -5313,30 +6179,169 @@
       "max_hr": 159.0,
       "calories": 622.0,
       "elevation_gain": 25.0,
-      "avg_cadence": null,
+      "avg_cadence": 168.8,
       "aerobic_te": 3.7,
       "anaerobic_te": 0.0,
-      "training_load": null,
+      "training_load": 120.6,
       "vo2_max": null,
-      "splits": [],
-      "pace_cv": null,
-      "pace_fastest": null,
-      "pace_slowest": null,
-      "cardiac_drift_pct": null,
-      "hr_zone_dist": [],
+      "splits": [
+        {
+          "km": 1.0,
+          "pace_sec": 378,
+          "pace": "6:18",
+          "hr": 129.0,
+          "cadence": 166.2,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 367,
+          "pace": "6:07",
+          "hr": 143.0,
+          "cadence": 168.1,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 365,
+          "pace": "6:05",
+          "hr": 147.0,
+          "cadence": 168.8,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 369,
+          "pace": "6:09",
+          "hr": 147.0,
+          "cadence": 168.2,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 361,
+          "pace": "6:01",
+          "hr": 152.0,
+          "cadence": 168.8,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 377,
+          "pace": "6:17",
+          "hr": 152.0,
+          "cadence": 169.8,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 382,
+          "pace": "6:22",
+          "hr": 150.0,
+          "cadence": 170.1,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 379,
+          "pace": "6:19",
+          "hr": 150.0,
+          "cadence": 169.5,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 356,
+          "pace": "5:56",
+          "hr": 156.0,
+          "cadence": 168.3,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 375,
+          "pace": "6:15",
+          "hr": 155.0,
+          "cadence": 169.6,
+          "full_km": true
+        },
+        {
+          "km": 0.01,
+          "pace_sec": 291,
+          "pace": "4:51",
+          "hr": 150.0,
+          "cadence": 169.0,
+          "full_km": false
+        }
+      ],
+      "pace_cv": 2.2,
+      "pace_fastest": "5:56",
+      "pace_slowest": "6:22",
+      "cardiac_drift_pct": 6.3,
+      "hr_zone_dist": [
+        {
+          "zone": 1,
+          "name": "Z1 恢复",
+          "low": 131,
+          "secs": 2495,
+          "pct": 69.7
+        },
+        {
+          "zone": 2,
+          "name": "Z2 有氧",
+          "low": 153,
+          "secs": 1087,
+          "pct": 30.3
+        },
+        {
+          "zone": 3,
+          "name": "Z3 马拉松",
+          "low": 170,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 4,
+          "name": "Z4 阈值",
+          "low": 175,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 5,
+          "name": "Z5 无氧",
+          "low": 187,
+          "secs": 0,
+          "pct": 0.0
+        }
+      ],
       "form": {
-        "cadence_avg": null,
-        "cadence_min": null,
-        "cadence_max": null,
-        "stride_est_m": null,
-        "running_dynamics": null
+        "cadence_avg": 168.8,
+        "cadence_min": 166.2,
+        "cadence_max": 170.1,
+        "stride_est_m": 0.96,
+        "running_dynamics": {
+          "stride_length_m": 0.96,
+          "vertical_oscillation_cm": 8.84,
+          "vertical_ratio": 9.23,
+          "ground_contact_ms": 266.3,
+          "cadence_spm": 168.7
+        }
       },
       "te_aerobic": "有氧训练效果 3.7（有效提升）",
       "te_anaerobic": "无氧训练效果 0.0（无效）",
       "suggestions": [
-        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。"
+        "配速较稳（CV 2.2%），仍有波动。练法：每公里盯表把误差控在 ±5 秒；长距离后半段主动压心率、不抢配速。",
+        "心率漂移 6.3%（前半 HR 高、后程更高）：有氧基础偏弱或起跑过快。练法：起跑前 2km 故意慢 10–15 秒/km；Z2 长跑后半段主动把心率压低 3–5 bpm。",
+        "平均步频 169 spm 在高效区间（170–180），保持。",
+        "步幅 0.96 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+        "垂直振幅 8.8 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+        "垂直步幅比 9.2% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+        "触地时间 266 ms 偏长：推进/弹性不足。练法：节奏跑、弹力带髋屈、短促赤足感知（每次 1–2 分钟）、增强小腿与跟腱刚度。",
+        "本次 70% 在 Z2 有氧，是典型的打底盘跑，符合基础期定位；要破 1:50，每周还需塞 1–2 次质量课（阈值/间歇）。",
+        "本次训练负荷 121：正常训练刺激，质量课与恢复日交替即可。"
       ],
-      "coaching_summary": "本次10.0km、配速 6:11, 平均心率 148，整体是恢复性慢跑。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+      "coaching_summary": "本次10.0km、配速 6:11, 平均心率 148，整体是恢复性慢跑。优点：配速稳。可优化：触地偏长——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
     },
     {
       "activity_id": "639940273",
@@ -5351,31 +6356,154 @@
       "max_hr": 189.0,
       "calories": 507.0,
       "elevation_gain": 16.0,
-      "avg_cadence": null,
+      "avg_cadence": 174.3,
       "aerobic_te": 4.7,
       "anaerobic_te": 0.4,
-      "training_load": null,
+      "training_load": 212.7,
       "vo2_max": null,
-      "splits": [],
-      "pace_cv": null,
-      "pace_fastest": null,
-      "pace_slowest": null,
-      "cardiac_drift_pct": null,
-      "hr_zone_dist": [],
+      "splits": [
+        {
+          "km": 1.0,
+          "pace_sec": 368,
+          "pace": "6:08",
+          "hr": 141.0,
+          "cadence": 173.1,
+          "full_km": true
+        },
+        {
+          "km": 0.5,
+          "pace_sec": 367,
+          "pace": "6:07",
+          "hr": 148.0,
+          "cadence": 175.6,
+          "full_km": false
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 279,
+          "pace": "4:39",
+          "hr": 172.0,
+          "cadence": 178.3,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 281,
+          "pace": "4:41",
+          "hr": 179.0,
+          "cadence": 176.0,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 283,
+          "pace": "4:43",
+          "hr": 182.0,
+          "cadence": 178.0,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 283,
+          "pace": "4:43",
+          "hr": 186.0,
+          "cadence": 178.1,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 290,
+          "pace": "4:50",
+          "hr": 185.0,
+          "cadence": 176.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 405,
+          "pace": "6:45",
+          "hr": 166.0,
+          "cadence": 168.3,
+          "full_km": true
+        },
+        {
+          "km": 0.71,
+          "pace_sec": 429,
+          "pace": "7:09",
+          "hr": 152.0,
+          "cadence": 166.3,
+          "full_km": false
+        }
+      ],
+      "pace_cv": 15.3,
+      "pace_fastest": "4:39",
+      "pace_slowest": "6:45",
+      "cardiac_drift_pct": 9.6,
+      "hr_zone_dist": [
+        {
+          "zone": 1,
+          "name": "Z1 恢复",
+          "low": 131,
+          "secs": 721,
+          "pct": 27.2
+        },
+        {
+          "zone": 2,
+          "name": "Z2 有氧",
+          "low": 153,
+          "secs": 449,
+          "pct": 17.0
+        },
+        {
+          "zone": 3,
+          "name": "Z3 马拉松",
+          "low": 170,
+          "secs": 151,
+          "pct": 5.7
+        },
+        {
+          "zone": 4,
+          "name": "Z4 阈值",
+          "low": 175,
+          "secs": 1107,
+          "pct": 41.8
+        },
+        {
+          "zone": 5,
+          "name": "Z5 无氧",
+          "low": 187,
+          "secs": 218,
+          "pct": 8.2
+        }
+      ],
       "form": {
-        "cadence_avg": null,
-        "cadence_min": null,
-        "cadence_max": null,
-        "stride_est_m": null,
-        "running_dynamics": null
+        "cadence_avg": 174.3,
+        "cadence_min": 168.3,
+        "cadence_max": 178.3,
+        "stride_est_m": 1.1,
+        "running_dynamics": {
+          "stride_length_m": 1.05,
+          "vertical_oscillation_cm": 8.76,
+          "vertical_ratio": 8.51,
+          "ground_contact_ms": 249.7,
+          "cadence_spm": 174.4
+        }
       },
       "te_aerobic": "有氧训练效果 4.7（显著提升）",
       "te_anaerobic": "无氧训练效果 0.4（无效）",
       "suggestions": [
-        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。",
-        "有氧训练效果 4.7 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。"
+        "分段配速波动大（CV 15.3%），说明配速靠感觉。练法：跑步机定速跑 / 节拍器，把每公里误差练到 ±5 秒以内。",
+        "心率漂移 9.6%（前半 HR 高、后程更高）：有氧基础偏弱或起跑过快。练法：起跑前 2km 故意慢 10–15 秒/km；Z2 长跑后半段主动把心率压低 3–5 bpm。",
+        "平均步频 174 spm 在高效区间（170–180），保持。",
+        "步幅 1.05 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+        "垂直振幅 8.8 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+        "垂直步幅比 8.5% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+        "触地时间 250 ms 良好。",
+        "本次触达 Z4/Z5 质量区间（占比 42%），速度刺激到位；注意安排 48h+ 恢复再做下一次质量课。",
+        "有氧训练效果 4.7 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。",
+        "本次训练负荷 213：正常训练刺激，质量课与恢复日交替即可。"
       ],
-      "coaching_summary": "本次8.2km、配速 5:26, 平均心率 168，整体是一次高质量刺激。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+      "coaching_summary": "本次8.2km、配速 5:26, 平均心率 168，整体是一次高质量刺激。优点：步频高效。可优化：配速波动大——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
     },
     {
       "activity_id": "640319982",
@@ -5390,30 +6518,137 @@
       "max_hr": 136.0,
       "calories": 354.0,
       "elevation_gain": 12.0,
-      "avg_cadence": null,
+      "avg_cadence": 163.6,
       "aerobic_te": 2.3,
       "anaerobic_te": 0.0,
-      "training_load": null,
+      "training_load": 35.7,
       "vo2_max": null,
-      "splits": [],
-      "pace_cv": null,
-      "pace_fastest": null,
-      "pace_slowest": null,
-      "cardiac_drift_pct": null,
-      "hr_zone_dist": [],
+      "splits": [
+        {
+          "km": 1.0,
+          "pace_sec": 455,
+          "pace": "7:35",
+          "hr": 125.0,
+          "cadence": 163.5,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 456,
+          "pace": "7:36",
+          "hr": 128.0,
+          "cadence": 162.7,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 446,
+          "pace": "7:26",
+          "hr": 128.0,
+          "cadence": 162.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 449,
+          "pace": "7:29",
+          "hr": 130.0,
+          "cadence": 163.4,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 452,
+          "pace": "7:32",
+          "hr": 129.0,
+          "cadence": 163.2,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 449,
+          "pace": "7:29",
+          "hr": 128.0,
+          "cadence": 165.9,
+          "full_km": true
+        },
+        {
+          "km": 0.01,
+          "pace_sec": 333,
+          "pace": "5:33",
+          "hr": 131.0,
+          "cadence": 167.0,
+          "full_km": false
+        }
+      ],
+      "pace_cv": 0.8,
+      "pace_fastest": "7:26",
+      "pace_slowest": "7:36",
+      "cardiac_drift_pct": 1.6,
+      "hr_zone_dist": [
+        {
+          "zone": 1,
+          "name": "Z1 恢复",
+          "low": 131,
+          "secs": 474,
+          "pct": 100.0
+        },
+        {
+          "zone": 2,
+          "name": "Z2 有氧",
+          "low": 153,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 3,
+          "name": "Z3 马拉松",
+          "low": 170,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 4,
+          "name": "Z4 阈值",
+          "low": 175,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 5,
+          "name": "Z5 无氧",
+          "low": 187,
+          "secs": 0,
+          "pct": 0.0
+        }
+      ],
       "form": {
-        "cadence_avg": null,
-        "cadence_min": null,
-        "cadence_max": null,
-        "stride_est_m": null,
-        "running_dynamics": null
+        "cadence_avg": 163.6,
+        "cadence_min": 162.7,
+        "cadence_max": 165.9,
+        "stride_est_m": 0.81,
+        "running_dynamics": {
+          "stride_length_m": 0.81,
+          "vertical_oscillation_cm": 8.31,
+          "vertical_ratio": 10.26,
+          "ground_contact_ms": 285.3,
+          "cadence_spm": 163.6
+        }
       },
       "te_aerobic": "有氧训练效果 2.3（小幅提升）",
       "te_anaerobic": "无氧训练效果 0.0（无效）",
       "suggestions": [
-        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。"
+        "配速一致性极佳（CV 0.8%）：匀速能力强，比赛可直接执行“负分割”（后程比前程快 5–10 秒/km）而不崩。",
+        "心率漂移仅 1.6%：有氧底盘扎实，脂肪供能占比高，马拉松后程不易崩，继续保持堆量。",
+        "平均步频 164 spm 偏低：触地时间长、刹车力大、受伤风险高。练法：节拍器 170–180 spm 短促快频跑、上坡小步快频、缩短步幅而不提速。",
+        "步幅 0.81 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+        "垂直振幅 8.3 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+        "垂直步幅比 10.3% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+        "触地时间 285 ms 偏长：推进/弹性不足。练法：节奏跑、弹力带髋屈、短促赤足感知（每次 1–2 分钟）、增强小腿与跟腱刚度。",
+        "本次 100% 在 Z2 有氧，是典型的打底盘跑，符合基础期定位；要破 1:50，每周还需塞 1–2 次质量课（阈值/间歇）。",
+        "本次训练负荷 36：正常训练刺激，质量课与恢复日交替即可。"
       ],
-      "coaching_summary": "本次6.0km、配速 7:31, 平均心率 128，整体是恢复性慢跑。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+      "coaching_summary": "本次6.0km、配速 7:31, 平均心率 128，整体是有氧基础跑。优点：配速稳、心率漂移低。可优化：步频偏低、触地偏长——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
     },
     {
       "activity_id": "641563088",
@@ -5428,32 +6663,234 @@
       "max_hr": 170.0,
       "calories": 1155.0,
       "elevation_gain": 30.0,
-      "avg_cadence": null,
+      "avg_cadence": 168.1,
       "aerobic_te": 4.2,
       "anaerobic_te": 0.0,
-      "training_load": null,
+      "training_load": 177.7,
       "vo2_max": null,
-      "splits": [],
-      "pace_cv": null,
-      "pace_fastest": null,
-      "pace_slowest": null,
-      "cardiac_drift_pct": null,
-      "hr_zone_dist": [],
+      "splits": [
+        {
+          "km": 1.0,
+          "pace_sec": 418,
+          "pace": "6:58",
+          "hr": 142.0,
+          "cadence": 159.0,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 407,
+          "pace": "6:47",
+          "hr": 148.0,
+          "cadence": 167.4,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 394,
+          "pace": "6:34",
+          "hr": 149.0,
+          "cadence": 167.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 399,
+          "pace": "6:39",
+          "hr": 151.0,
+          "cadence": 167.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 392,
+          "pace": "6:32",
+          "hr": 152.0,
+          "cadence": 168.7,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 375,
+          "pace": "6:15",
+          "hr": 156.0,
+          "cadence": 170.6,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 385,
+          "pace": "6:25",
+          "hr": 155.0,
+          "cadence": 170.5,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 388,
+          "pace": "6:28",
+          "hr": 156.0,
+          "cadence": 169.0,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 395,
+          "pace": "6:35",
+          "hr": 155.0,
+          "cadence": 168.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 390,
+          "pace": "6:30",
+          "hr": 155.0,
+          "cadence": 167.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 388,
+          "pace": "6:28",
+          "hr": 157.0,
+          "cadence": 167.6,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 388,
+          "pace": "6:28",
+          "hr": 157.0,
+          "cadence": 167.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 387,
+          "pace": "6:27",
+          "hr": 158.0,
+          "cadence": 167.6,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 389,
+          "pace": "6:29",
+          "hr": 159.0,
+          "cadence": 167.6,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 389,
+          "pace": "6:29",
+          "hr": 159.0,
+          "cadence": 168.8,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 398,
+          "pace": "6:38",
+          "hr": 159.0,
+          "cadence": 170.0,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 392,
+          "pace": "6:32",
+          "hr": 159.0,
+          "cadence": 169.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 398,
+          "pace": "6:38",
+          "hr": 161.0,
+          "cadence": 168.9,
+          "full_km": true
+        },
+        {
+          "km": 0.0,
+          "pace_sec": 548,
+          "pace": "9:08",
+          "hr": 163.0,
+          "cadence": 163.5,
+          "full_km": false
+        }
+      ],
+      "pace_cv": 2.3,
+      "pace_fastest": "6:15",
+      "pace_slowest": "6:58",
+      "cardiac_drift_pct": 4.4,
+      "hr_zone_dist": [
+        {
+          "zone": 1,
+          "name": "Z1 恢复",
+          "low": 131,
+          "secs": 1792,
+          "pct": 25.6
+        },
+        {
+          "zone": 2,
+          "name": "Z2 有氧",
+          "low": 153,
+          "secs": 5219,
+          "pct": 74.4
+        },
+        {
+          "zone": 3,
+          "name": "Z3 马拉松",
+          "low": 170,
+          "secs": 2,
+          "pct": 0.0
+        },
+        {
+          "zone": 4,
+          "name": "Z4 阈值",
+          "low": 175,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 5,
+          "name": "Z5 无氧",
+          "low": 187,
+          "secs": 0,
+          "pct": 0.0
+        }
+      ],
       "form": {
-        "cadence_avg": null,
-        "cadence_min": null,
-        "cadence_max": null,
-        "stride_est_m": null,
-        "running_dynamics": null
+        "cadence_avg": 168.1,
+        "cadence_min": 159.0,
+        "cadence_max": 170.6,
+        "stride_est_m": 0.91,
+        "running_dynamics": {
+          "stride_length_m": 0.91,
+          "vertical_oscillation_cm": 8.61,
+          "vertical_ratio": 9.49,
+          "ground_contact_ms": 270.6,
+          "cadence_spm": 168.2
+        }
       },
       "te_aerobic": "有氧训练效果 4.2（显著提升）",
       "te_anaerobic": "无氧训练效果 0.0（无效）",
       "suggestions": [
-        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。",
+        "配速较稳（CV 2.3%），仍有波动。练法：每公里盯表把误差控在 ±5 秒；长距离后半段主动压心率、不抢配速。",
+        "心率漂移 4.4% 属正常区间：继续把 80% 跑量放在能边跑边聊天的 Z2，拉长慢肌耐力。",
+        "平均步频 168 spm 在高效区间（170–180），保持。",
+        "步幅 0.91 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+        "垂直振幅 8.6 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+        "垂直步幅比 9.5% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+        "触地时间 271 ms 偏长：推进/弹性不足。练法：节奏跑、弹力带髋屈、短促赤足感知（每次 1–2 分钟）、增强小腿与跟腱刚度。",
+        "本次 74% 在 Z2 有氧，是典型的打底盘跑，符合基础期定位；要破 1:50，每周还需塞 1–2 次质量课（阈值/间歇）。",
         "有氧训练效果 4.2 已达有效提升区间：安排 48h 以上恢复，再做下一次高质量课。",
         "本次 18km 长距离，身体需要 48–72h 修复：接下来两天以 Z2 轻松/休息为主，别连质量课。"
       ],
-      "coaching_summary": "本次18.0km、配速 6:33, 平均心率 155，整体是一次高质量刺激。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+      "coaching_summary": "本次18.0km、配速 6:33, 平均心率 155，整体是一次高质量刺激。优点：配速稳。可优化：触地偏长——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
     },
     {
       "activity_id": "642255765",
@@ -5468,30 +6905,137 @@
       "max_hr": 153.0,
       "calories": 383.0,
       "elevation_gain": 14.0,
-      "avg_cadence": null,
+      "avg_cadence": 170.3,
       "aerobic_te": 3.0,
       "anaerobic_te": 0.0,
-      "training_load": null,
+      "training_load": 69.2,
       "vo2_max": null,
-      "splits": [],
-      "pace_cv": null,
-      "pace_fastest": null,
-      "pace_slowest": null,
-      "cardiac_drift_pct": null,
-      "hr_zone_dist": [],
+      "splits": [
+        {
+          "km": 1.0,
+          "pace_sec": 403,
+          "pace": "6:43",
+          "hr": 141.0,
+          "cadence": 169.5,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 405,
+          "pace": "6:45",
+          "hr": 146.0,
+          "cadence": 170.8,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 400,
+          "pace": "6:40",
+          "hr": 147.0,
+          "cadence": 169.9,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 401,
+          "pace": "6:41",
+          "hr": 147.0,
+          "cadence": 171.6,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 406,
+          "pace": "6:46",
+          "hr": 147.0,
+          "cadence": 169.3,
+          "full_km": true
+        },
+        {
+          "km": 1.0,
+          "pace_sec": 410,
+          "pace": "6:50",
+          "hr": 147.0,
+          "cadence": 170.7,
+          "full_km": true
+        },
+        {
+          "km": 0.0,
+          "pace_sec": 335,
+          "pace": "5:35",
+          "hr": 145.0,
+          "cadence": 170.0,
+          "full_km": false
+        }
+      ],
+      "pace_cv": 0.8,
+      "pace_fastest": "6:40",
+      "pace_slowest": "6:50",
+      "cardiac_drift_pct": 1.6,
+      "hr_zone_dist": [
+        {
+          "zone": 1,
+          "name": "Z1 恢复",
+          "low": 131,
+          "secs": 2384,
+          "pct": 99.5
+        },
+        {
+          "zone": 2,
+          "name": "Z2 有氧",
+          "low": 153,
+          "secs": 12,
+          "pct": 0.5
+        },
+        {
+          "zone": 3,
+          "name": "Z3 马拉松",
+          "low": 170,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 4,
+          "name": "Z4 阈值",
+          "low": 175,
+          "secs": 0,
+          "pct": 0.0
+        },
+        {
+          "zone": 5,
+          "name": "Z5 无氧",
+          "low": 187,
+          "secs": 0,
+          "pct": 0.0
+        }
+      ],
       "form": {
-        "cadence_avg": null,
-        "cadence_min": null,
-        "cadence_max": null,
-        "stride_est_m": null,
-        "running_dynamics": null
+        "cadence_avg": 170.3,
+        "cadence_min": 169.3,
+        "cadence_max": 171.6,
+        "stride_est_m": 0.87,
+        "running_dynamics": {
+          "stride_length_m": 0.87,
+          "vertical_oscillation_cm": 8.31,
+          "vertical_ratio": 9.53,
+          "ground_contact_ms": 269.4,
+          "cadence_spm": 170.2
+        }
       },
       "te_aerobic": "有氧训练效果 3.0（有效提升）",
       "te_anaerobic": "无氧训练效果 0.0（无效）",
       "suggestions": [
-        "本次未记录完整跑姿动力学（步幅 / 垂直振幅 / 触地时间）。如需精确跑姿分析，请佩戴 HRM-Run/Pro 心率带，或用支持跑步动力学的手表并确保数据已同步。"
+        "配速一致性极佳（CV 0.8%）：匀速能力强，比赛可直接执行“负分割”（后程比前程快 5–10 秒/km）而不崩。",
+        "心率漂移仅 1.6%：有氧底盘扎实，脂肪供能占比高，马拉松后程不易崩，继续保持堆量。",
+        "平均步频 170 spm 在高效区间（170–180），保持。",
+        "步幅 0.87 m：半马目标配速下理想步幅约 0.95–1.05 m。提升靠核心力量+髋伸展，不靠跨大步（跨大步会让垂直振幅↑、刹车力↑）。",
+        "垂直振幅 8.3 cm 正常，可再降：想象“贴地滑行”、缩短触地、提高步频。",
+        "垂直步幅比 9.5% 偏高（理想 6–8%）：与垂直振幅高同源，落地更“砸”而非“滚”；用快步频+核心收紧改善。",
+        "触地时间 269 ms 偏长：推进/弹性不足。练法：节奏跑、弹力带髋屈、短促赤足感知（每次 1–2 分钟）、增强小腿与跟腱刚度。",
+        "本次 100% 在 Z2 有氧，是典型的打底盘跑，符合基础期定位；要破 1:50，每周还需塞 1–2 次质量课（阈值/间歇）。",
+        "本次训练负荷 69：正常训练刺激，质量课与恢复日交替即可。"
       ],
-      "coaching_summary": "本次6.0km、配速 6:44, 平均心率 146，整体是恢复性慢跑。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
+      "coaching_summary": "本次6.0km、配速 6:44, 平均心率 146，整体是有氧基础跑。优点：配速稳、心率漂移低、步频高效。可优化：触地偏长——用「快步频 + 核心收紧 + 落地在重心下方」可同步改善步频 / 垂直振幅 / 触地时间。要达成半马目标，关键是在周中稳定塞入 1–2 次阈值/间歇质量课，并保证质量课之间 ≥48h 恢复；基础期以堆 Z2 有氧底盘为主。"
     },
     {
       "activity_id": "643480033",
